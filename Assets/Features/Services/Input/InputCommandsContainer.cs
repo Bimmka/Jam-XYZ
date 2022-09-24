@@ -39,6 +39,8 @@ namespace Features.Services.Input
           return new InputCommandBool(InputCommandType.Interact, false);
         case InputCommandType.SpecialAction:
           return new InputCommandBool(InputCommandType.SpecialAction, false);
+        case InputCommandType.PauseMenu:
+          return new InputCommandBool(InputCommandType.SpecialAction, false);
         default:
           throw new ArgumentOutOfRangeException(nameof(type), type, null);
       }

@@ -44,7 +44,7 @@ namespace Features.Services.Input
         AddCommand(readedInputs, ref inputIndex, command);
       }
 
-      if (input.Hero.CalmLibrary.WasPerformedThisFrame() && IsFitInLength(readedInputs, inputIndex))
+      if (input.Hero.SpecialAction.WasPerformedThisFrame() && IsFitInLength(readedInputs, inputIndex))
       {
         command = commandContainer.Command(InputCommandType.SpecialAction);
         
