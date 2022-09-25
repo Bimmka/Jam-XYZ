@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7eb18a629fe44200b658aa9460352b64, type: 3}
+  m_Name: HeroCameraStaticData
+  m_EditorClassIdentifier: 
+  StartDirection: 0
+  Positions:
+  - Direction: 0
+    Position: {x: 0, y: 15, z: -8}
+  - Direction: 1
+    Position: {x: 8, y: 15, z: 0}
+  - Direction: 2
+    Position: {x: 0, y: 15, z: 8}
+  - Direction: 3
+    Position: {x: -8, y: 15, z: 0}
+  Directions:
+  - MainDirection: 0
+    LeftDirection: 3
+    RightDirection: 1
+  - MainDirection: 1
+    LeftDirection: 0
+    RightDirection: 2
+  - MainDirection: 2
+    LeftDirection: 1
+    RightDirection: 3
+  - MainDirection: 3
+    LeftDirection: 2
+    RightDirection: 0
+  RotateDuration: 1
