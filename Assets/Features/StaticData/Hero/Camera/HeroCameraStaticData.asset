@@ -12,27 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eb18a629fe44200b658aa9460352b64, type: 3}
   m_Name: HeroCameraStaticData
   m_EditorClassIdentifier: 
-  StartDirection: 0
   Positions:
-  - Direction: 0
-    Position: {x: 0, y: 15, z: -8}
-  - Direction: 1
-    Position: {x: 8, y: 15, z: 0}
-  - Direction: 2
-    Position: {x: 0, y: 15, z: 8}
-  - Direction: 3
-    Position: {x: -8, y: 15, z: 0}
-  Directions:
-  - MainDirection: 0
-    LeftDirection: 3
-    RightDirection: 1
-  - MainDirection: 1
-    LeftDirection: 0
-    RightDirection: 2
-  - MainDirection: 2
-    LeftDirection: 1
-    RightDirection: 3
-  - MainDirection: 3
-    LeftDirection: 2
-    RightDirection: 0
-  RotateDuration: 1
+  - Area: 0
+    Position: {x: 2.2106686, y: -2.93969, z: -0.08909241}
+    FollowedObject: {fileID: 0}
+  - Area: 1
+    Position: {x: 28.130669, y: -3.1696901, z: -0.08909241}
+    FollowedObject: {fileID: 0}
+  - Area: 2
+    Position: {x: 16.720669, y: -1.5896901, z: -10.089092}
+    FollowedObject: {fileID: 0}
+  - Area: 3
+    Position: {x: 16.720669, y: -1.5896901, z: -10.089092}
+    FollowedObject: {fileID: 0}
+  StartArea: 0
+  MoveDuration: 1

@@ -82,3 +82,6 @@ MonoBehaviour:
   moveData: {fileID: 11400000, guid: b760830f11fec2c42bf1d376ebf7da31, type: 2}
   rotateData: {fileID: 11400000, guid: 4250ed205996575458c6999c1983eb95, type: 2}
   transitionStaticData: {fileID: 11400000, guid: f42cd3ea2a5c6b6499ff876bca87e41d, type: 2}
+  cameraStaticData: {fileID: 11400000, guid: a088fa02718ffd241818845a8ac80b56, type: 2}
+  virtualCamera: {fileID: 0}
+  levelStaticData: {fileID: 11400000, guid: 8b50be8edc5c5fc40a4bfeefc041568b, type: 2}
