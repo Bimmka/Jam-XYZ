@@ -3070,5 +3070,17 @@ PrefabInstance:
       propertyPath: cameraLookAtPoint
       value: 
       objectReference: {fileID: 681744020}
+    - target: {fileID: 3738105026426257609, guid: ef6f297d29eecf343b7b9d6f54c5bee2, type: 3}
+      propertyPath: virtualCamera
+      value: 
+      objectReference: {fileID: 1653696676}
+    - target: {fileID: 3738105026426257609, guid: ef6f297d29eecf343b7b9d6f54c5bee2, type: 3}
+      propertyPath: spawnHeroPoint
+      value: 
+      objectReference: {fileID: 1673273800}
+    - target: {fileID: 3738105026426257609, guid: ef6f297d29eecf343b7b9d6f54c5bee2, type: 3}
+      propertyPath: cameraLookAtPoint
+      value: 
+      objectReference: {fileID: 681744020}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef6f297d29eecf343b7b9d6f54c5bee2, type: 3}

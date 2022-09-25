@@ -10,7 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 161408573848766061}
   - component: {fileID: 161408573848766062}
-  - component: {fileID: 161408573848766063}
+  - component: {fileID: 2617111940252517129}
+  - component: {fileID: 3643306545859568301}
+  - component: {fileID: 3738105026426257609}
+  - component: {fileID: 1620561727263635942}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -47,7 +50,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
   _monoInstallers:
-  - {fileID: 161408573848766063}
+  - {fileID: 2617111940252517129}
+  - {fileID: 3643306545859568301}
+  - {fileID: 3738105026426257609}
+  - {fileID: 1620561727263635942}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -65,7 +71,7 @@ MonoBehaviour:
   _parentNewObjectsUnderSceneContext: 0
   _contractNames: []
   _parentContractNames: []
---- !u!114 &161408573848766063
+--- !u!114 &2617111940252517129
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -77,6 +83,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b7c5459f1dd1364894394cdbe2c9eec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3643306545859568301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 161408573848766048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb03f359b961493ca312adbda69f89fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelStaticData: {fileID: 11400000, guid: 8b50be8edc5c5fc40a4bfeefc041568b, type: 2}
+--- !u!114 &3738105026426257609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 161408573848766048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dcf9d4b5e8d455fa3d5ba922beb2968, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   hero: {fileID: 7577999741390306657, guid: 667a28d08657c4d4abb4a376920d14a3, type: 3}
   spawnHeroPoint: {fileID: 0}
   moveData: {fileID: 11400000, guid: b760830f11fec2c42bf1d376ebf7da31, type: 2}
@@ -84,4 +115,16 @@ MonoBehaviour:
   transitionStaticData: {fileID: 11400000, guid: f42cd3ea2a5c6b6499ff876bca87e41d, type: 2}
   cameraStaticData: {fileID: 11400000, guid: a088fa02718ffd241818845a8ac80b56, type: 2}
   virtualCamera: {fileID: 0}
-  levelStaticData: {fileID: 11400000, guid: 8b50be8edc5c5fc40a4bfeefc041568b, type: 2}
+  cameraLookAtPoint: {fileID: 0}
+--- !u!114 &1620561727263635942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 161408573848766048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b64e05666c2430db94541b9415f490b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

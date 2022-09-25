@@ -17,4 +17,8 @@ MonoBehaviour:
     Area: 0
   - SpawnTransform: {fileID: 0}
     Area: 1
+  - SpawnTransform: {fileID: 0}
+    Area: 3
+  - SpawnTransform: {fileID: 0}
+    Area: 2
   AreaBoundMarkerPrefab: {fileID: 1009676685253803991, guid: f20fdde159fe8e546843628d118c9d6a, type: 3}
