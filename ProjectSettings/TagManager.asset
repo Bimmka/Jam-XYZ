@@ -13,8 +13,8 @@ TagManager:
   - UI
   - Ground
   - Obstacle
-  - 
-  - 
+  - Sprites
+  - Light2d
   - 
   - 
   - 
@@ -40,4 +40,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Sprites
+    uniqueID: 2059863965
+    locked: 0
+  - name: Light2d
+    uniqueID: 1504354335
     locked: 0
