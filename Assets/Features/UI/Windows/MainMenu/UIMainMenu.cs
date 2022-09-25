@@ -25,13 +25,6 @@ namespace Features.UI.Windows.MainMenu
       this.gameStateMachine = gameStateMachine;
     }
 
-    protected override void Initialize()
-    {
-      base.Initialize();
-      joinLobbyIdInputField.text = GameConstants.DefaultLobbyID;
-      hostLobbyIdInputField.text = GameConstants.DefaultLobbyID;
-    }
-
     protected override void Subscribe()
     {
       base.Subscribe();

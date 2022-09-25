@@ -1,13 +1,8 @@
 ﻿using Features.Animation;
-using Features.NPC.Scripts.NPCStates;
-using Features.Player.Scripts.HeroMachine.States;
-using Features.Player.Scripts.HeroMachine.States.Base;
-using Features.Services.Input;
-using Features.StateMachines;
+using Features.Customers.Scripts.NPCStates;
 using UnityEngine;
-using UnityEngine.InputSystem.Utilities;
 
-namespace Features.NPC.Scripts.Base
+namespace Features.Customers.Scripts.Base
 {
   public class NPCStateMachineObserver : MonoBehaviour
   {

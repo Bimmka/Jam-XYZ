@@ -22,3 +22,11 @@ MonoBehaviour:
   - SpawnTransform: {fileID: 0}
     Area: 2
   AreaBoundMarkerPrefab: {fileID: 1009676685253803991, guid: f20fdde159fe8e546843628d118c9d6a, type: 3}
+  NPCs:
+  - Type: 0
+    SpawnPosition: {x: 0, y: 0, z: 0}
+    LookAtPosition: {x: 0, y: 0, z: 0}
+    Area: 0
+  Exits:
+  - Area: 0
+    Position: {x: -1.92, y: 0, z: 0}

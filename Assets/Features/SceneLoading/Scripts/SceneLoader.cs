@@ -3,6 +3,7 @@ using System.Collections;
 using Features.Services.Coroutine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Zenject;
 
 namespace Features.SceneLoading.Scripts
 {
@@ -13,6 +14,7 @@ namespace Features.SceneLoading.Scripts
 
     private Coroutine loadingCoroutine;
 
+    [Inject]
     public SceneLoader(ICoroutineRunner coroutineRunner, LoadingCurtain loadingCurtain)
     {
       this.coroutineRunner = coroutineRunner;

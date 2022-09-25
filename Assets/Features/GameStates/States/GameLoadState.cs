@@ -1,7 +1,9 @@
+using Features.Customers.Scripts.Factory;
 using Features.GameStates.States.Interfaces;
 using Features.SceneLoading.Scripts;
 using Features.Services.UI.Factory;
 using Features.Services.UI.Windows;
+using Zenject;
 
 namespace Features.GameStates.States
 {
@@ -11,11 +13,12 @@ namespace Features.GameStates.States
     private readonly ISceneLoader sceneLoader;
     private readonly IWindowsService windowsService;
 
-    public GameLoadState(GameStateMachine gameStateMachine, ISceneLoader sceneLoader, IWindowsService windowsService)
+    [Inject]
+    public GameLoadState(GameStateMachine gameStateMachine, ISceneLoader sceneLoader, NPCFactory npcFactory)
     {
       this.gameStateMachine = gameStateMachine;
       this.sceneLoader = sceneLoader;
-      this.windowsService = windowsService;
+      
     }
 
     public void Enter()

@@ -1,8 +1,8 @@
 ﻿using Features.Animation;
-using Features.NPC.Scripts.Base;
+using Features.Customers.Scripts.Base;
 using Features.StateMachines;
 
-namespace Features.NPC.Scripts.NPCStates
+namespace Features.Customers.Scripts.NPCStates
 {
   public abstract class NPCStateMachineState : BaseStateMachineState
   {

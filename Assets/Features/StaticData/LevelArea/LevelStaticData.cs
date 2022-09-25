@@ -1,5 +1,4 @@
-﻿using Features.LevelArea;
-using Features.LevelArea.Scripts;
+﻿using Features.LevelArea.Scripts;
 using UnityEngine;
 
 namespace Features.StaticData.LevelArea
@@ -9,5 +8,8 @@ namespace Features.StaticData.LevelArea
   {
     public AreaBound[] AreaBounds;
     public ChangeLevelAreaMarker AreaBoundMarkerPrefab;
+
+    public NPCSpawnData[] NPCs;
+    public AreaExitPosition[] Exits;
   }
 }

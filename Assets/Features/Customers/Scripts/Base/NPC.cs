@@ -1,7 +1,7 @@
-using Features.NPC.Scripts.NPCStates;
+using Features.Customers.Scripts.NPCStates;
 using UnityEngine;
 
-namespace Features.NPC.Scripts.Base
+namespace Features.Customers.Scripts.Base
 {
     [RequireComponent(typeof(NPCStateMachineObserver))]
     public class NPC : MonoBehaviour

@@ -5,16 +5,16 @@ namespace Features.GameStates
 {
   public class Game
   {
-    public readonly GameStateMachine StateMachine;
+    public readonly IGameStateMachine StateMachine;
 
-    public Game(ICoroutineRunner coroutineRunner, LoadingCurtain curtain)
+    public Game(IGameStateMachine gameStateMachine)
     {
-      StateMachine = new GameStateMachine(new SceneLoader(coroutineRunner,curtain));
+      StateMachine = gameStateMachine;
     }
 
     public void Cleanup()
     {
-      StateMachine.Cleanup();
+      
     }
   }
 }

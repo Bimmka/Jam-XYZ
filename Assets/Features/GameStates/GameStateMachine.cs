@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Features.GameStates.States;
 using Features.GameStates.States.Interfaces;
 using Features.SceneLoading.Scripts;
+using Zenject;
 
 namespace Features.GameStates
 {
@@ -11,31 +12,12 @@ namespace Features.GameStates
     private readonly Dictionary<Type, IExitableState> _states;
     private IExitableState _activeState;
 
-    public GameStateMachine(ISceneLoader sceneLoader)
+    [Inject]
+    public GameStateMachine(BootstrapState bootstrapState, GameLoadState gameLoadState)
     {
-      _states = new Dictionary<Type, IExitableState>
-      {
-        [typeof(BootstrapState)] = new BootstrapState(
-          this
-         
-          ),
-        
-        /*[typeof(MainMenuState)] = new MainMenuState(
-            sceneLoader,
-            services.Single<IWindowsService>()
-            ),
-        
-        [typeof(GameLoadState)] = new GameLoadState(
-          this,
-          sceneLoader,
-          services.Single<ILevelScoreService>(),
-          services.Single<IWindowsService>(),
-          services.Single<INetwork>()
-          ),
-        
-        [typeof(GameLoopState)] = new GameLoopState()*/
-      };
-      
+      _states = new Dictionary<Type, IExitableState>(5);
+      _states.Add(bootstrapState.GetType(), bootstrapState);
+      _states.Add(gameLoadState.GetType(), gameLoadState);
     }
     
     public void Enter<TState>() where TState : class, IState

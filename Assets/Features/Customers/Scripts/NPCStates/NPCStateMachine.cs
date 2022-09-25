@@ -1,6 +1,6 @@
 ﻿using Features.StateMachines;
 
-namespace Features.NPC.Scripts.NPCStates
+namespace Features.Customers.Scripts.NPCStates
 {
   public class NPCStateMachine : BaseStateMachine
   {

@@ -1,7 +1,7 @@
 ﻿using Features.Animation;
-using Features.NPC.Scripts.Base;
+using Features.Customers.Scripts.Base;
 
-namespace Features.NPC.Scripts.NPCStates
+namespace Features.Customers.Scripts.NPCStates
 {
   public class NPCIdleState : NPCStateMachineState
   {
