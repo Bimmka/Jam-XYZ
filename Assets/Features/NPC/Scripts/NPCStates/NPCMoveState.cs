@@ -1,7 +1,7 @@
 ﻿using Features.Animation;
 using Features.NPC.Scripts.Base;
 
-namespace Features.NPC.Scripts.NPCStateMachine
+namespace Features.NPC.Scripts.NPCStates
 {
   public class NPCMoveState : NPCStateMachineState
   {

@@ -2,7 +2,7 @@
 using Features.NPC.Scripts.Base;
 using Features.StateMachines;
 
-namespace Features.NPC.Scripts.NPCStateMachine
+namespace Features.NPC.Scripts.NPCStates
 {
   public abstract class NPCStateMachineState : BaseStateMachineState
   {
@@ -13,6 +13,11 @@ namespace Features.NPC.Scripts.NPCStateMachine
     {
       this.npc = npc;
       this.animator = animator;
+    }
+
+    public virtual void UpdateState(in float deltaTime)
+    {
+      
     }
 
     protected void SetBool(int hash, bool value) => 
