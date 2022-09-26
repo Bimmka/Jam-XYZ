@@ -1,6 +1,7 @@
 ﻿using Features.Animation;
 using Features.Player.Scripts.HeroMachine.States;
 using Features.Player.Scripts.HeroMachine.States.Base;
+using Features.Player.Scripts.HeroMachine.States.Interaction;
 using Features.Services.Input;
 using UnityEngine;
 using UnityEngine.InputSystem.Utilities;
@@ -23,8 +24,11 @@ namespace Features.Player.Scripts.HeroMachine
     public void Subscribe() => 
       animator.Triggered += OnAnimationTriggered;
 
-    public void Cleanup() => 
+    public void Cleanup()
+    {
       animator.Triggered -= OnAnimationTriggered;
+      State<HeroInteractionPrepareState>().Cleanup();
+    }
 
     public void CreateStates() => 
       statesContainer.CreateStates();

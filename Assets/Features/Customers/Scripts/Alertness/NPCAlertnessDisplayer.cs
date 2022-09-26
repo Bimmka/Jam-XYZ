@@ -11,9 +11,11 @@ namespace Features.Customers.Scripts.Alertness
     [SerializeField] private float fillDuration;
     
     private CompositeDisposable disposable = new CompositeDisposable();
+    private NPCAlertness alertness;
 
     public void Construct(NPCAlertness alertness)
     {
+      this.alertness = alertness;
       alertness.CurrentAlertness.Subscribe(Display).AddTo(disposable);
     }
 
@@ -25,6 +27,6 @@ namespace Features.Customers.Scripts.Alertness
     
 
     private void Display(float value) => 
-      alertnessSlider.DOFillAmount(value, fillDuration).SetEase(Ease.InOutSine);
+      alertnessSlider.DOFillAmount(value / alertness.MaxAlertness, fillDuration).SetEase(Ease.InOutSine);
   }
 }

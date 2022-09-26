@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: HeroStealingStaticData
   m_EditorClassIdentifier: 
   PreparePerSecond: 1
-  MaxPrepareCount: 10
+  MaxPrepareCount: 12

@@ -1,4 +1,5 @@
-﻿using Features.Animation;
+﻿using Features.Alarm;
+using Features.Animation;
 using Features.Customers.Scripts.Alertness;
 using Features.Player.Scripts.HeroMachine.States.Base;
 using Features.Player.Scripts.Steal;
@@ -15,21 +16,23 @@ namespace Features.Player.Scripts.HeroMachine.States.Interaction
     private readonly BaseAnimationTransitionStaticData animationTransition;
     private readonly HeroStealPreparing stealPreparing;
     private readonly HeroNPCSearcher npcSearcher;
+    private readonly NPCAlarm alarm;
 
     private bool isCanBeInterrupted;
     
-    private CompositeDisposable disposable = new CompositeDisposable();
+    private readonly CompositeDisposable disposable = new CompositeDisposable();
 
     private NPCAlertnessObserver stolenNPC;
     public HeroInteractionPrepareState(HeroStateMachineObserver hero,
       BaseAnimationTransitionStaticData animationTransition, ChangeableParametersAnimator animator,
-      HeroStealPreparing stealPreparing,
-      HeroNPCSearcher npcSearcher)
+      HeroStealPreparing stealPreparing, HeroNPCSearcher npcSearcher, NPCAlarm alarm)
       : base(hero, animator)
     {
       this.animationTransition = animationTransition;
       this.stealPreparing = stealPreparing;
       this.npcSearcher = npcSearcher;
+      this.alarm = alarm;
+      alarm.Invoked += StopPrepareByAlarm;
       stealPreparing.IsFullPrepared.Subscribe(OnFullPrepare).AddTo(disposable);
     }
 
@@ -71,6 +74,11 @@ namespace Features.Player.Scripts.HeroMachine.States.Interaction
     {
       base.TriggerAnimation();
       isCanBeInterrupted = true;
+    }
+
+    public void Cleanup()
+    {
+      alarm.Invoked -= StopPrepareByAlarm;
     }
 
     public void StopPrepareByAlarm()

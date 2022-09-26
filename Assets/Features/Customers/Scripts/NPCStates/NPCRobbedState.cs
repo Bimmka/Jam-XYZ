@@ -8,7 +8,8 @@ namespace Features.Customers.Scripts.NPCStates
   {
     private readonly NPCExistTimeObserver existTimeObserver;
 
-    public NPCRobbedState(NPCStateMachineObserver npc, SimpleAnimator animator, string animationName, NPCExistTimeObserver existTimeObserver) : base(npc, animator, animationName)
+    public NPCRobbedState(NPCStateMachineObserver npc, SimpleAnimator animator, string animationName, NPCExistTimeObserver existTimeObserver) 
+      : base(npc, animator, animationName)
     {
       this.existTimeObserver = existTimeObserver;
     }

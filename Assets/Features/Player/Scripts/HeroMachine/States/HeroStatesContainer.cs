@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Features.Alarm;
 using Features.Animation;
 using Features.Player.Scripts.Gold;
 using Features.Player.Scripts.HeroMachine.States.Base;
@@ -25,11 +26,12 @@ namespace Features.Player.Scripts.HeroMachine.States
     private readonly HeroStealPreparing stealPreparing;
     private readonly IWindowsService windowsService;
     private readonly HeroGold heroGold;
+    private NPCAlarm alarm;
 
     [Inject]
     public HeroStatesContainer(HeroStateMachineObserver hero, HeroMove move, ChangeableParametersAnimator animator,
       HeroAnimationsTransitionStaticData transitionStaticData, HeroNPCSearcher npcSearcher, HeroStealPreparing stealPreparing,
-      IWindowsService windowsService, HeroGold heroGold)
+      IWindowsService windowsService, HeroGold heroGold, NPCAlarm alarm)
     {
       this.hero = hero;
       this.move = move;
@@ -39,6 +41,7 @@ namespace Features.Player.Scripts.HeroMachine.States
       this.stealPreparing = stealPreparing;
       this.windowsService = windowsService;
       this.heroGold = heroGold;
+      this.alarm = alarm;
 
       states = new Dictionary<Type, BaseStateMachineState>(20);
     }
@@ -75,7 +78,7 @@ namespace Features.Player.Scripts.HeroMachine.States
     {
       HeroInteractionPrepareState state = new HeroInteractionPrepareState(hero, 
         transitionStaticData.Transitions["InteractionPrepare"], 
-        animator, stealPreparing, npcSearcher);
+        animator, stealPreparing, npcSearcher, alarm);
       SaveState(state);
     }
     

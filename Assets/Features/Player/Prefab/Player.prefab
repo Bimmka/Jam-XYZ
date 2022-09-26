@@ -271,6 +271,7 @@ MonoBehaviour:
   heroMoveData: {fileID: 11400000, guid: b760830f11fec2c42bf1d376ebf7da31, type: 2}
   startSearchPoint: {fileID: 4469371042998232787}
   searchingData: {fileID: 11400000, guid: 0cdff380f6481f94585cb1cf9a25795a, type: 2}
+  body: {fileID: 4251112836107113068}
 --- !u!50 &4251112836107113068
 Rigidbody2D:
   serializedVersion: 4

@@ -1,4 +1,5 @@
-﻿using Features.Customers.Scripts.Factory;
+﻿using Features.Alarm;
+using Features.Customers.Scripts.Factory;
 using Features.StaticData.LevelArea;
 using UnityEngine;
 using Zenject;
@@ -21,6 +22,7 @@ namespace Features.Bootstrapp
     {
       BindNPCFactory();
       BindNPCObserver();
+      BindAlarm();
     }
 
 
@@ -29,6 +31,9 @@ namespace Features.Bootstrapp
 
     private void BindNPCObserver() => 
       Container.Bind<NPCObserver>().To<NPCObserver>().FromNew().AsSingle();
+
+    private void BindAlarm() => 
+      Container.Bind<NPCAlarm>().To<NPCAlarm>().FromNew().AsSingle();
 
     private void ResolveNPCObserver()
     {

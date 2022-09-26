@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using Features.Alarm;
 using Features.Animation;
 using Features.Customers.Scripts.Alertness;
 using Features.Customers.Scripts.Base;
+using Features.Customers.Scripts.Timing;
 using Features.LevelArea.Scripts.PointsOfInterest;
 using Features.StaticData.LevelArea;
 using Pathfinding;
@@ -18,12 +20,14 @@ namespace Features.Customers.Scripts.NPCStates
     private readonly NPCAlertnessObserver alertness;
     private readonly LevelPointsOfInterestObserver pointsOfInterestObserver;
     private readonly LevelAreaType area;
+    private readonly NPCExistTimeObserver existTimeObserver;
+    private readonly NPCAlarm alarm;
     private readonly Seeker seeker;
     private readonly Dictionary<Type, NPCStateMachineState> states;
 
     public NPCStatesContainer(NPCStateMachineObserver npc, SimpleAnimator animator, AIPath aiPath,
       AIDestinationSetter aiDestinationSetter, NPCAlertnessObserver alertness, LevelPointsOfInterestObserver pointsOfInterestObserver, 
-      LevelAreaType area)
+      LevelAreaType area, NPCExistTimeObserver existTimeObserver, NPCAlarm alarm)
     {
       this.npc = npc;
       this.animator = animator;
@@ -32,6 +36,8 @@ namespace Features.Customers.Scripts.NPCStates
       this.alertness = alertness;
       this.pointsOfInterestObserver = pointsOfInterestObserver;
       this.area = area;
+      this.existTimeObserver = existTimeObserver;
+      this.alarm = alarm;
       states = new Dictionary<Type, NPCStateMachineState>(5);
     }
     public void CreateStates()
@@ -40,6 +46,7 @@ namespace Features.Customers.Scripts.NPCStates
       CreateLeaveState();
       CreateMoveState();
       CreateWarningState();
+      CreateRobbedState();
     }
 
     public TState GetState<TState>() where TState : NPCStateMachineState => 
@@ -65,7 +72,13 @@ namespace Features.Customers.Scripts.NPCStates
 
     private void CreateWarningState()
     {
-      NPCWarningState state = new NPCWarningState(npc, animator, "IsWary", alertness);
+      NPCWarningState state = new NPCWarningState(npc, animator, "IsWary", alertness, alarm, area);
+      SaveState(state);
+    }
+
+    private void CreateRobbedState()
+    {
+      NPCRobbedState state = new NPCRobbedState(npc, animator, "IsRobbed", existTimeObserver);
       SaveState(state);
     }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using Features.Alarm;
 using Features.Animation;
 using Features.Player.Scripts.Gold;
 using Features.Player.Scripts.HeroMachine;
@@ -36,14 +37,15 @@ namespace Features.Player.Scripts.Base
     [SerializeField] private Rigidbody2D body;
 
     [Inject]
-    public void Construct(HeroStealPreparing stealPreparing, IWindowsService windowsService, ICoroutineRunner coroutineRunner, HeroGold heroGold)
+    public void Construct(HeroStealPreparing stealPreparing, IWindowsService windowsService, ICoroutineRunner coroutineRunner, HeroGold heroGold,
+      NPCAlarm alarm)
     {
       HeroRotate heroRotate = new HeroRotate(transform, rotateData);
       HeroMove move = new HeroMove(transform, heroMoveData, heroRotate, body);
       HeroNPCSearcher heroNpcSearcher = new HeroNPCSearcher(startSearchPoint, searchingData, coroutineRunner);
 
       HeroStatesContainer container = new HeroStatesContainer(stateMachine, move, animator, animationsTransition, 
-        heroNpcSearcher, stealPreparing, windowsService, heroGold);
+        heroNpcSearcher, stealPreparing, windowsService, heroGold, alarm);
 
       stateMachine.Construct(container);
       stateMachine.Subscribe();

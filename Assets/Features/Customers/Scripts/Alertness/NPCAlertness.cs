@@ -14,6 +14,8 @@ namespace Features.Customers.Scripts.Alertness
     public readonly FloatReactiveProperty CurrentAlertness = new FloatReactiveProperty(0);
     public readonly BoolReactiveProperty IsWary = new BoolReactiveProperty(false);
 
+    public float MaxAlertness => maxAlertness;
+
     public NPCAlertness(float alertnessPerSecond, float relaxationPerSecond, float maxAlertness)
     {
       this.alertnessPerSecond = alertnessPerSecond;

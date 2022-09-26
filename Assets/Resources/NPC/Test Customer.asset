@@ -15,6 +15,7 @@ MonoBehaviour:
   Type: 0
   View: {fileID: 7514178234340426163, guid: 374378b3d869e1648ad8c3e19b233047, type: 3}
   ExistSecondsRange: {x: 100, y: 200}
-  AlertnessPerFrame: 0.1
-  RelaxationPerFrame: 0.05
-  MaxAlertness: 100
+  AlertnessPerSecond: 0.1
+  RelaxationPerSecond: 0.05
+  MaxAlertness: 0.8
+  Speed: 3

@@ -1,4 +1,5 @@
-﻿using UniRx;
+﻿using DG.Tweening;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -9,6 +10,7 @@ namespace Features.Player.Scripts.Steal
   {
     [SerializeField] private CanvasGroup canvasGroup;
     [SerializeField] private Image prepareFill;
+    [SerializeField] private float fillDuration = 1f;
     
     private readonly CompositeDisposable disposable = new CompositeDisposable();
     private HeroStealPreparing stealPreparing;
@@ -31,6 +33,6 @@ namespace Features.Player.Scripts.Steal
       canvasGroup.alpha = isStealing ? 1 : 0;
 
     private void DisplayPrepare(float amount) => 
-      prepareFill.fillAmount = amount/stealPreparing.MaxValue;
+      prepareFill.DOFillAmount(amount / stealPreparing.MaxValue, fillDuration).SetEase(Ease.InOutSine);
   }
 }
