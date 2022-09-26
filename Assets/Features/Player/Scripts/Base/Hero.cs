@@ -1,6 +1,7 @@
 ﻿using Features.Player.Scripts.HeroMachine;
 using Features.Player.Scripts.HeroMachine.States;
 using Features.Player.Scripts.InputControl;
+using Features.Player.Scripts.Steal;
 using UnityEngine;
 
 namespace Features.Player.Scripts.Base
@@ -13,6 +14,7 @@ namespace Features.Player.Scripts.Base
     [SerializeField] private HeroInput input;
     [SerializeField] private HeroStateMachineObserver stateMachine;
     [SerializeField] private Rigidbody2D heroBody;
+    [SerializeField] private HeroStealDisplayer stealDisplayer;
 
     public void Construct(HeroStatesContainer container)
     {
@@ -25,6 +27,7 @@ namespace Features.Player.Scripts.Base
     private void OnDestroy()
     {
       stateMachine.Cleanup();
+      stealDisplayer.Cleanup();
       input.Cleanup();
     }
 

@@ -37,10 +37,11 @@ namespace Features.Customers.Scripts.Factory
       path.maxSpeed = settings.Speed;
 
       NPCAlertness alertness = Alertness(settings);
-      NPCAlertnessObserver alertnessObserver = npc.GetComponent<NPCAlertnessObserver>();
-      alertnessObserver.Construct(alertness);
-      
+
       NPCExistTimeObserver timeObserver = new NPCExistTimeObserver(Random.Range(settings.ExistSecondsRange.x, settings.ExistSecondsRange.y));
+      
+      NPCAlertnessObserver alertnessObserver = npc.GetComponent<NPCAlertnessObserver>();
+      alertnessObserver.Construct(alertness, timeObserver);
 
       npc.Construct(StatesContainer(npc, path, alertnessObserver, spawnData.Area), spawnData.Area, alertness, timeObserver);
 

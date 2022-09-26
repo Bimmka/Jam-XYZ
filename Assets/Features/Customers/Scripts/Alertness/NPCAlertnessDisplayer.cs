@@ -22,25 +22,7 @@ namespace Features.Customers.Scripts.Alertness
       disposable.Clear();
     }
 
-    public void ShowAlertness()
-    {
-      
-    }
-
-    public void HideAlertness()
-    {
-      
-    }
-
-    public void HideWaryTip()
-    {
-      
-    }
-
-    public void ShowWaryTip()
-    {
-      
-    }
+    
 
     private void Display(float value) => 
       alertnessSlider.DOFillAmount(value, fillDuration).SetEase(Ease.InOutSine);

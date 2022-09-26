@@ -5,13 +5,18 @@ using Features.Player.Scripts.Base;
 using Features.Player.Scripts.Camera;
 using Features.Player.Scripts.HeroMachine;
 using Features.Player.Scripts.HeroMachine.States;
+using Features.Player.Scripts.Markers;
 using Features.Player.Scripts.Move;
 using Features.Player.Scripts.Rotate;
+using Features.Player.Scripts.Steal;
+using Features.Services.Coroutine;
 using Features.Services.Input;
 using Features.StaticData.Hero.AnimationTransitions;
 using Features.StaticData.Hero.Camera;
 using Features.StaticData.Hero.Move;
+using Features.StaticData.Hero.NPCSearching;
 using Features.StaticData.Hero.Rotate;
+using Features.StaticData.Hero.Stealing;
 using Features.StaticData.LevelArea;
 using InputControl;
 using UnityEngine;
@@ -19,7 +24,7 @@ using Zenject;
 
 namespace Features.Bootstrapp
 {
-  public class HeroSceneBootstrapp : MonoInstaller
+  public class HeroSceneBootstrapp : MonoInstaller, ICoroutineRunner
   {
     [SerializeField] private GameObject hero;
     [SerializeField] private Transform spawnHeroPoint;
@@ -30,6 +35,8 @@ namespace Features.Bootstrapp
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
     [SerializeField] private Transform cameraLookAtPoint;
     [SerializeField] private LevelStaticData levelStaticData;
+    [SerializeField] private HeroStealingStaticData stealingStaticData;
+    [SerializeField] private HeroNPCSearchingStaticData searchingStaticData;
     
     public override void InstallBindings()
     {
@@ -65,9 +72,16 @@ namespace Features.Bootstrapp
 
       spawnedHero.GetComponent<HeroAreaChangeObserver>().SetStartArea(levelStaticData.StartArea);
 
+      HeroInteractionSearchMarker searchMarker = spawnedHero.GetComponentInChildren<HeroInteractionSearchMarker>();
+      
+      HeroNPCSearcher heroNPCSearcher = new HeroNPCSearcher(searchMarker.transform, searchingStaticData, this);
+      heroNPCSearcher.StartSearch();
+      HeroStealPreparing heroStealPreparing = new HeroStealPreparing(stealingStaticData);
       HeroStatesContainer container = new HeroStatesContainer(spawnedHero.GetComponent<HeroStateMachineObserver>(), 
-        move, animator, transitionStaticData);
-            
+        move, animator, transitionStaticData, heroNPCSearcher, heroStealPreparing);
+
+      spawnedHero.GetComponentInChildren<HeroStealDisplayer>().Construct(heroStealPreparing, stealingStaticData.MaxPrepareCount);
+      
       spawnedHero.GetComponent<Hero>().Construct(container);
     }
 

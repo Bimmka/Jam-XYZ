@@ -47,7 +47,7 @@ namespace Features.Customers.Scripts.NPCStates
 
     private void CreateIdleState()
     {
-      NPCIdleState state = new NPCIdleState(npc, animator, "IsIdle");
+      NPCIdleState state = new NPCIdleState(npc, animator, "IsIdle", alertness);
       SaveState(state);
     }
 

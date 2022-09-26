@@ -1,4 +1,6 @@
 ﻿using Features.Animation;
+using Features.Player.Scripts.HeroMachine.States.Interaction;
+using Features.Player.Scripts.Steal;
 using Features.Services.Input;
 using Features.StaticData.Hero.AnimationTransitions;
 using UnityEngine;
@@ -9,11 +11,13 @@ namespace Features.Player.Scripts.HeroMachine.States.Base
   public class HeroIdleState : HeroStateMachineState
   {
     private readonly FloatAnimationTransitionStaticData transitionsData;
+    private readonly HeroNPCSearcher npcSearcher;
 
-    public HeroIdleState(HeroStateMachineObserver hero, 
-      FloatAnimationTransitionStaticData transitionsData, ChangeableParametersAnimator animator) : base(hero, animator)
+    public HeroIdleState(HeroStateMachineObserver hero, FloatAnimationTransitionStaticData transitionsData, 
+      ChangeableParametersAnimator animator, HeroNPCSearcher npcSearcher) : base(hero, animator)
     {
       this.transitionsData = transitionsData;
+      this.npcSearcher = npcSearcher;
     }
 
     public override void Enter()
@@ -55,6 +59,9 @@ namespace Features.Player.Scripts.HeroMachine.States.Base
     protected override void ApplyInteractCommand(InputCommandBool command, float deltaTime)
     {
       base.ApplyInteractCommand(command, deltaTime);
+      
+      if (npcSearcher.IsFoundNPC())
+        ChangeState<HeroInteractionPrepareState>();
       
     }
   }
