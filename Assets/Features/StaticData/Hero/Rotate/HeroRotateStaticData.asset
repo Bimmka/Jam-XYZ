@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: HeroRotateStaticData
   m_EditorClassIdentifier: 
   WalkLerpRotateValue: 0.1
-  RunLerpRotateValue: 0.01
+  RunLerpRotateValue: 0.139

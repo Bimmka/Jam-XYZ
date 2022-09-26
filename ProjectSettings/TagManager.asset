@@ -44,6 +44,9 @@ TagManager:
   - name: Sprites
     uniqueID: 2059863965
     locked: 0
+  - name: Roofs
+    uniqueID: 4151601587
+    locked: 0
   - name: Light2d
     uniqueID: 1504354335
     locked: 0
