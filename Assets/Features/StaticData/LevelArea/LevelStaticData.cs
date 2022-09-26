@@ -7,6 +7,7 @@ namespace Features.StaticData.LevelArea
   public class LevelStaticData : ScriptableObject
   {
     public AreaBound[] AreaBounds;
+    public LevelAreaType StartArea;
     public ChangeLevelAreaMarker AreaBoundMarkerPrefab;
 
     public NPCSpawnData[] NPCs;

@@ -1,6 +1,7 @@
 ﻿using Features.Animation;
 using Features.Customers.Scripts.Base;
 using Features.StateMachines;
+using UnityEngine;
 
 namespace Features.Customers.Scripts.NPCStates
 {
@@ -8,6 +9,8 @@ namespace Features.Customers.Scripts.NPCStates
   {
     private readonly NPCStateMachineObserver npc;
     private readonly SimpleAnimator animator;
+
+    protected Vector3 Position => npc.transform.position;
 
     protected NPCStateMachineState(NPCStateMachineObserver npc, SimpleAnimator animator)
     {
@@ -22,5 +25,8 @@ namespace Features.Customers.Scripts.NPCStates
 
     protected void SetBool(int hash, bool value) => 
       animator.SetBool(hash, value);
+
+    protected void ChangeState<TState>() where TState : NPCStateMachineState => 
+      npc.ChangeState<TState>();
   }
 }

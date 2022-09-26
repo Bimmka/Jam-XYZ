@@ -7,7 +7,6 @@ namespace Features.StaticData.Hero.Camera
   public class HeroCameraStaticData : ScriptableObject
   {
     public CameraAreaData[] Positions;
-    public LevelAreaType StartArea;
     public float MoveDuration = 1f;
 
 

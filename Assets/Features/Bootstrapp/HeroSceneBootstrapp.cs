@@ -12,6 +12,7 @@ using Features.StaticData.Hero.AnimationTransitions;
 using Features.StaticData.Hero.Camera;
 using Features.StaticData.Hero.Move;
 using Features.StaticData.Hero.Rotate;
+using Features.StaticData.LevelArea;
 using InputControl;
 using UnityEngine;
 using Zenject;
@@ -28,6 +29,7 @@ namespace Features.Bootstrapp
     [SerializeField] private HeroCameraStaticData cameraStaticData;
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
     [SerializeField] private Transform cameraLookAtPoint;
+    [SerializeField] private LevelStaticData levelStaticData;
     
     public override void InstallBindings()
     {
@@ -47,7 +49,7 @@ namespace Features.Bootstrapp
     {
       Container.Bind<HeroAreaChangeObserver>().To<HeroAreaChangeObserver>()
         .AsSingle()
-        .WithArguments(cameraStaticData.StartArea);
+        .WithArguments(levelStaticData.StartArea);
     }
 
     private void CreateHero()
@@ -61,7 +63,7 @@ namespace Features.Bootstrapp
       ChangeableParametersAnimator animator = spawnedHero.GetComponentInChildren<ChangeableParametersAnimator>(true);
       animator.Initialize();
 
-      spawnedHero.GetComponent<HeroAreaChangeObserver>().SetStartArea(cameraStaticData.StartArea);
+      spawnedHero.GetComponent<HeroAreaChangeObserver>().SetStartArea(levelStaticData.StartArea);
 
       HeroStatesContainer container = new HeroStatesContainer(spawnedHero.GetComponent<HeroStateMachineObserver>(), 
         move, animator, transitionStaticData);

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Features.Animation;
 using Features.Customers.Scripts.Base;
+using Pathfinding;
 
 namespace Features.Customers.Scripts.NPCStates
 {
@@ -9,12 +10,16 @@ namespace Features.Customers.Scripts.NPCStates
   {
     private readonly NPCStateMachineObserver npc;
     private readonly SimpleAnimator animator;
+    private readonly AIPath aiPath;
+    private readonly AIDestinationSetter aiDestinationSetter;
     private Dictionary<Type, NPCStateMachineState> states;
 
-    public NPCStatesContainer(NPCStateMachineObserver npc, SimpleAnimator animator)
+    public NPCStatesContainer(NPCStateMachineObserver npc, SimpleAnimator animator, AIPath aiPath, AIDestinationSetter aiDestinationSetter)
     {
       this.npc = npc;
       this.animator = animator;
+      this.aiPath = aiPath;
+      this.aiDestinationSetter = aiDestinationSetter;
       states = new Dictionary<Type, NPCStateMachineState>(5);
     }
     public void CreateStates()
@@ -42,7 +47,7 @@ namespace Features.Customers.Scripts.NPCStates
 
     private void CreateMoveState()
     {
-      NPCMoveState state = new NPCMoveState(npc, animator);
+      NPCMoveState state = new NPCMoveState(npc, animator, aiDestinationSetter, aiPath);
       SaveState(state);
     }
 

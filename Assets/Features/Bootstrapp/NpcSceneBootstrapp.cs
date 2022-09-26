@@ -28,9 +28,12 @@ namespace Features.Bootstrapp
       Container.Bind<NPCFactory>().To<NPCFactory>().FromNew().AsSingle();
 
     private void BindNPCObserver() => 
-      Container.Bind<NPCObserver>().To<NPCObserver>().FromNew().AsSingle().WithArguments(levelStaticData.NPCs);
+      Container.Bind<NPCObserver>().To<NPCObserver>().FromNew().AsSingle();
 
-    private void ResolveNPCObserver() => 
-      Container.Resolve<NPCObserver>();
+    private void ResolveNPCObserver()
+    {
+      NPCObserver npcObserver = Container.Resolve<NPCObserver>();
+      npcObserver.SpawnNPCs(levelStaticData.NPCs);
+    }
   }
 }

@@ -20,14 +20,16 @@ namespace Features.Player.Scripts.Camera
     {
       this.cameraData = cameraData;
       this.cameraLookAtPoint = cameraLookAtPoint;
-      CurrentArea = cameraData.StartArea;
 
       camera.Follow = cameraLookAtPoint;
       camera.LookAt = cameraLookAtPoint;
     }
 
-    public void SetStartPosition(LevelAreaType area) => 
+    public void SetStartPosition(LevelAreaType area)
+    {
       SetCameraLookAtPointPosition(Position(area));
+      UpdateCurrentArea(area);
+    }
 
     public void MoveTo(LevelAreaType area)
     {

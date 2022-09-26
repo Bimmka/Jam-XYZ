@@ -12,5 +12,6 @@ namespace Features.StaticData.Customers
     public float AlertnessPerFrame = 0.1f;
     public float RelaxationPerFrame = 0.05f;
     public float MaxAlertness = 100;
+    public float Speed = 3f;
   }
 }

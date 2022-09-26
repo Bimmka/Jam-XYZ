@@ -41,6 +41,13 @@ namespace Features.Customers.Scripts.Base
     public TState State<TState>() where TState : NPCStateMachineState => 
       statesContainer.GetState<TState>();
 
+    public void GoToStartPoint(Transform target)
+    {
+      NPCMoveState state = State<NPCMoveState>();
+      state.SaveFinishPosition(target);
+      ChangeState(state);
+    }
+
     private void OnAnimationTriggered() => 
       stateMachine.State.TriggerAnimation();
   }

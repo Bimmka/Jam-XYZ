@@ -102,6 +102,7 @@ MonoBehaviour:
   cameraStaticData: {fileID: 11400000, guid: a088fa02718ffd241818845a8ac80b56, type: 2}
   virtualCamera: {fileID: 0}
   cameraLookAtPoint: {fileID: 0}
+  levelStaticData: {fileID: 11400000, guid: 8b50be8edc5c5fc40a4bfeefc041568b, type: 2}
 --- !u!114 &1620561727263635942
 MonoBehaviour:
   m_ObjectHideFlags: 0
