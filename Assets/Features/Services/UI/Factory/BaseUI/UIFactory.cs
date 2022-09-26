@@ -74,6 +74,11 @@ namespace Features.Services.UI.Factory.BaseUI
       NotifyAboutCreateWindow(config.ID, window);
     }
 
+    private void CreateStealWindow(WindowInstantiateData config)
+    {
+      
+    }
+
     private void CreateUIRoot()
     {
         if (uiRoot != null)

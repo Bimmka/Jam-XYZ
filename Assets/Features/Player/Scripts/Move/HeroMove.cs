@@ -1,7 +1,9 @@
 ﻿using Features.Extensions;
+using Features.Player.Scripts.Base;
 using Features.Player.Scripts.Rotate;
 using Features.StaticData.Hero.Move;
 using UnityEngine;
+using Zenject;
 
 namespace Features.Player.Scripts.Move
 {
@@ -12,12 +14,13 @@ namespace Features.Player.Scripts.Move
     private readonly HeroRotate rotate;
     private readonly Rigidbody2D heroBody;
 
-    public HeroMove(Transform heroTransform, HeroMoveStaticData moveData, HeroRotate rotate, Rigidbody2D heroBody)
+    [Inject]
+    public HeroMove(Transform heroTransform, HeroMoveStaticData moveData, HeroRotate rotate, Rigidbody2D body)
     {
-      this.heroTransform = heroTransform;
+      this.heroTransform = heroTransform.transform;
       this.moveData = moveData;
       this.rotate = rotate;
-      this.heroBody = heroBody;
+      heroBody = body;
     }
 
     public void Run(Vector2 direction, float deltaTime)

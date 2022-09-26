@@ -1,6 +1,7 @@
 ﻿using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace Features.Player.Scripts.Steal
 {
@@ -9,13 +10,14 @@ namespace Features.Player.Scripts.Steal
     [SerializeField] private CanvasGroup canvasGroup;
     [SerializeField] private Image prepareFill;
     
-    private CompositeDisposable disposable = new CompositeDisposable();
-    private float maxStealCount;
+    private readonly CompositeDisposable disposable = new CompositeDisposable();
+    private HeroStealPreparing stealPreparing;
 
-    public void Construct(HeroStealPreparing stealPreparing, float maxStealCount)
+    [Inject]
+    public void Construct(HeroStealPreparing stealPreparing)
     {
-      this.maxStealCount = maxStealCount;
-    
+      this.stealPreparing = stealPreparing;
+
       stealPreparing.IsStealing.Subscribe(OnStealStateChange).AddTo(disposable);
       stealPreparing.PrepareAmount.Subscribe(DisplayPrepare).AddTo(disposable);
     }
@@ -29,6 +31,6 @@ namespace Features.Player.Scripts.Steal
       canvasGroup.alpha = isStealing ? 1 : 0;
 
     private void DisplayPrepare(float amount) => 
-      prepareFill.fillAmount = amount/maxStealCount;
+      prepareFill.fillAmount = amount/stealPreparing.MaxValue;
   }
 }

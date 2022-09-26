@@ -1,4 +1,3 @@
-using System;
 using Features.Player.Scripts.Gold;
 using Features.UI.Windows.Base;
 using TMPro;

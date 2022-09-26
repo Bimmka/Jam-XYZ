@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Features.Customers.Scripts.Alertness;
+using Features.Player.Scripts.Markers;
 using Features.Services.Coroutine;
 using Features.StaticData.Hero.NPCSearching;
 using UnityEngine;
@@ -24,9 +25,9 @@ namespace Features.Player.Scripts.Steal
 
     public NPCAlertnessObserver LastHitNPC { get; private set; }
 
-    public HeroNPCSearcher(Transform startSearchPoint, HeroNPCSearchingStaticData searchingData, ICoroutineRunner coroutineRunner)
+    public HeroNPCSearcher(HeroInteractionSearchMarker startSearchPoint, HeroNPCSearchingStaticData searchingData, ICoroutineRunner coroutineRunner)
     {
-      this.startSearchPoint = startSearchPoint;
+      this.startSearchPoint = startSearchPoint.transform;
       this.searchingData = searchingData;
       this.coroutineRunner = coroutineRunner;
       searchDelay = new WaitForSecondsRealtime(searchingData.SearchDelay);

@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using Features.Animation;
+using Features.Player.Scripts.Gold;
 using Features.Player.Scripts.HeroMachine.States.Base;
 using Features.Player.Scripts.HeroMachine.States.Interaction;
 using Features.Player.Scripts.Move;
 using Features.Player.Scripts.Steal;
+using Features.Services.UI.Windows;
 using Features.StateMachines;
 using Features.StaticData.Hero.AnimationTransitions;
+using Zenject;
 
 namespace Features.Player.Scripts.HeroMachine.States
 {
@@ -18,11 +21,15 @@ namespace Features.Player.Scripts.HeroMachine.States
     private readonly HeroAnimationsTransitionStaticData transitionStaticData;
 
     private readonly Dictionary<Type, BaseStateMachineState> states;
-    private HeroNPCSearcher npcSearcher;
+    private readonly HeroNPCSearcher npcSearcher;
     private readonly HeroStealPreparing stealPreparing;
+    private readonly IWindowsService windowsService;
+    private readonly HeroGold heroGold;
 
+    [Inject]
     public HeroStatesContainer(HeroStateMachineObserver hero, HeroMove move, ChangeableParametersAnimator animator,
-      HeroAnimationsTransitionStaticData transitionStaticData, HeroNPCSearcher npcSearcher, HeroStealPreparing stealPreparing)
+      HeroAnimationsTransitionStaticData transitionStaticData, HeroNPCSearcher npcSearcher, HeroStealPreparing stealPreparing,
+      IWindowsService windowsService, HeroGold heroGold)
     {
       this.hero = hero;
       this.move = move;
@@ -30,6 +37,8 @@ namespace Features.Player.Scripts.HeroMachine.States
       this.transitionStaticData = transitionStaticData;
       this.npcSearcher = npcSearcher;
       this.stealPreparing = stealPreparing;
+      this.windowsService = windowsService;
+      this.heroGold = heroGold;
 
       states = new Dictionary<Type, BaseStateMachineState>(20);
     }
@@ -72,7 +81,7 @@ namespace Features.Player.Scripts.HeroMachine.States
     
     private void CreateInteractionState()
     {
-      HeroInteractionState state = new HeroInteractionState(hero, animator, npcSearcher, stealPreparing);
+      HeroInteractionState state = new HeroInteractionState(hero, animator, npcSearcher, stealPreparing, windowsService, heroGold);
       SaveState(state);
     }
 

@@ -64,6 +64,11 @@ namespace Features.Customers.Scripts.Base
       ChangeState(state);
     }
 
+    public void SetRobbedState()
+    {
+      ChangeState<NPCRobbedState>();
+    }
+
     public void NotifyAboutLeave() => 
       Leaved?.Invoke();
 

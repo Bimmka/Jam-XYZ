@@ -12,6 +12,8 @@ namespace Features.Player.Scripts.Steal
     
     private readonly HeroStealingStaticData stealingData;
     private readonly CompositeDisposable disposable = new CompositeDisposable();
+
+    public float MaxValue => stealingData.MaxPrepareCount;
     
     public HeroStealPreparing(HeroStealingStaticData stealingData)
     {

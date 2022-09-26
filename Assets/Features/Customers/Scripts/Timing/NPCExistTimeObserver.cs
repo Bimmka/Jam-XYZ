@@ -32,6 +32,11 @@ namespace Features.Customers.Scripts.Timing
         .AddTo(disposable);
     }
 
+    public void StopTimer()
+    {
+      disposable.Clear();
+    }
+
     private void UpdateTimer()
     {
       if (isFreeze)
@@ -46,7 +51,7 @@ namespace Features.Customers.Scripts.Timing
     private void OnTimerFinished()
     {
       IsNeedToExit.Value = true;
-      disposable.Clear();
+      StopTimer();
     }
   }
 }

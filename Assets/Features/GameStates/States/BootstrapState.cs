@@ -9,6 +9,7 @@ namespace Features.GameStates.States
     public BootstrapState(IGameStateMachine gameStateMachine)
     {
       this.gameStateMachine = gameStateMachine;
+      gameStateMachine.Add(this);
     }
 
     public void Enter()

@@ -1,6 +1,10 @@
 ﻿using Features.Animation;
+using Features.Customers.Scripts.Alertness;
+using Features.Customers.Scripts.Base;
+using Features.Player.Scripts.Gold;
 using Features.Player.Scripts.HeroMachine.States.Base;
 using Features.Player.Scripts.Steal;
+using Features.Services.UI.Windows;
 
 namespace Features.Player.Scripts.HeroMachine.States.Interaction
 {
@@ -8,18 +12,26 @@ namespace Features.Player.Scripts.HeroMachine.States.Interaction
   {
     private readonly HeroNPCSearcher npcSearcher;
     private readonly HeroStealPreparing stealPreparing;
+    private readonly IWindowsService windowsService;
+    private readonly HeroGold heroGold;
+
+    private NPCAlertnessObserver npc;
 
     public HeroInteractionState(HeroStateMachineObserver hero, ChangeableParametersAnimator animator, HeroNPCSearcher npcSearcher, 
-      HeroStealPreparing stealPreparing) : base(hero, animator)
+      HeroStealPreparing stealPreparing, IWindowsService windowsService, HeroGold heroGold) : base(hero, animator)
     {
       this.npcSearcher = npcSearcher;
       this.stealPreparing = stealPreparing;
+      this.windowsService = windowsService;
+      this.heroGold = heroGold;
     }
 
     public override void Enter()
     {
       base.Enter();
       stealPreparing.ResetPreparing();
+      npc.GetComponent<NPCStateMachineObserver>().SetRobbedState();
+      heroGold.Add(10);
       ChangeState<HeroIdleState>();
     }
 
@@ -27,6 +39,11 @@ namespace Features.Player.Scripts.HeroMachine.States.Interaction
     {
       base.Exit();
       npcSearcher.StartSearch();
+    }
+
+    public void SaveStolenNPC(NPCAlertnessObserver stolenNPC)
+    {
+      npc = stolenNPC;
     }
   }
 }

@@ -4,6 +4,8 @@ using Features.SceneLoading.Scripts;
 using Features.Services.Assets;
 using Features.Services.Coroutine;
 using Features.Services.StaticData;
+using Features.Services.UI.Factory.BaseUI;
+using Features.Services.UI.Windows;
 using UnityEngine;
 using Zenject;
 
@@ -21,6 +23,8 @@ namespace Features.Bootstrapp
       BindLoadingCurtain();
       BindCoroutineRunner();
       BindSceneLoader();
+      BindWindowsService();
+      BindUIFactory();
       BindStateMachine();
     }
 
@@ -43,6 +47,12 @@ namespace Features.Bootstrapp
     
     private void BindSceneLoader() => 
       Container.Bind<ISceneLoader>().To<SceneLoader>().FromNew().AsSingle();
+
+    private void BindWindowsService() => 
+      Container.Bind<IWindowsService>().To<WindowsService>().FromNew().AsSingle();
+
+    private void BindUIFactory() => 
+      Container.Bind<IUIFactory>().To<UIFactory>().FromNew().AsSingle();
 
     private void BindStateMachine()
     {

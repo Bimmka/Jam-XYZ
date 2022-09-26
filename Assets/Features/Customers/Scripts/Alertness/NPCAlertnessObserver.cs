@@ -1,4 +1,5 @@
-﻿using Features.Customers.Scripts.Timing;
+﻿using System;
+using Features.Customers.Scripts.Timing;
 using UnityEngine;
 
 namespace Features.Customers.Scripts.Alertness

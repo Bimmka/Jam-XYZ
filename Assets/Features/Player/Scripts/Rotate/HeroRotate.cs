@@ -1,5 +1,7 @@
-﻿using Features.StaticData.Hero.Rotate;
+﻿using Features.Player.Scripts.Base;
+using Features.StaticData.Hero.Rotate;
 using UnityEngine;
+using Zenject;
 
 namespace Features.Player.Scripts.Rotate
 {
@@ -8,6 +10,7 @@ namespace Features.Player.Scripts.Rotate
     private readonly Transform hero;
     private readonly HeroRotateStaticData rotateData;
 
+    [Inject]
     public HeroRotate(Transform hero, HeroRotateStaticData rotateData)
     {
       this.hero = hero;

@@ -3248,18 +3248,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 161408573848766063, guid: ef6f297d29eecf343b7b9d6f54c5bee2, type: 3}
-      propertyPath: virtualCamera
-      value: 
-      objectReference: {fileID: 1653696676}
-    - target: {fileID: 161408573848766063, guid: ef6f297d29eecf343b7b9d6f54c5bee2, type: 3}
-      propertyPath: spawnHeroPoint
-      value: 
-      objectReference: {fileID: 1673273800}
-    - target: {fileID: 161408573848766063, guid: ef6f297d29eecf343b7b9d6f54c5bee2, type: 3}
-      propertyPath: cameraLookAtPoint
-      value: 
-      objectReference: {fileID: 681744020}
     - target: {fileID: 3738105026426257609, guid: ef6f297d29eecf343b7b9d6f54c5bee2, type: 3}
       propertyPath: virtualCamera
       value: 

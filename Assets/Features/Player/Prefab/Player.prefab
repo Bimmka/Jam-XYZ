@@ -264,7 +264,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   input: {fileID: 3245492531973968368}
   stateMachine: {fileID: 3563240429521277347}
-  heroBody: {fileID: 4251112836107113068}
+  stealDisplayer: {fileID: 3280009460079880820}
+  animationsTransition: {fileID: 11400000, guid: f42cd3ea2a5c6b6499ff876bca87e41d, type: 2}
+  animator: {fileID: 6633920431924252810}
+  rotateData: {fileID: 11400000, guid: 4250ed205996575458c6999c1983eb95, type: 2}
+  heroMoveData: {fileID: 11400000, guid: b760830f11fec2c42bf1d376ebf7da31, type: 2}
+  startSearchPoint: {fileID: 4469371042998232787}
+  searchingData: {fileID: 11400000, guid: 0cdff380f6481f94585cb1cf9a25795a, type: 2}
 --- !u!50 &4251112836107113068
 Rigidbody2D:
   serializedVersion: 4

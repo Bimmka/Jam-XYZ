@@ -115,6 +115,8 @@ namespace Features.Player.Scripts.HeroMachine.States.Interaction
     {
       stolenNPC.StopPayingAttention();
       stolenNPC.HideAlertnessTip();
+      HeroInteractionState state = hero.State<HeroInteractionState>();
+      state.SaveStolenNPC(stolenNPC);
       ChangeState<HeroInteractionState>();
     }
   }

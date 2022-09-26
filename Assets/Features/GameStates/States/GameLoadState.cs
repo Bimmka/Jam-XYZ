@@ -14,11 +14,11 @@ namespace Features.GameStates.States
     private readonly IWindowsService windowsService;
 
     [Inject]
-    public GameLoadState(GameStateMachine gameStateMachine, ISceneLoader sceneLoader, NPCFactory npcFactory)
+    public GameLoadState(GameStateMachine gameStateMachine, ISceneLoader sceneLoader)
     {
       this.gameStateMachine = gameStateMachine;
       this.sceneLoader = sceneLoader;
-      
+      gameStateMachine.Add(this);
     }
 
     public void Enter()

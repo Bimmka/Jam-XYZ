@@ -3,6 +3,7 @@ using Features.Animation;
 using Features.Player.Scripts.AreaChange;
 using Features.Player.Scripts.Base;
 using Features.Player.Scripts.Camera;
+using Features.Player.Scripts.Gold;
 using Features.Player.Scripts.HeroMachine;
 using Features.Player.Scripts.HeroMachine.States;
 using Features.Player.Scripts.Markers;
@@ -18,6 +19,7 @@ using Features.StaticData.Hero.NPCSearching;
 using Features.StaticData.Hero.Rotate;
 using Features.StaticData.Hero.Stealing;
 using Features.StaticData.LevelArea;
+using Features.UI.Windows.GameMenu;
 using InputControl;
 using UnityEngine;
 using Zenject;
@@ -37,18 +39,28 @@ namespace Features.Bootstrapp
     [SerializeField] private LevelStaticData levelStaticData;
     [SerializeField] private HeroStealingStaticData stealingStaticData;
     [SerializeField] private HeroNPCSearchingStaticData searchingStaticData;
+    [SerializeField] private UIHUD hud;
     
     public override void InstallBindings()
     {
       BindInput();
       BindHeroCamera();
       BindHeroAreaChange();
-      CreateHero();  
+      BindHero();
+      BindHeroGold();
+      BindHeroNPCSearcher();
+      BindHeroInteractionSearchMarker();
+      BindHeroStateMachineObserver();
+      BindHeroStealPreparing();
+      BindHeroStealDisplayer();
     }
-    
+
     private void BindInput() => 
       Container.Bind<IInputService>().To<InputService>().FromNew().AsSingle().WithArguments(new HeroControl());
-    
+
+    private void BindHeroGold() => 
+      Container.Bind<HeroGold>().To<HeroGold>().FromNew().AsSingle();
+
     private void BindHeroCamera() => 
       Container.Bind<HeroCamera>().To<HeroCamera>().FromNew().AsSingle().WithArguments(cameraStaticData, virtualCamera, cameraLookAtPoint);
 
@@ -58,37 +70,38 @@ namespace Features.Bootstrapp
         .AsSingle()
         .WithArguments(levelStaticData.StartArea);
     }
+    
+    private void BindHero() => 
+      Container.Bind<Hero>().To<Hero>().FromComponentInNewPrefab(hero).AsSingle();
 
-    private void CreateHero()
+    private void BindHeroStateMachineObserver() => 
+      Container.Bind<HeroStateMachineObserver>().To<HeroStateMachineObserver>().FromComponentInNewPrefab(hero).AsSingle();
+
+    private void BindHeroNPCSearcher() => 
+      Container.Bind<HeroNPCSearcher>().To<HeroNPCSearcher>().FromNew().AsSingle().WithArguments(searchingStaticData);
+
+    private void BindHeroInteractionSearchMarker() =>
+      Container.Bind<HeroInteractionSearchMarker>().To<HeroInteractionSearchMarker>().FromComponentInNewPrefab(hero)
+        .AsSingle();
+
+    private void BindHeroStealPreparing() => 
+      Container.Bind<HeroStealPreparing>().To<HeroStealPreparing>().FromNew().AsSingle().WithArguments(stealingStaticData);
+    
+    private void BindHeroStealDisplayer() =>
+      Container.Bind<HeroStealDisplayer>().To<HeroStealDisplayer>().FromComponentInNewPrefab(hero)
+        .AsSingle().WithArguments(stealingStaticData.MaxPrepareCount);
+    
+    public override void Start()
     {
-      GameObject spawnedHero = Container.InstantiatePrefab(hero, spawnHeroPoint.position, Quaternion.Euler(0,0,0), null);
-
-      HeroRotate rotate = HeroRotate(spawnedHero);
-      HeroMove move = HeroMove(rotate, spawnedHero);
-            
-            
-      ChangeableParametersAnimator animator = spawnedHero.GetComponentInChildren<ChangeableParametersAnimator>(true);
-      animator.Initialize();
-
-      spawnedHero.GetComponent<HeroAreaChangeObserver>().SetStartArea(levelStaticData.StartArea);
-
-      HeroInteractionSearchMarker searchMarker = spawnedHero.GetComponentInChildren<HeroInteractionSearchMarker>();
-      
-      HeroNPCSearcher heroNPCSearcher = new HeroNPCSearcher(searchMarker.transform, searchingStaticData, this);
-      heroNPCSearcher.StartSearch();
-      HeroStealPreparing heroStealPreparing = new HeroStealPreparing(stealingStaticData);
-      HeroStatesContainer container = new HeroStatesContainer(spawnedHero.GetComponent<HeroStateMachineObserver>(), 
-        move, animator, transitionStaticData, heroNPCSearcher, heroStealPreparing);
-
-      spawnedHero.GetComponentInChildren<HeroStealDisplayer>().Construct(heroStealPreparing, stealingStaticData.MaxPrepareCount);
-      
-      spawnedHero.GetComponent<Hero>().Construct(container);
+      base.Start();
+      SpawnHero();
+      SpawnHUD();
     }
 
-    private HeroRotate HeroRotate(GameObject spawnedHero) => 
-      new HeroRotate(spawnedHero.transform, rotateData);
+    private void SpawnHero() => 
+      Container.InstantiatePrefab(hero, spawnHeroPoint.position, Quaternion.Euler(0,0,0), null);
 
-    private HeroMove HeroMove(HeroRotate rotate, GameObject spawnedHero) => 
-      new HeroMove(spawnedHero.transform, moveData, rotate, spawnedHero.GetComponent<Rigidbody2D>());
+    private void SpawnHUD() => 
+      Container.InstantiatePrefab(hud);
   }
 }

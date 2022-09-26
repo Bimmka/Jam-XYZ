@@ -13,13 +13,15 @@ namespace Features.GameStates
     private IExitableState _activeState;
 
     [Inject]
-    public GameStateMachine(BootstrapState bootstrapState, GameLoadState gameLoadState)
+    public GameStateMachine()
     {
       _states = new Dictionary<Type, IExitableState>(5);
-      _states.Add(bootstrapState.GetType(), bootstrapState);
-      _states.Add(gameLoadState.GetType(), gameLoadState);
+  
     }
-    
+
+    public void Add<TState>(TState state) where TState : class, IState => 
+      _states.Add(typeof(TState), state);
+
     public void Enter<TState>() where TState : class, IState
     {
       IState state = ChangeState<TState>();
