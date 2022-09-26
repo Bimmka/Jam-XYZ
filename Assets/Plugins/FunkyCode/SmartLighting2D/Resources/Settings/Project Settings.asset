@@ -25,7 +25,7 @@ MonoBehaviour:
     sceneViewLayer: 0
     gameViewLayer: 0
   chunks:
-    enabled: 1
+    enabled: 0
     chunkSize: 10
   colorSpace: 0
   managerInternal: 0
