@@ -9,8 +9,8 @@ namespace Features.StaticData.Customers
     public NPCType Type;
     public NPC View;
     public Vector2 ExistSecondsRange;
-    public float AlertnessPerFrame = 0.1f;
-    public float RelaxationPerFrame = 0.05f;
+    public float AlertnessPerSecond = 0.1f;
+    public float RelaxationPerSecond = 0.05f;
     public float MaxAlertness = 100;
     public float Speed = 3f;
   }

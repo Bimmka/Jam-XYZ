@@ -1,4 +1,5 @@
 ﻿using Features.Animation;
+using Features.Customers.Scripts.Alertness;
 using Features.Customers.Scripts.Base;
 using Features.Customers.Scripts.NPCStates;
 using Features.Customers.Scripts.Timing;
@@ -28,22 +29,31 @@ namespace Features.Customers.Scripts.Factory
     {
       NPCSettings settings = staticData.ForNPC(spawnData.Type);
       NPC npc = assetProvider.Instantiate(settings.View, spawnData.SpawnPosition);
+      
       AIPath path = npc.GetComponent<AIPath>();
       path.maxSpeed = settings.Speed;
-      npc.Construct(StatesContainer(npc, path), spawnData.Area);
+
+      NPCAlertness alertness = Alertness(settings);
+      NPCAlertnessObserver alertnessObserver = npc.GetComponent<NPCAlertnessObserver>();
+      alertnessObserver.Construct(alertness);
+      
+      npc.Construct(StatesContainer(npc, path, alertnessObserver), spawnData.Area, alertness);
       
       NPCExistTimeObserver timeObserver = new NPCExistTimeObserver(Random.Range(settings.ExistSecondsRange.x, settings.ExistSecondsRange.y));
 
       return npc;
     }
 
-    private NPCStatesContainer StatesContainer(NPC npc, AIPath aiPath)
+    private NPCAlertness Alertness(NPCSettings settings) => 
+      new NPCAlertness(settings.AlertnessPerSecond, settings.RelaxationPerSecond, settings.MaxAlertness);
+
+    private NPCStatesContainer StatesContainer(NPC npc, AIPath aiPath, NPCAlertnessObserver alertnessObserver)
     {
       NPCStateMachineObserver stateMachine = npc.GetComponent<NPCStateMachineObserver>();
       SimpleAnimator animator = npc.GetComponent<SimpleAnimator>();
      
       AIDestinationSetter destinationSetter = npc.GetComponent<AIDestinationSetter>();
-      return new NPCStatesContainer(stateMachine, animator, aiPath, destinationSetter);
+      return new NPCStatesContainer(stateMachine, animator, aiPath, destinationSetter, alertnessObserver);
     }
   }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Features.Animation;
+using Features.Customers.Scripts.Alertness;
 using Features.Customers.Scripts.Base;
 using Pathfinding;
 
@@ -12,14 +13,17 @@ namespace Features.Customers.Scripts.NPCStates
     private readonly SimpleAnimator animator;
     private readonly AIPath aiPath;
     private readonly AIDestinationSetter aiDestinationSetter;
-    private Dictionary<Type, NPCStateMachineState> states;
+    private readonly NPCAlertnessObserver alertness;
+    private readonly Dictionary<Type, NPCStateMachineState> states;
 
-    public NPCStatesContainer(NPCStateMachineObserver npc, SimpleAnimator animator, AIPath aiPath, AIDestinationSetter aiDestinationSetter)
+    public NPCStatesContainer(NPCStateMachineObserver npc, SimpleAnimator animator, AIPath aiPath,
+      AIDestinationSetter aiDestinationSetter, NPCAlertnessObserver alertness)
     {
       this.npc = npc;
       this.animator = animator;
       this.aiPath = aiPath;
       this.aiDestinationSetter = aiDestinationSetter;
+      this.alertness = alertness;
       states = new Dictionary<Type, NPCStateMachineState>(5);
     }
     public void CreateStates()
@@ -53,7 +57,7 @@ namespace Features.Customers.Scripts.NPCStates
 
     private void CreateWarningState()
     {
-      NPCWarningState state = new NPCWarningState(npc, animator);
+      NPCWarningState state = new NPCWarningState(npc, animator, alertness);
       SaveState(state);
     }
 
