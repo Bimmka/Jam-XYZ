@@ -9,9 +9,11 @@ namespace Features.Customers.Scripts.NPCStates
   {
     private readonly AIDestinationSetter destinationSetter;
     private readonly AIPath aiPath;
+  
     private Transform moveTarget;
 
-    public NPCMoveState(NPCStateMachineObserver npc, SimpleAnimator animator, AIDestinationSetter destinationSetter, AIPath aiPath) : base(npc, animator)
+    public NPCMoveState(NPCStateMachineObserver npc, SimpleAnimator animator,string animationName, AIDestinationSetter destinationSetter, AIPath aiPath) 
+      : base(npc, animator, animationName)
     {
       this.destinationSetter = destinationSetter;
       this.aiPath = aiPath;
@@ -21,6 +23,7 @@ namespace Features.Customers.Scripts.NPCStates
     {
       base.Enter();
       destinationSetter.target = moveTarget;
+      aiPath.enabled = true;
     }
 
     public override void UpdateState(in float deltaTime)
@@ -36,6 +39,7 @@ namespace Features.Customers.Scripts.NPCStates
       base.Exit();
       destinationSetter.target = null;
       moveTarget = null;
+      aiPath.enabled = false;
     }
 
     public void SaveFinishPosition(Transform newTarget) => 

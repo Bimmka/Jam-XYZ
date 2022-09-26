@@ -1,5 +1,6 @@
 ﻿using Features.LevelArea;
 using Features.LevelArea.Scripts;
+using Features.LevelArea.Scripts.ChangingArea;
 using Features.Player.Scripts.Camera;
 using Features.StaticData.LevelArea;
 using UniRx;

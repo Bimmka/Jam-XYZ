@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Features.Animation;
 using Features.Customers.Scripts.Alertness;
 using Features.Customers.Scripts.Base;
+using Features.LevelArea.Scripts.PointsOfInterest;
+using Features.StaticData.LevelArea;
 using Pathfinding;
 
 namespace Features.Customers.Scripts.NPCStates
@@ -14,16 +16,22 @@ namespace Features.Customers.Scripts.NPCStates
     private readonly AIPath aiPath;
     private readonly AIDestinationSetter aiDestinationSetter;
     private readonly NPCAlertnessObserver alertness;
+    private readonly LevelPointsOfInterestObserver pointsOfInterestObserver;
+    private readonly LevelAreaType area;
+    private readonly Seeker seeker;
     private readonly Dictionary<Type, NPCStateMachineState> states;
 
     public NPCStatesContainer(NPCStateMachineObserver npc, SimpleAnimator animator, AIPath aiPath,
-      AIDestinationSetter aiDestinationSetter, NPCAlertnessObserver alertness)
+      AIDestinationSetter aiDestinationSetter, NPCAlertnessObserver alertness, LevelPointsOfInterestObserver pointsOfInterestObserver, 
+      LevelAreaType area)
     {
       this.npc = npc;
       this.animator = animator;
       this.aiPath = aiPath;
       this.aiDestinationSetter = aiDestinationSetter;
       this.alertness = alertness;
+      this.pointsOfInterestObserver = pointsOfInterestObserver;
+      this.area = area;
       states = new Dictionary<Type, NPCStateMachineState>(5);
     }
     public void CreateStates()
@@ -39,25 +47,25 @@ namespace Features.Customers.Scripts.NPCStates
 
     private void CreateIdleState()
     {
-      NPCIdleState state = new NPCIdleState(npc, animator);
+      NPCIdleState state = new NPCIdleState(npc, animator, "IsIdle");
       SaveState(state);
     }
 
     private void CreateLeaveState()
     {
-      NPCLeaveState state = new NPCLeaveState(npc, animator);
+      NPCLeaveState state = new NPCLeaveState(npc, animator, "IsMove", pointsOfInterestObserver, aiPath, aiDestinationSetter, area);
       SaveState(state);
     }
 
     private void CreateMoveState()
     {
-      NPCMoveState state = new NPCMoveState(npc, animator, aiDestinationSetter, aiPath);
+      NPCMoveState state = new NPCMoveState(npc, animator, "IsMove", aiDestinationSetter, aiPath);
       SaveState(state);
     }
 
     private void CreateWarningState()
     {
-      NPCWarningState state = new NPCWarningState(npc, animator, alertness);
+      NPCWarningState state = new NPCWarningState(npc, animator, "IsWary", alertness);
       SaveState(state);
     }
 

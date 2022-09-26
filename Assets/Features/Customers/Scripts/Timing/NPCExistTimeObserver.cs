@@ -21,13 +21,13 @@ namespace Features.Customers.Scripts.Timing
     {
       Observable
         .Interval(TimeSpan.FromSeconds(1))
-        .Subscribe(UpdateTimer)
+        .Subscribe(onNext => UpdateTimer())
         .AddTo(disposable);
     }
 
-    private void UpdateTimer(long source)
+    private void UpdateTimer()
     {
-      existSeconds -= source;
+      existSeconds --;
       
       if (existSeconds <= 0)
         OnTimerFinished();

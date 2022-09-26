@@ -8,7 +8,8 @@ namespace Features.Customers.Scripts.NPCStates
   {
     private readonly NPCAlertnessObserver alertnessObserver;
 
-    public NPCWarningState(NPCStateMachineObserver npc, SimpleAnimator animator, NPCAlertnessObserver alertnessObserver) : base(npc, animator)
+    public NPCWarningState(NPCStateMachineObserver npc, SimpleAnimator animator, string animationName, NPCAlertnessObserver alertnessObserver) 
+      : base(npc, animator, animationName)
     {
       this.alertnessObserver = alertnessObserver;
     }

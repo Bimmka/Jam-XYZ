@@ -30,4 +30,5 @@ MonoBehaviour:
     Area: 0
   Exits:
   - Area: 0
-    Position: {x: -1.92, y: 0, z: 0}
+    Positions:
+    - {fileID: 0}

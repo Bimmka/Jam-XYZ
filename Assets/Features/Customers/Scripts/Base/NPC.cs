@@ -1,6 +1,7 @@
 using System;
 using Features.Customers.Scripts.Alertness;
 using Features.Customers.Scripts.NPCStates;
+using Features.Customers.Scripts.Timing;
 using Features.StaticData.LevelArea;
 using UnityEngine;
 
@@ -16,10 +17,13 @@ namespace Features.Customers.Scripts.Base
         public event Action<NPC, LevelAreaType> Exited;
         public event Action<NPC, LevelAreaType> Robbed;
 
-        public void Construct(NPCStatesContainer container, LevelAreaType spawnDataArea, NPCAlertness alertness)
+        public void Construct(NPCStatesContainer container, LevelAreaType spawnDataArea, NPCAlertness alertness,
+            NPCExistTimeObserver existTimeObserver)
         {
             this.spawnDataArea = spawnDataArea;
-            stateMachine.Construct(container, alertness);
+            stateMachine.Leaved += NotifyAboutExit;
+            stateMachine.Robbed += NotifyAboutRobbed;
+            stateMachine.Construct(container, alertness, existTimeObserver);
             stateMachine.Subscribe();
             stateMachine.CreateStates();
             stateMachine.SetDefaultState();
@@ -27,6 +31,8 @@ namespace Features.Customers.Scripts.Base
 
         private void OnDestroy()
         {
+            stateMachine.Leaved -= NotifyAboutExit;
+            stateMachine.Robbed -= NotifyAboutRobbed;
             stateMachine.Cleanup();
         }
 

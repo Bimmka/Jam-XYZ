@@ -1,6 +1,8 @@
-﻿using Features.Animation;
+﻿using System;
+using Features.Animation;
 using Features.Customers.Scripts.Alertness;
 using Features.Customers.Scripts.NPCStates;
+using Features.Customers.Scripts.Timing;
 using UniRx;
 using UnityEngine;
 
@@ -12,17 +14,20 @@ namespace Features.Customers.Scripts.Base
 
     private NPCStateMachine stateMachine;
     private NPCStatesContainer statesContainer;
-    private NPCAlertness alertness;
-    
-    private CompositeDisposable disposable = new CompositeDisposable();
 
-    public void Construct(NPCStatesContainer container, NPCAlertness alertness)
+    private readonly CompositeDisposable disposable = new CompositeDisposable();
+
+    public event Action Leaved;
+    public event Action Robbed;
+
+    public void Construct(NPCStatesContainer container, NPCAlertness alertness,
+      NPCExistTimeObserver existTimeObserver)
     {
-      this.alertness = alertness;
       statesContainer = container; 
       stateMachine = new NPCStateMachine();
 
-      alertness.IsWary.Subscribe(onNext => OnWary(onNext)).AddTo(disposable);
+      alertness.IsWary.Subscribe(OnWary).AddTo(disposable);
+      existTimeObserver.IsNeedToExit.Subscribe(OnTimeOut).AddTo(disposable);
     }
 
     public void Subscribe() => 
@@ -59,13 +64,25 @@ namespace Features.Customers.Scripts.Base
       ChangeState(state);
     }
 
+    public void NotifyAboutLeave() => 
+      Leaved?.Invoke();
+
+    public void NotifyAboutRobbed() => 
+      Robbed?.Invoke();
+
     private void OnAnimationTriggered() => 
       stateMachine.State.TriggerAnimation();
 
-    private void OnWary(in bool isWary)
+    private void OnWary(bool isWary)
     {
       if (isWary)
         ChangeState<NPCWarningState>();
+    }
+
+    private void OnTimeOut(bool isTimeOut)
+    {
+      if (isTimeOut)
+        ChangeState<NPCLeaveState>();
     }
   }
 }

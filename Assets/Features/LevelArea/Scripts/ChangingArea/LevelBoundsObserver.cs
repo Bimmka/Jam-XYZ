@@ -2,7 +2,7 @@
 using Features.StaticData.LevelArea;
 using Zenject;
 
-namespace Features.LevelArea.Scripts
+namespace Features.LevelArea.Scripts.ChangingArea
 {
   public class LevelBoundsObserver
   {
