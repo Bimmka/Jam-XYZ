@@ -3,12 +3,13 @@ using Features.Animation;
 using Features.Customers.Scripts.Alertness;
 using Features.Customers.Scripts.NPCStates;
 using Features.Customers.Scripts.Timing;
+using Features.Player.Scripts.HeroMachine;
 using UniRx;
 using UnityEngine;
 
 namespace Features.Customers.Scripts.Base
 {
-  public class NPCStateMachineObserver : MonoBehaviour
+  public class NPCStateMachineObserver : BaseStateMachineObserver
   {
     [SerializeField] private SimpleAnimator animator;
 
@@ -30,19 +31,23 @@ namespace Features.Customers.Scripts.Base
       existTimeObserver.IsNeedToExit.Subscribe(OnTimeOut).AddTo(disposable);
     }
 
-    public void Subscribe() => 
-      animator.Triggered += OnAnimationTriggered;
-
-    public void Cleanup()
+    public virtual void Subscribe()
     {
+      base.Subscribe();
+      animator.Triggered += OnAnimationTriggered;
+    }
+
+    public override void Cleanup()
+    {
+      base.Cleanup();
       animator.Triggered -= OnAnimationTriggered;
       disposable.Clear();
     }
 
-    public void CreateStates() => 
+    public override void CreateStates() => 
       statesContainer.CreateStates();
 
-    public void SetDefaultState() => 
+    public override void SetDefaultState() => 
       stateMachine.SetState(statesContainer.GetState<NPCIdleState>());
 
     public void UpdateState(float deltaTime) => 

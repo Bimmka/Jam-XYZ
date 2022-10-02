@@ -8,7 +8,7 @@ using UnityEngine.InputSystem.Utilities;
 
 namespace Features.Player.Scripts.HeroMachine
 {
-  public class HeroStateMachineObserver : MonoBehaviour
+  public class HeroStateMachineObserver : BaseStateMachineObserver
   {
     [SerializeField] private ChangeableParametersAnimator animator;
     
@@ -21,19 +21,23 @@ namespace Features.Player.Scripts.HeroMachine
       stateMachine = new HeroStateMachine();
     }
 
-    public void Subscribe() => 
-      animator.Triggered += OnAnimationTriggered;
-
-    public void Cleanup()
+    public override void Subscribe()
     {
+      base.Subscribe();
+      animator.Triggered += OnAnimationTriggered;
+    }
+
+    public override void Cleanup()
+    {
+      base.Cleanup();
       animator.Triggered -= OnAnimationTriggered;
       State<HeroInteractionPrepareState>().Cleanup();
     }
 
-    public void CreateStates() => 
+    public override void CreateStates() => 
       statesContainer.CreateStates();
 
-    public void SetDefaultState() => 
+    public override void SetDefaultState() => 
       stateMachine.SetState(statesContainer.GetState<HeroIdleState>());
 
     public void UpdateState(ReadOnlyArray<IInputCommand> commands, int commandsCount, float deltaTime) => 
