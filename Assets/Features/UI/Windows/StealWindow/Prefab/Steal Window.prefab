@@ -82,7 +82,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5853083931402402355}
   m_Layer: 5
-  m_Name: Spawn Position (2,3)
+  m_Name: Spawn Position (2,1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -184,6 +184,42 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &2378000038478868674
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4687268700835137145}
+  m_Layer: 5
+  m_Name: Min Down Point
+  m_TagString: Untagged
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4687268700835137145
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2378000038478868674}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5071639443679252820}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 1, y: -293}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2479317473733206051
 GameObject:
   m_ObjectHideFlags: 0
@@ -397,7 +433,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5071639443679252820}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -435,7 +471,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5071639443679252820}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -572,7 +608,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5071639443679252820}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -662,7 +698,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2484922578976560781}
   m_Layer: 5
-  m_Name: Spawn Position (2,1)
+  m_Name: Spawn Position (2,3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -726,7 +762,7 @@ RectTransform:
   - {fileID: 6011362114674305953}
   - {fileID: 3826844638786728397}
   m_Father: {fileID: 5071639443679252820}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -767,6 +803,7 @@ RectTransform:
   - {fileID: 2515087917332344041}
   - {fileID: 8400853720721299600}
   - {fileID: 6286562336762298303}
+  - {fileID: 4687268700835137145}
   - {fileID: 4793634694972414899}
   - {fileID: 9111340761462991960}
   - {fileID: 8638710860924448078}
@@ -830,19 +867,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPositions:
-  - {fileID: 6495499381670866898}
-  - {fileID: 931079232386472336}
-  - {fileID: 1967948392902720322}
-  - {fileID: 2484922578976560781}
-  - {fileID: 6400022387220499802}
-  - {fileID: 5853083931402402355}
-  - {fileID: 5295391919851303195}
-  - {fileID: 6011362114674305953}
-  - {fileID: 3826844638786728397}
+  - Transform: {fileID: 6495499381670866898}
+    Position: {x: 0, y: 0}
+  - Transform: {fileID: 931079232386472336}
+    Position: {x: 1, y: 0}
+  - Transform: {fileID: 1967948392902720322}
+    Position: {x: 2, y: 0}
+  - Transform: {fileID: 5853083931402402355}
+    Position: {x: 0, y: 1}
+  - Transform: {fileID: 6400022387220499802}
+    Position: {x: 1, y: 1}
+  - Transform: {fileID: 2484922578976560781}
+    Position: {x: 2, y: 1}
+  - Transform: {fileID: 5295391919851303195}
+    Position: {x: 0, y: 2}
+  - Transform: {fileID: 6011362114674305953}
+    Position: {x: 1, y: 2}
+  - Transform: {fileID: 3826844638786728397}
+    Position: {x: 2, y: 2}
   leftPoint: {fileID: 6286562336762298303}
   rightPoint: {fileID: 4793634694972414899}
+  minDownPoint: {fileID: 4687268700835137145}
   downAnchor: {fileID: 9111340761462991960}
   tail: {fileID: 8400853720721299600}
   timeToMoveAllCircle: 2
-  height: 70
   lineRenderer: {fileID: 213063803}
+  settings: {fileID: 11400000, guid: d8ff47412a3c9504eadc8d865bc30d15, type: 2}

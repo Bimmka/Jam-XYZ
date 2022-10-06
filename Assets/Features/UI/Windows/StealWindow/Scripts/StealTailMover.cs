@@ -24,11 +24,11 @@ namespace Features.UI.Windows.StealWindow.Scripts
 
     public void Move(in float currentTime)
     {
-      downAnchor.position = TrajectoryExtensions.Parabola(leftPoint, rightPoint, -height, currentTime);
+      downAnchor.localPosition = TrajectoryExtensions.Parabola(leftPoint, rightPoint, -height, currentTime);
       
-      if (downAnchor.position.x >= leftPoint.x)
+      if (downAnchor.localPosition.x >= leftPoint.x)
         NotifyAboutWentLeft();
-      else if (downAnchor.position.x <= rightPoint.x)
+      else if (downAnchor.localPosition.x <= rightPoint.x)
         NotifyAboutWentRight();
     }
 

@@ -9,5 +9,6 @@ namespace Features.Constants
     public static string WindowsDataPath = "Windows/WindowsStaticData";
     public static string NPCDataPath = "NPC";
     public static string UIRootPath = "Windows/UIRoot";
+    public static string StealItemStaticData = "Steal/StealItemStaticData";
   }
 }
