@@ -4,7 +4,9 @@ using Features.Customers.Scripts.Base;
 using Features.Player.Scripts.Gold;
 using Features.Player.Scripts.HeroMachine.States.Base;
 using Features.Player.Scripts.Steal;
+using Features.Services.UI.Factory;
 using Features.Services.UI.Windows;
+using Features.UI.Windows.StealWindow.Scripts;
 
 namespace Features.Player.Scripts.HeroMachine.States.Interaction
 {
@@ -29,9 +31,11 @@ namespace Features.Player.Scripts.HeroMachine.States.Interaction
     public override void Enter()
     {
       base.Enter();
+      InitializeStealWindow();
       stealPreparing.ResetPreparing();
       npc.GetComponent<NPCStateMachineObserver>().SetRobbedState();
       heroGold.Add(10);
+      
       ChangeState<HeroIdleState>();
     }
 
@@ -44,6 +48,14 @@ namespace Features.Player.Scripts.HeroMachine.States.Interaction
     public void SaveStolenNPC(NPCAlertnessObserver stolenNPC)
     {
       npc = stolenNPC;
+    }
+
+    private void InitializeStealWindow()
+    {
+      windowsService.Open(WindowId.StealWindow);
+      UIStealWindow stealWindow = (UIStealWindow) windowsService.Window(WindowId.StealWindow);
+
+      stealWindow.Initialize(stealPreparing.PrepareAmount.Value);
     }
   }
 }

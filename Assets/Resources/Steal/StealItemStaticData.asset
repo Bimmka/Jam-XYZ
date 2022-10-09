@@ -16,18 +16,18 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 2583754241530604650, guid: 69d5e461efcfed84580aa642897e4614, type: 3}
-    - {fileID: 5245769536598170467, guid: 09b36abd9688ec94ea7b0c5859e6049c, type: 3}
-    - {fileID: 6935799430770940792, guid: 4afbffe3961112b4891bfef363d3bc2f, type: 3}
+    - {fileID: 21300000, guid: 4393eb57eca69e041bd1c43fcb301feb, type: 3}
+    - {fileID: 21300000, guid: 1c51521ad00ac3449892b262eec1cc5c, type: 3}
+    - {fileID: 21300000, guid: 596baa8afdcca4c4cac7c688a046f206, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: StealEntities
+    - Name: StealItemsView
       Entry: 7
       Data: 0|System.Collections.Generic.Dictionary`2[[Features.UI.Windows.StealWindow.Scripts.StealItemType,
-        Assembly-CSharp],[UnityEngine.GameObject, UnityEngine.CoreModule]], mscorlib
+        Assembly-CSharp],[UnityEngine.Sprite, UnityEngine.CoreModule]], mscorlib
     - Name: comparer
       Entry: 7
       Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Features.UI.Windows.StealWindow.Scripts.StealItemType,
@@ -86,4 +86,5 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  MovingEntity: {fileID: 2115612574315777018, guid: a075392993b29444688f824b38370463, type: 3}
+  StealItem: {fileID: -3851964283768006159, guid: b60bfe9d99e645c42a54ea56f4dae589, type: 3}
+  MovingEntity: {fileID: -2763059988508363944, guid: a075392993b29444688f824b38370463, type: 3}

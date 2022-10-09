@@ -1,14 +1,16 @@
+using System.Collections;
 using Features.Extensions;
+using Features.Services.Input;
 using Features.UI.Custom.LineRenderer;
+using Features.UI.Windows.Base;
 using Features.UI.Windows.StealWindow.StealFillPatterns;
+using UniRx;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 using Zenject;
 
 namespace Features.UI.Windows.StealWindow.Scripts
 {
-  public class UIStealWindow : MonoBehaviour
+  public class UIStealWindow : BaseWindow
   {
     [SerializeField] private StealWindowCell[] spawnPositions;
     [SerializeField] private Transform leftPoint;
@@ -20,11 +22,14 @@ namespace Features.UI.Windows.StealWindow.Scripts
     [SerializeField] private CustomUILineRenderer lineRenderer;
     [SerializeField] private StealWindowSettings settings;
 
-    private StealTailMover stealTailMover;
-    private StealWindowItemFiller itemFiller;
-    
     private readonly RaycastHit2D[] hits = new RaycastHit2D[1];
     private readonly Vector2[] lineRendererPositions = new Vector2[2];
+    private readonly CompositeDisposable disposable = new CompositeDisposable();
+    
+    private StealTailMover stealTailMover;
+    private StealWindowItemFiller itemFiller;
+
+    private Timer timer;
 
     private int currentDirection = 1;
     private float currentTime;
@@ -35,24 +40,46 @@ namespace Features.UI.Windows.StealWindow.Scripts
       itemFiller = new StealWindowItemFiller(stealItemFactory, spawnPositions, settings.MinCoinsCount);
     }
 
-    private void Awake()
+    public void Initialize(float maxTime)
     {
+      timer = new Timer(maxTime);
+      timer.TimeOut.Subscribe(onNext => OnTimeOut()).AddTo(disposable);
+    }
+
+    public override void Open()
+    {
+      base.Open();
+      StartCoroutine(MoveTail());
+    }
+
+    protected override void Initialize()
+    {
+      base.Initialize();
       stealTailMover = new StealTailMover(rightPoint.localPosition, leftPoint.localPosition, 
         (leftPoint.localPosition - minDownPoint.localPosition).y, downAnchor);
       
-      stealTailMover.WentLeft += OnWentLeftPosition;
-      stealTailMover.WentRight += OnWentRightPosition;
-      
+      stealTailMover.SwitchDirection.Subscribe(onNext => SwitchDirection()) .AddTo(disposable);
+
       SpawnObjects();
     }
 
-    private void OnDestroy()
+    protected override void Cleanup()
     {
-      stealTailMover.WentLeft -= OnWentLeftPosition;
-      stealTailMover.WentRight -= OnWentRightPosition;
+      base.Cleanup();
+      disposable.Clear();
     }
 
-    public void SpawnObjects()
+    public void Catch()
+    {
+      
+    }
+
+    private void OnTimeOut()
+    {
+      
+    }
+
+    private void SpawnObjects()
     {
       StealWindowFillPattern pattern = settings.RandomPattern();
       StealWindowFillCell[] cells = new StealWindowFillCell[pattern.Cells.Length];
@@ -62,19 +89,24 @@ namespace Features.UI.Windows.StealWindow.Scripts
       itemFiller.SpawnObjects(cells, pattern.EntitiesInPattern);
     }
 
-    private void Update()
+    private IEnumerator MoveTail()
     {
-      currentTime += currentDirection * Time.deltaTime;
+      while (true)
+      {
+        currentTime += currentDirection * Time.deltaTime;
 
-      stealTailMover.Move(currentTime/timeToMoveAllCircle);
+        stealTailMover.Move(currentTime/timeToMoveAllCircle);
 
-      float angle = -Vector2.SignedAngle(downAnchor.position - tail.position, Vector2.down);
-      tail.eulerAngles = Vector3.forward * angle;
+        float angle = -Vector2.SignedAngle(downAnchor.position - tail.position, Vector2.down);
+        tail.eulerAngles = Vector3.forward * angle;
 
-      if (IsHitItem())
-        DrawLineToItem(hits[0]);
-      else
-        DrawLineDownAnchor();
+        if (IsHitItem())
+          DrawLineToItem(hits[0]);
+        else
+          DrawLineDownAnchor();
+
+        yield return null;
+      }
     }
 
     private void DrawLineToItem(RaycastHit2D hit)
@@ -103,12 +135,7 @@ namespace Features.UI.Windows.StealWindow.Scripts
       lineRendererPositions[1] = to;
     }
 
-    private void OnWentLeftPosition() => 
-      currentDirection = 1;
-
-    private void OnWentRightPosition() => 
-      currentDirection = -1;
-    
+    private void SwitchDirection() => 
+      currentDirection *= -1;
   }
-  
 }

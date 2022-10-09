@@ -1,5 +1,6 @@
 ﻿using System;
 using Features.Extensions;
+using UniRx;
 using UnityEngine;
 
 namespace Features.UI.Windows.StealWindow.Scripts
@@ -13,6 +14,8 @@ namespace Features.UI.Windows.StealWindow.Scripts
 
     public event Action WentLeft;
     public event Action WentRight;
+
+    public readonly ReactiveCommand SwitchDirection = new ReactiveCommand();
 
     public StealTailMover(Vector3 leftPoint, Vector3 rightPoint, float height, Transform downAnchor)
     {
@@ -32,10 +35,10 @@ namespace Features.UI.Windows.StealWindow.Scripts
         NotifyAboutWentRight();
     }
 
-    private void NotifyAboutWentLeft() => 
-      WentLeft?.Invoke();
+    private void NotifyAboutWentLeft() =>
+      SwitchDirection.Execute();
 
     private void NotifyAboutWentRight() => 
-      WentRight?.Invoke();
+      SwitchDirection.Execute();
   }
 }

@@ -5,6 +5,7 @@ using Features.Services.UI.Factory;
 using Features.StaticData.Customers;
 using Features.StaticData.StealItems;
 using Features.StaticData.Windows;
+using Features.StealItems.Scripts;
 using Features.UI.Windows.StealWindow.Scripts;
 using UnityEngine;
 
@@ -43,10 +44,13 @@ namespace Features.Services.StaticData
         ? staticData 
         : null;
 
-    public GameObject StealEntity(StealItemType type) => 
-      itemsStaticData.StealEntities[type];
+    public StealItem StealItem() => 
+      itemsStaticData.StealItem;
 
-    public GameObject MovingObject() => 
+    public Sprite StealItemView(StealItemType type) => 
+      itemsStaticData.StealItemsView[type];
+
+    public MovingBlock MovingObject() => 
       itemsStaticData.MovingEntity;
   }
 }

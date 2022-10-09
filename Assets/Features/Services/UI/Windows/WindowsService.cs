@@ -41,6 +41,14 @@ namespace Features.Services.UI.Windows
       windows[windowId].Destroy();
     }
 
+    public BaseWindow Window(WindowId windowId)
+    {
+      if (windows.ContainsKey(windowId) == false)
+        return null;
+
+      return windows[windowId];
+    }
+
     private void CreateWindow(WindowId windowId) => 
       uiFactory.CreateWindow(windowId, this);
 

@@ -1,5 +1,6 @@
 ﻿using Features.Services.Assets;
 using Features.Services.StaticData;
+using Features.StealItems.Scripts;
 using UnityEngine;
 using Zenject;
 
@@ -17,14 +18,18 @@ namespace Features.UI.Windows.StealWindow.Scripts
       this.staticDataService = staticDataService;
     }
     
-    public void SpawnEntity(StealItemType type, Transform parent)
+    public StealItem SpawnEntity(StealItemType type, Transform parent)
     {
-      assetProvider.Instantiate(staticDataService.StealEntity(type), parent);
+      StealItem item = assetProvider.Instantiate(staticDataService.StealItem(), parent);
+      item.Initialize(type, staticDataService.StealItemView(type));
+      return item;
     }
 
-    public void SpawnMovingBlock(Transform parent)
+    public void SpawnMovingBlock(Transform parent, Transform leftPoint, Transform rightPoint)
     {
-      assetProvider.Instantiate(staticDataService.MovingObject(), parent);
+      MovingBlock movingBlock = assetProvider.Instantiate(staticDataService.MovingObject(), parent);
+      movingBlock.Initialize(leftPoint, rightPoint);
+      movingBlock.StartMove();
     }
   }
 }
