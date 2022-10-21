@@ -1,7 +1,6 @@
 ﻿using Features.LevelArea.Scripts.ChangingArea;
 using Features.LevelArea.Scripts.PointsOfInterest;
 using Features.StaticData.LevelArea;
-using Features.UI.Windows.StealWindow.Scripts;
 using UnityEngine;
 using Zenject;
 
@@ -16,7 +15,6 @@ namespace Features.Bootstrapp
       BindLevelBoundsMarkerFactory();
       BindLevelBoundsObserver();
       BindLevelPointsOfInterestObserver();
-      BindStealFactory();
     }
 
     private void BindLevelBoundsMarkerFactory() => 
@@ -24,9 +22,6 @@ namespace Features.Bootstrapp
 
     private void BindLevelBoundsObserver() => 
       Container.Bind<LevelBoundsObserver>().To<LevelBoundsObserver>().FromNew().AsSingle().WithArguments(levelStaticData.AreaBounds);
-    
-    private void BindStealFactory() => 
-      Container.Bind<StealItemFactory>().To<StealItemFactory>().FromNew().AsSingle();
 
     private void BindLevelPointsOfInterestObserver() =>
       Container

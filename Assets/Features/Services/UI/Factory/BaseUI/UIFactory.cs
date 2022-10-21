@@ -8,6 +8,7 @@ using Features.StaticData.Windows;
 using Features.UI.Windows.Base;
 using Features.UI.Windows.GameMenu;
 using Features.UI.Windows.MainMenu;
+using Features.UI.Windows.StealWindow.Scripts;
 using UnityEngine;
 using Zenject;
 
@@ -18,6 +19,7 @@ namespace Features.Services.UI.Factory.BaseUI
     private readonly IGameStateMachine gameStateMachine;
     private readonly IAssetProvider assets;
     private readonly IStaticDataService staticData;
+    private readonly StealItemFactory stealItemFactory;
 
     private Transform uiRoot;
 
@@ -27,11 +29,12 @@ namespace Features.Services.UI.Factory.BaseUI
     public bool IsCleanedUp { get; private set; }
     
     [Inject]
-    public UIFactory(IGameStateMachine gameStateMachine, IAssetProvider assets, IStaticDataService staticData)
+    public UIFactory(IGameStateMachine gameStateMachine, IAssetProvider assets, IStaticDataService staticData, StealItemFactory stealItemFactory)
     {
       this.gameStateMachine = gameStateMachine;
       this.assets = assets;
       this.staticData = staticData;
+      this.stealItemFactory = stealItemFactory;
     }
     
     public void Cleanup()
@@ -55,6 +58,9 @@ namespace Features.Services.UI.Factory.BaseUI
         case WindowId.LevelMenu:
           CreateLevelMenu(config);
           break;
+        case WindowId.StealWindow:
+          CreateStealWindow(config, stealItemFactory);
+          break;
         default:
           CreateWindow(config, id);
           break;
@@ -74,9 +80,11 @@ namespace Features.Services.UI.Factory.BaseUI
       NotifyAboutCreateWindow(config.ID, window);
     }
 
-    private void CreateStealWindow(WindowInstantiateData config)
+    private void CreateStealWindow(WindowInstantiateData config, StealItemFactory itemFactory)
     {
-      
+      BaseWindow window = InstantiateWindow(config, uiRoot);
+      ((UIStealWindow)window).Construct(itemFactory);
+      NotifyAboutCreateWindow(config.ID, window);
     }
 
     private void CreateUIRoot()

@@ -21,6 +21,12 @@ namespace Features.Customers.Scripts.Alertness
       displayer.Construct(alertness);
     }
 
+    public void AddAttention(int count) => 
+      alertness.AddAttention(count);
+
+    public void Warn() => 
+      alertness.Warn();
+
     public void StartPayingAttention()
     {
       alertness.StartPayingAttention();
@@ -44,7 +50,7 @@ namespace Features.Customers.Scripts.Alertness
 
     public void HideWaryTip() => 
       tipsDisplayer.HideWaryTip();
-    
+
     public void ShowAlertnessTip() => 
       tipsDisplayer.ShowAlertness();
 

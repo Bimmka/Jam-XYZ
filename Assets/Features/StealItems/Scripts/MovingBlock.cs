@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 using UnityEngine;
 
 namespace Features.StealItems.Scripts
@@ -9,12 +10,17 @@ namespace Features.StealItems.Scripts
     
     private Transform leftPoint;
     private Transform rightPoint;
+
+    private Tweener moveTweener;
     
     public void Initialize(Transform leftPoint, Transform rightPoint)
     {
       this.rightPoint = rightPoint;
       this.leftPoint = leftPoint;
     }
+
+    private void OnDestroy() => 
+      moveTweener.Kill();
 
     public void StartMove()
     {
@@ -25,10 +31,10 @@ namespace Features.StealItems.Scripts
     }
 
     private void MoveToRightPoint() => 
-      transform.DOMove(rightPoint.position, moveDuration).SetEase(Ease.Linear).OnComplete(MoveToLeftPoint);
+      moveTweener = transform.DOMove(rightPoint.position, moveDuration).SetEase(Ease.Linear).OnComplete(MoveToLeftPoint);
 
     private void MoveToLeftPoint() => 
-      transform.DOMove(leftPoint.position, moveDuration).SetEase(Ease.Linear).OnComplete(MoveToRightPoint);
+      moveTweener = transform.DOMove(leftPoint.position, moveDuration).SetEase(Ease.Linear).OnComplete(MoveToRightPoint);
 
     private bool IsLeftPointNear()
     {

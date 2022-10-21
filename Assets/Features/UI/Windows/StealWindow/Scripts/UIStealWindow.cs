@@ -1,6 +1,7 @@
+using System;
 using System.Collections;
 using Features.Extensions;
-using Features.Services.Input;
+using Features.StealItems.Scripts;
 using Features.UI.Custom.LineRenderer;
 using Features.UI.Windows.Base;
 using Features.UI.Windows.StealWindow.StealFillPatterns;
@@ -23,33 +24,47 @@ namespace Features.UI.Windows.StealWindow.Scripts
     [SerializeField] private StealWindowSettings settings;
 
     private readonly RaycastHit2D[] hits = new RaycastHit2D[1];
-    private readonly Vector2[] lineRendererPositions = new Vector2[2];
+
     private readonly CompositeDisposable disposable = new CompositeDisposable();
     
     private StealTailMover stealTailMover;
     private StealWindowItemFiller itemFiller;
+    private TailLineDrawer lineDrawer;
 
     private Timer timer;
 
     private int currentDirection = 1;
     private float currentTime;
 
+    private Coroutine moveTailCoroutine;
+
+    private event Action<int> onHitGold;
+    private event Action onHitRing;
+    private event Action onMissed;
+    private event Action onTimeOut;
+
     [Inject]
     public void Construct(StealItemFactory stealItemFactory)
     {
       itemFiller = new StealWindowItemFiller(stealItemFactory, spawnPositions, settings.MinCoinsCount);
+      lineDrawer = new TailLineDrawer(tail, downAnchor, lineRenderer);
     }
 
-    public void Initialize(float maxTime)
+    public void Initialize(float maxTime, Action<int> onHitGold, Action onHitRing, Action onMissed, Action onTimeOut)
     {
       timer = new Timer(maxTime);
       timer.TimeOut.Subscribe(onNext => OnTimeOut()).AddTo(disposable);
+      this.onHitGold = onHitGold;
+      this.onHitRing = onHitRing;
+      this.onMissed = onMissed;
+      this.onTimeOut = onTimeOut;
     }
 
     public override void Open()
     {
+      SpawnObjects();
       base.Open();
-      StartCoroutine(MoveTail());
+      moveTailCoroutine = StartCoroutine(MoveTail());
     }
 
     protected override void Initialize()
@@ -59,8 +74,6 @@ namespace Features.UI.Windows.StealWindow.Scripts
         (leftPoint.localPosition - minDownPoint.localPosition).y, downAnchor);
       
       stealTailMover.SwitchDirection.Subscribe(onNext => SwitchDirection()) .AddTo(disposable);
-
-      SpawnObjects();
     }
 
     protected override void Cleanup()
@@ -71,12 +84,31 @@ namespace Features.UI.Windows.StealWindow.Scripts
 
     public void Catch()
     {
+      StopCoroutine(moveTailCoroutine);
+      if (IsHitItem())
+      {
+        if (IsHitGold())
+          NotifyAboutHitGold();
+        else
+          NotifyAboutHitRing();
+      }
+      else
+        NotifyAboutMiss();
       
+      Destroy();
+    }
+
+    private bool IsHitGold()
+    {
+      StealItem coin = hits[0].collider.GetComponent<StealItem>();
+      return coin.Type != StealItemType.Ring;
     }
 
     private void OnTimeOut()
     {
-      
+      StopCoroutine(moveTailCoroutine);
+      NotifyAboutTimeOut();
+      Destroy();
     }
 
     private void SpawnObjects()
@@ -101,24 +133,12 @@ namespace Features.UI.Windows.StealWindow.Scripts
         tail.eulerAngles = Vector3.forward * angle;
 
         if (IsHitItem())
-          DrawLineToItem(hits[0]);
+          lineDrawer.DrawLineToItem(transform.InverseTransformPoint(hits[0].point));
         else
-          DrawLineDownAnchor();
+          lineDrawer.DrawLineDownAnchor();
 
         yield return null;
       }
-    }
-
-    private void DrawLineToItem(RaycastHit2D hit)
-    {
-      SetLineRendererPositions(tail.localPosition, transform.InverseTransformPoint(hit.point));
-      lineRenderer.SetPoints(lineRendererPositions);
-    }
-
-    private void DrawLineDownAnchor()
-    {
-      SetLineRendererPositions(tail.localPosition, downAnchor.localPosition);
-      lineRenderer.SetPoints(lineRendererPositions);
     }
 
     private bool IsHitItem()
@@ -129,13 +149,22 @@ namespace Features.UI.Windows.StealWindow.Scripts
       return Physics2D.RaycastNonAlloc(tail.position, direction, hits, distance, settings.ItemsLayer) > 0;
     }
 
-    private void SetLineRendererPositions(Vector2 at, Vector2 to)
-    {
-      lineRendererPositions[0] = at;
-      lineRendererPositions[1] = to;
-    }
-
     private void SwitchDirection() => 
       currentDirection *= -1;
+
+    private void NotifyAboutHitGold()
+    {
+      StealItem coin = hits[0].collider.GetComponent<StealItem>();
+      onHitGold?.Invoke(coin.Type == StealItemType.GoldCoin ? 10 : 5);
+    }
+
+    private void NotifyAboutHitRing() => 
+      onHitRing?.Invoke();
+
+    private void NotifyAboutMiss() => 
+      onMissed?.Invoke();
+
+    private void NotifyAboutTimeOut() => 
+      onTimeOut?.Invoke();
   }
 }

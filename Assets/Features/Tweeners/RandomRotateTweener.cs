@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -22,6 +23,11 @@ namespace Features.Tweeners
     {
       currentRotateStep = Random.Range(rotateStepRange.x, rotateStepRange.y);
       currentRotateDuration = Random.Range(rotateDurationRange.x, rotateDurationRange.y);
+    }
+
+    private void OnDestroy()
+    {
+      
     }
 
     public void StartRotate()

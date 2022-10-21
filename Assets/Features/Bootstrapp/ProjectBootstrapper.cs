@@ -6,6 +6,7 @@ using Features.Services.Coroutine;
 using Features.Services.StaticData;
 using Features.Services.UI.Factory.BaseUI;
 using Features.Services.UI.Windows;
+using Features.UI.Windows.StealWindow.Scripts;
 using UnityEngine;
 using Zenject;
 
@@ -26,6 +27,7 @@ namespace Features.Bootstrapp
       BindWindowsService();
       BindUIFactory();
       BindStateMachine();
+      BindStealFactory();
     }
 
     private void BindAssetProvider() => 
@@ -61,5 +63,8 @@ namespace Features.Bootstrapp
       Container.Bind<IGameStateMachine>().To<GameStateMachine>().FromNew().AsSingle();
       Container.Bind<Game>().To<Game>().FromNew().AsSingle();
     }
+    
+    private void BindStealFactory() => 
+      Container.Bind<StealItemFactory>().To<StealItemFactory>().FromNew().AsSingle();
   }
 }

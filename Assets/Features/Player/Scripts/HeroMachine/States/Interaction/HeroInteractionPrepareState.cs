@@ -87,6 +87,7 @@ namespace Features.Player.Scripts.HeroMachine.States.Interaction
       ChangeState<HeroIdleState>();
       npcSearcher.StartSearch();
       stolenNPC.ShowWaryTip();
+      stolenNPC.StopPayingAttention();
     }
 
     protected override void ApplyMoveCommand(InputCommandVector command, float deltaTime)

@@ -1,5 +1,4 @@
-﻿using System;
-using Features.Extensions;
+﻿using Features.Extensions;
 using UniRx;
 using UnityEngine;
 
@@ -11,9 +10,6 @@ namespace Features.UI.Windows.StealWindow.Scripts
     private readonly Vector3 rightPoint;
     private readonly float height;
     private readonly Transform downAnchor;
-
-    public event Action WentLeft;
-    public event Action WentRight;
 
     public readonly ReactiveCommand SwitchDirection = new ReactiveCommand();
 

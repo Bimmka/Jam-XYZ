@@ -1,5 +1,4 @@
-﻿using System;
-using Features.UI.Windows.StealWindow.Scripts;
+﻿using Features.UI.Windows.StealWindow.Scripts;
 using UnityEngine;
 
 namespace Features.StealItems.Scripts
@@ -23,8 +22,7 @@ namespace Features.StealItems.Scripts
 
     private void OnDestroy()
     {
-      if (gameObject.activeSelf)
-        Hide();
+      Hide();
     }
 
     public void Hide()
