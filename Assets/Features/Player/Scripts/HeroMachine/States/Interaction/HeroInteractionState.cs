@@ -7,16 +7,19 @@ using Features.Player.Scripts.Steal;
 using Features.Services.Input;
 using Features.Services.UI.Factory;
 using Features.Services.UI.Windows;
+using Features.StaticData.StealItems;
 using Features.UI.Windows.StealWindow.Scripts;
+using UniRx;
+using UnityEngine.InputSystem.Utilities;
 
 namespace Features.Player.Scripts.HeroMachine.States.Interaction
 {
   public class HeroInteractionState : HeroStateMachineState
   {
     private readonly HeroNPCSearcher npcSearcher;
-    private readonly HeroStealPreparing stealPreparing;
     private readonly IWindowsService windowsService;
     private readonly HeroGold heroGold;
+    private readonly StealItemCostStaticData costStaticData;
 
     private NPCAlertnessObserver npc;
 
@@ -24,20 +27,34 @@ namespace Features.Player.Scripts.HeroMachine.States.Interaction
 
     private bool isCatching;
 
+    private float stealTime;
+
     public HeroInteractionState(HeroStateMachineObserver hero, ChangeableParametersAnimator animator, HeroNPCSearcher npcSearcher, 
-      HeroStealPreparing stealPreparing, IWindowsService windowsService, HeroGold heroGold) : base(hero, animator)
+     IWindowsService windowsService, HeroGold heroGold, StealItemCostStaticData costStaticData) : base(hero, animator)
     {
       this.npcSearcher = npcSearcher;
-      this.stealPreparing = stealPreparing;
       this.windowsService = windowsService;
       this.heroGold = heroGold;
+      this.costStaticData = costStaticData;
     }
 
     public override void Enter()
     {
       base.Enter();
       InitializeStealWindow();
-      stealPreparing.ResetPreparing();
+    }
+    
+    public override void Update(ReadOnlyArray<IInputCommand> commands, int commandsCount, float deltaTime)
+    {
+      base.Update(commands, commandsCount, deltaTime);
+      
+      if (commandsCount == 0)
+        return;
+      
+      for (int i = 0; i < commandsCount; i++)
+      {
+        ApplyCommand(commands[i], deltaTime);
+      }
     }
 
     public override void Exit()
@@ -47,8 +64,9 @@ namespace Features.Player.Scripts.HeroMachine.States.Interaction
       npcSearcher.StartSearch();
     }
 
-    public void SaveStolenNPC(NPCAlertnessObserver stolenNPC)
+    public void Initialize(NPCAlertnessObserver stolenNPC, float stealTime)
     {
+      this.stealTime = stealTime;
       npc = stolenNPC;
     }
 
@@ -66,13 +84,16 @@ namespace Features.Player.Scripts.HeroMachine.States.Interaction
     {
       windowsService.Open(WindowId.StealWindow);
       stealWindow = (UIStealWindow) windowsService.Window(WindowId.StealWindow);
-      stealWindow.Initialize(stealPreparing.PrepareAmount.Value, OnHitGold, OnHitRing, OnMiss, OnTimeOut);
+      stealWindow.Initialize(stealTime, OnHitGold, OnHitRing, OnMiss, OnTimeOut);
     }
 
     private void OnHitRing()
     {
       npc.ChangeStealableState(false);
-      npc.AddAttention(10);
+      npc.AddAttention(costStaticData.Cost(StealItemType.Ring));
+      if (npc.IsWary == false)
+        RobeNPC();
+      
       ChangeState<HeroIdleState>();
     }
 
@@ -83,10 +104,10 @@ namespace Features.Player.Scripts.HeroMachine.States.Interaction
       ChangeState<HeroIdleState>();
     }
 
-    private void OnHitGold(int count)
+    private void OnHitGold(StealItemType type)
     {
       RobeNPC();
-      AddGold(count);
+      AddGold(costStaticData.Cost(type));
       ChangeState<HeroIdleState>();
     }
 

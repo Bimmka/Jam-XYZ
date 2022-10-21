@@ -1,5 +1,4 @@
-﻿using System;
-using Features.Alarm;
+﻿using Features.Alarm;
 using Features.Animation;
 using Features.Player.Scripts.Gold;
 using Features.Player.Scripts.HeroMachine;
@@ -15,6 +14,7 @@ using Features.StaticData.Hero.AnimationTransitions;
 using Features.StaticData.Hero.Move;
 using Features.StaticData.Hero.NPCSearching;
 using Features.StaticData.Hero.Rotate;
+using Features.StaticData.StealItems;
 using UnityEngine;
 using Zenject;
 
@@ -34,6 +34,7 @@ namespace Features.Player.Scripts.Base
     [SerializeField] private HeroMoveStaticData heroMoveData;
     [SerializeField] private HeroInteractionSearchMarker startSearchPoint;
     [SerializeField] private HeroNPCSearchingStaticData searchingData;
+    [SerializeField] private StealItemCostStaticData costStaticData;
     [SerializeField] private Rigidbody2D body;
 
     [Inject]
@@ -45,7 +46,7 @@ namespace Features.Player.Scripts.Base
       HeroNPCSearcher heroNpcSearcher = new HeroNPCSearcher(startSearchPoint, searchingData, coroutineRunner);
 
       HeroStatesContainer container = new HeroStatesContainer(stateMachine, move, animator, animationsTransition, 
-        heroNpcSearcher, stealPreparing, windowsService, heroGold, alarm);
+        heroNpcSearcher, stealPreparing, windowsService, heroGold, alarm, costStaticData);
 
       stateMachine.Construct(container);
       stateMachine.Subscribe();

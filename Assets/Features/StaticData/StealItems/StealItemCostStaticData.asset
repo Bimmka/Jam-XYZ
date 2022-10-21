@@ -9,8 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad0ae279ee18447fbd24c0ca0c57c856, type: 3}
-  m_Name: HeroStealingStaticData
+  m_Script: {fileID: 11500000, guid: a01b672c6ac0e534a82eddb9b42fc054, type: 3}
+  m_Name: StealItemCostStaticData
   m_EditorClassIdentifier: 
-  PreparePerSecond: 5
-  MaxPrepareCount: 20
+  Costs:
+  - Type: 0
+    Cost: 10
+  - Type: 1
+    Cost: 5
+  - Type: 2
+    Cost: 20

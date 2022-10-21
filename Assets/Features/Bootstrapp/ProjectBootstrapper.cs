@@ -27,7 +27,6 @@ namespace Features.Bootstrapp
       BindWindowsService();
       BindUIFactory();
       BindStateMachine();
-      BindStealFactory();
     }
 
     private void BindAssetProvider() => 
@@ -63,8 +62,5 @@ namespace Features.Bootstrapp
       Container.Bind<IGameStateMachine>().To<GameStateMachine>().FromNew().AsSingle();
       Container.Bind<Game>().To<Game>().FromNew().AsSingle();
     }
-    
-    private void BindStealFactory() => 
-      Container.Bind<StealItemFactory>().To<StealItemFactory>().FromNew().AsSingle();
   }
 }

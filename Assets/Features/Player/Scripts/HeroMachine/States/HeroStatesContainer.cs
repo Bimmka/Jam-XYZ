@@ -10,6 +10,7 @@ using Features.Player.Scripts.Steal;
 using Features.Services.UI.Windows;
 using Features.StateMachines;
 using Features.StaticData.Hero.AnimationTransitions;
+using Features.StaticData.StealItems;
 using Zenject;
 
 namespace Features.Player.Scripts.HeroMachine.States
@@ -26,12 +27,13 @@ namespace Features.Player.Scripts.HeroMachine.States
     private readonly HeroStealPreparing stealPreparing;
     private readonly IWindowsService windowsService;
     private readonly HeroGold heroGold;
-    private NPCAlarm alarm;
+    private readonly NPCAlarm alarm;
+    private readonly StealItemCostStaticData costStaticData;
 
     [Inject]
     public HeroStatesContainer(HeroStateMachineObserver hero, HeroMove move, ChangeableParametersAnimator animator,
       HeroAnimationsTransitionStaticData transitionStaticData, HeroNPCSearcher npcSearcher, HeroStealPreparing stealPreparing,
-      IWindowsService windowsService, HeroGold heroGold, NPCAlarm alarm)
+      IWindowsService windowsService, HeroGold heroGold, NPCAlarm alarm, StealItemCostStaticData costStaticData)
     {
       this.hero = hero;
       this.move = move;
@@ -42,6 +44,7 @@ namespace Features.Player.Scripts.HeroMachine.States
       this.windowsService = windowsService;
       this.heroGold = heroGold;
       this.alarm = alarm;
+      this.costStaticData = costStaticData;
 
       states = new Dictionary<Type, BaseStateMachineState>(20);
     }
@@ -84,7 +87,7 @@ namespace Features.Player.Scripts.HeroMachine.States
     
     private void CreateInteractionState()
     {
-      HeroInteractionState state = new HeroInteractionState(hero, animator, npcSearcher, stealPreparing, windowsService, heroGold);
+      HeroInteractionState state = new HeroInteractionState(hero, animator, npcSearcher, windowsService, heroGold, costStaticData);
       SaveState(state);
     }
 

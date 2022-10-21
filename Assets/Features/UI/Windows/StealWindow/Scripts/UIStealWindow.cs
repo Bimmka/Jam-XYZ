@@ -7,12 +7,13 @@ using Features.UI.Windows.Base;
 using Features.UI.Windows.StealWindow.StealFillPatterns;
 using UniRx;
 using UnityEngine;
-using Zenject;
 
 namespace Features.UI.Windows.StealWindow.Scripts
 {
+  [RequireComponent(typeof(TimerDisplayer))]
   public class UIStealWindow : BaseWindow
   {
+    [SerializeField] private TimerDisplayer timerDisplayer;
     [SerializeField] private StealWindowCell[] spawnPositions;
     [SerializeField] private Transform leftPoint;
     [SerializeField] private Transform rightPoint;
@@ -38,22 +39,23 @@ namespace Features.UI.Windows.StealWindow.Scripts
 
     private Coroutine moveTailCoroutine;
 
-    private event Action<int> onHitGold;
+    private event Action<StealItemType> onHitGold;
     private event Action onHitRing;
     private event Action onMissed;
     private event Action onTimeOut;
-
-    [Inject]
+    
     public void Construct(StealItemFactory stealItemFactory)
     {
       itemFiller = new StealWindowItemFiller(stealItemFactory, spawnPositions, settings.MinCoinsCount);
       lineDrawer = new TailLineDrawer(tail, downAnchor, lineRenderer);
     }
 
-    public void Initialize(float maxTime, Action<int> onHitGold, Action onHitRing, Action onMissed, Action onTimeOut)
+    public void Initialize(float maxTime, Action<StealItemType> onHitGold, Action onHitRing, Action onMissed, Action onTimeOut)
     {
       timer = new Timer(maxTime);
       timer.TimeOut.Subscribe(onNext => OnTimeOut()).AddTo(disposable);
+      timerDisplayer.Construct(timer);
+      timerDisplayer.StartObserve();
       this.onHitGold = onHitGold;
       this.onHitRing = onHitRing;
       this.onMissed = onMissed;
@@ -80,6 +82,7 @@ namespace Features.UI.Windows.StealWindow.Scripts
     {
       base.Cleanup();
       disposable.Clear();
+      timerDisplayer.StopObserve();
     }
 
     public void Catch()
@@ -155,7 +158,7 @@ namespace Features.UI.Windows.StealWindow.Scripts
     private void NotifyAboutHitGold()
     {
       StealItem coin = hits[0].collider.GetComponent<StealItem>();
-      onHitGold?.Invoke(coin.Type == StealItemType.GoldCoin ? 10 : 5);
+      onHitGold?.Invoke(coin.Type);
     }
 
     private void NotifyAboutHitRing() => 

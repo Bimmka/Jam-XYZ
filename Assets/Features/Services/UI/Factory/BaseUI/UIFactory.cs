@@ -6,7 +6,6 @@ using Features.Services.StaticData;
 using Features.Services.UI.Windows;
 using Features.StaticData.Windows;
 using Features.UI.Windows.Base;
-using Features.UI.Windows.GameMenu;
 using Features.UI.Windows.MainMenu;
 using Features.UI.Windows.StealWindow.Scripts;
 using UnityEngine;
@@ -19,7 +18,6 @@ namespace Features.Services.UI.Factory.BaseUI
     private readonly IGameStateMachine gameStateMachine;
     private readonly IAssetProvider assets;
     private readonly IStaticDataService staticData;
-    private readonly StealItemFactory stealItemFactory;
 
     private Transform uiRoot;
 
@@ -29,12 +27,11 @@ namespace Features.Services.UI.Factory.BaseUI
     public bool IsCleanedUp { get; private set; }
     
     [Inject]
-    public UIFactory(IGameStateMachine gameStateMachine, IAssetProvider assets, IStaticDataService staticData, StealItemFactory stealItemFactory)
+    public UIFactory(IGameStateMachine gameStateMachine, IAssetProvider assets, IStaticDataService staticData)
     {
       this.gameStateMachine = gameStateMachine;
       this.assets = assets;
       this.staticData = staticData;
-      this.stealItemFactory = stealItemFactory;
     }
     
     public void Cleanup()
@@ -59,7 +56,7 @@ namespace Features.Services.UI.Factory.BaseUI
           CreateLevelMenu(config);
           break;
         case WindowId.StealWindow:
-          CreateStealWindow(config, stealItemFactory);
+          CreateStealWindow(config, assets, staticData);
           break;
         default:
           CreateWindow(config, id);
@@ -80,8 +77,9 @@ namespace Features.Services.UI.Factory.BaseUI
       NotifyAboutCreateWindow(config.ID, window);
     }
 
-    private void CreateStealWindow(WindowInstantiateData config, StealItemFactory itemFactory)
+    private void CreateStealWindow(WindowInstantiateData config,IAssetProvider assetProvider, IStaticDataService staticDataService)
     {
+      StealItemFactory itemFactory = new StealItemFactory(assetProvider, staticDataService);
       BaseWindow window = InstantiateWindow(config, uiRoot);
       ((UIStealWindow)window).Construct(itemFactory);
       NotifyAboutCreateWindow(config.ID, window);
