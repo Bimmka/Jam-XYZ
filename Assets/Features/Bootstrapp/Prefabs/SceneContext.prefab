@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3643306545859568301}
   - component: {fileID: 3738105026426257609}
   - component: {fileID: 1620561727263635942}
+  - component: {fileID: 7696333127347590942}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -52,6 +53,7 @@ MonoBehaviour:
   - {fileID: 3643306545859568301}
   - {fileID: 3738105026426257609}
   - {fileID: 1620561727263635942}
+  - {fileID: 7696333127347590942}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -119,3 +121,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelStaticData: {fileID: 11400000, guid: 8b50be8edc5c5fc40a4bfeefc041568b, type: 2}
+--- !u!114 &7696333127347590942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 161408573848766048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8a43deebb884d818d8436ce99c33643, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelStaticData: {fileID: 11400000, guid: 8b50be8edc5c5fc40a4bfeefc041568b, type: 2}
+  policeSpawnParent: {fileID: 0}

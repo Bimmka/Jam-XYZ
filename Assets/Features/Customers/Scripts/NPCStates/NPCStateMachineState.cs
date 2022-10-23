@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Features.Customers.Scripts.NPCStates
 {
-  public abstract class NPCStateMachineState : BaseStateMachineState
+  public abstract class NPCStateMachineState : BaseStateMachineState, IUpdatableState
   {
     protected readonly NPCStateMachineObserver npc;
     private readonly SimpleAnimator animator;

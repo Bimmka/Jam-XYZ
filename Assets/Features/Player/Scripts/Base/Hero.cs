@@ -1,4 +1,5 @@
-﻿using Features.Alarm;
+﻿using System;
+using Features.Alarm;
 using Features.Animation;
 using Features.Player.Scripts.Gold;
 using Features.Player.Scripts.HeroMachine;
@@ -27,7 +28,7 @@ namespace Features.Player.Scripts.Base
   {
     [SerializeField] private HeroInput input;
     [SerializeField] private HeroStateMachineObserver stateMachine;
-    [SerializeField] private HeroStealDisplayer stealDisplayer;
+    [SerializeField] private HeroStealObserver stealObserver;
     [SerializeField] private HeroAnimationsTransitionStaticData animationsTransition;
     [SerializeField] private ChangeableParametersAnimator animator;
     [SerializeField] private HeroRotateStaticData rotateData;
@@ -38,8 +39,8 @@ namespace Features.Player.Scripts.Base
     [SerializeField] private Rigidbody2D body;
 
     [Inject]
-    public void Construct(HeroStealPreparing stealPreparing, IWindowsService windowsService, ICoroutineRunner coroutineRunner, HeroGold heroGold,
-      NPCAlarm alarm)
+    public void Construct(HeroStealPreparing stealPreparing, IWindowsService windowsService, ICoroutineRunner coroutineRunner,
+      HeroGold heroGold, NPCAlarm alarm)
     {
       HeroRotate heroRotate = new HeroRotate(transform, rotateData);
       HeroMove move = new HeroMove(transform, heroMoveData, heroRotate, body);
@@ -63,7 +64,7 @@ namespace Features.Player.Scripts.Base
     private void OnDestroy()
     {
       stateMachine.Cleanup();
-      stealDisplayer.Cleanup();
+      stealObserver.Cleanup();
       input.Cleanup();
     }
 

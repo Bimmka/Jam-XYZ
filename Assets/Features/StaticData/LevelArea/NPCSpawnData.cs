@@ -9,7 +9,7 @@ namespace Features.StaticData.LevelArea
   {
     public NPCType Type;
     public Vector3 SpawnPosition;
-    public Transform LookAtTarget;
+    public Vector3 LookAtTarget;
     public LevelAreaType Area;
   }
 }

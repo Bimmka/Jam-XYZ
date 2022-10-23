@@ -13,5 +13,7 @@ namespace Features.StaticData.LevelArea
 
     public NPCSpawnData[] NPCs;
     public AreaExitPosition[] Exits;
+
+    public PoliceLevelData[] Polices;
   }
 }

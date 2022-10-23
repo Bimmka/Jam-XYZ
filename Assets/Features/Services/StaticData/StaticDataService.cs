@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Features.Constants;
+using Features.Police.Data;
 using Features.Services.UI.Factory;
 using Features.StaticData.Customers;
 using Features.StaticData.StealItems;
@@ -15,6 +16,7 @@ namespace Features.Services.StaticData
   {
     private Dictionary<WindowId, WindowInstantiateData> windows;
     private Dictionary<NPCType, NPCSettings> npcs;
+    private PolicesContainerSettings policesContainerSettings;
     private StealItemsStaticData itemsStaticData;
     
     
@@ -30,6 +32,8 @@ namespace Features.Services.StaticData
         .ToDictionary(x => x.Type, x => x);
 
       itemsStaticData = Resources.Load<StealItemsStaticData>(GameConstants.StealItemStaticData);
+
+      policesContainerSettings = Resources.Load<PolicesContainerSettings>(GameConstants.PoliceStaticData);
       
       Resources.UnloadUnusedAssets();
     }
@@ -52,5 +56,8 @@ namespace Features.Services.StaticData
 
     public MovingBlock MovingObject() => 
       itemsStaticData.MovingEntity;
+
+    public PoliceSettings ForPolice(PoliceType policeType) => 
+      policesContainerSettings.Settings[policeType];
   }
 }

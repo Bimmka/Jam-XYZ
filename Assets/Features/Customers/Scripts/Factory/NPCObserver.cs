@@ -44,7 +44,7 @@ namespace Features.Customers.Scripts.Factory
       npc.Robbed += OnRobbed;
     }
 
-    private void MoveToStartPosition(NPC npc, Transform target)
+    private void MoveToStartPosition(NPC npc, Vector3 target)
     {
       npc.GetComponent<NPCStateMachineObserver>().GoToStartPoint(target);  
     }

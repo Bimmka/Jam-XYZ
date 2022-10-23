@@ -2,9 +2,9 @@
 
 namespace Features.Customers.Scripts.NPCStates
 {
-  public class NPCStateMachine : BaseStateMachine
+  public class UpdatableStateMachine : BaseStateMachine
   {
     public void UpdateState(float deltaTime) => 
-      ((NPCStateMachineState)State).UpdateState(deltaTime);
+      ((IUpdatableState)State).UpdateState(deltaTime);
   }
 }

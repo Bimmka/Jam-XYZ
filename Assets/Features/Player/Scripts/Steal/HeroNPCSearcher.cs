@@ -65,7 +65,8 @@ namespace Features.Player.Scripts.Steal
         RaycastNPC();
         RaycastObstacles();
 
-        if (IsHitNonBlockedNPC(npcHitCount, obstacleHitCount) && NPCAlertness(out NPCAlertnessObserver npcAlertness) && npcAlertness.IsStealabale)
+        if (IsHitNonBlockedNPC(npcHitCount, obstacleHitCount) && NPCAlertness(out NPCAlertnessObserver npcAlertness) && 
+            IsCanRobeNPC(npcAlertness))
         {
           if (IsSameNPC(npcAlertness) == false)
           {
@@ -120,6 +121,9 @@ namespace Features.Player.Scripts.Steal
 
     private bool NPCAlertness(out NPCAlertnessObserver npcAlertness) => 
       npcHits[0].collider.TryGetComponent(out npcAlertness);
+
+    private static bool IsCanRobeNPC(NPCAlertnessObserver npcAlertness) => 
+      npcAlertness.IsStealabale;
 
     private void RaycastObstacles() =>
       obstacleHitCount = Physics2D.RaycastNonAlloc(startSearchPoint.position, startSearchPoint.right,

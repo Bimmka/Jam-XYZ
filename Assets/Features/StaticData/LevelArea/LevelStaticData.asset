@@ -26,9 +26,21 @@ MonoBehaviour:
   NPCs:
   - Type: 0
     SpawnPosition: {x: 0, y: 0, z: 0}
-    LookAtTarget: {fileID: 0}
+    LookAtTarget: {x: 4.820669, y: -5.07969, z: -3.034815}
     Area: 0
   Exits:
   - Area: 0
     Positions:
     - {fileID: 0}
+  Polices:
+  - Type: 0
+    Area: 0
+    StartPosition: {x: 0, y: 0, z: 0}
+    PatrolPath:
+    - {x: 0, y: 1, z: 0}
+    - {x: 12, y: 5, z: 0}
+    - {x: 3, y: 20, z: 0}
+    SearchPath:
+    - {x: 20, y: 1, z: 0}
+    - {x: 0, y: 7, z: 0}
+    - {x: 3, y: 4, z: 0}

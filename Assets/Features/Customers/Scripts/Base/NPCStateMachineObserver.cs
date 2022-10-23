@@ -13,7 +13,7 @@ namespace Features.Customers.Scripts.Base
   {
     [SerializeField] private SimpleAnimator animator;
 
-    private NPCStateMachine stateMachine;
+    private UpdatableStateMachine stateMachine;
     private NPCStatesContainer statesContainer;
 
     private readonly CompositeDisposable disposable = new CompositeDisposable();
@@ -25,7 +25,7 @@ namespace Features.Customers.Scripts.Base
       NPCExistTimeObserver existTimeObserver)
     {
       statesContainer = container; 
-      stateMachine = new NPCStateMachine();
+      stateMachine = new UpdatableStateMachine();
 
       alertness.IsWary.Subscribe(OnWary).AddTo(disposable);
       existTimeObserver.IsNeedToExit.Subscribe(OnTimeOut).AddTo(disposable);
@@ -62,7 +62,7 @@ namespace Features.Customers.Scripts.Base
     public TState State<TState>() where TState : NPCStateMachineState => 
       statesContainer.GetState<TState>();
 
-    public void GoToStartPoint(Transform target)
+    public void GoToStartPoint(Vector3 target)
     {
       NPCMoveState state = State<NPCMoveState>();
       state.SaveFinishPosition(target);

@@ -1,4 +1,5 @@
-﻿using Features.Services.UI.Factory;
+﻿using Features.Police.Data;
+using Features.Services.UI.Factory;
 using Features.StaticData.Customers;
 using Features.StaticData.Windows;
 using Features.StealItems.Scripts;
@@ -15,5 +16,6 @@ namespace Features.Services.StaticData
     StealItem StealItem();
     Sprite StealItemView(StealItemType type);
     MovingBlock MovingObject();
+    PoliceSettings ForPolice(PoliceType policeType);
   }
 }

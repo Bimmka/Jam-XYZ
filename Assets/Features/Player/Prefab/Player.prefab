@@ -200,6 +200,7 @@ GameObject:
   - component: {fileID: 4251112836107113068}
   - component: {fileID: 8970566818633295405}
   - component: {fileID: -7438181793653244562}
+  - component: {fileID: 1963163105329173766}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -264,7 +265,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   input: {fileID: 3245492531973968368}
   stateMachine: {fileID: 3563240429521277347}
-  stealDisplayer: {fileID: 3280009460079880820}
+  stealObserver: {fileID: 1963163105329173766}
   animationsTransition: {fileID: 11400000, guid: f42cd3ea2a5c6b6499ff876bca87e41d, type: 2}
   animator: {fileID: 6633920431924252810}
   rotateData: {fileID: 11400000, guid: 4250ed205996575458c6999c1983eb95, type: 2}
@@ -333,6 +334,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checkCollider: {fileID: 8970566818633295405}
+--- !u!114 &1963163105329173766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7577999741390306657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 159008c10ed24506b9eed1a0e5e9eb0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayer: {fileID: 3280009460079880820}
 --- !u!1 &8137127148627623007
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ namespace Features.Customers.Scripts.NPCStates
     private readonly AIDestinationSetter destinationSetter;
     private readonly AIPath aiPath;
   
-    private Transform moveTarget;
+    private Vector3 moveTarget;
 
     public NPCMoveState(NPCStateMachineObserver npc, SimpleAnimator animator,string animationName, AIDestinationSetter destinationSetter, AIPath aiPath) 
       : base(npc, animator, animationName)
@@ -22,8 +22,9 @@ namespace Features.Customers.Scripts.NPCStates
     public override void Enter()
     {
       base.Enter();
-      destinationSetter.target = moveTarget;
+      aiPath.destination = moveTarget;
       aiPath.enabled = true;
+      aiPath.SearchPath();
     }
 
     public override void UpdateState(in float deltaTime)
@@ -37,12 +38,10 @@ namespace Features.Customers.Scripts.NPCStates
     public override void Exit()
     {
       base.Exit();
-      destinationSetter.target = null;
-      moveTarget = null;
       aiPath.enabled = false;
     }
 
-    public void SaveFinishPosition(Transform newTarget) => 
+    public void SaveFinishPosition(Vector3 newTarget) => 
       moveTarget = newTarget;
 
     private bool IsReachTarget() => 

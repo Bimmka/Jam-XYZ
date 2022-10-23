@@ -20,7 +20,7 @@ namespace Features.Player.Scripts.Steal
     {
       this.stealPreparing = stealPreparing;
 
-      stealPreparing.IsStealing.Subscribe(OnStealStateChange).AddTo(disposable);
+      stealPreparing.IsStealing.Subscribe(ChangeEnableState).AddTo(disposable);
       stealPreparing.PrepareAmount.Subscribe(DisplayPrepare).AddTo(disposable);
     }
 
@@ -29,7 +29,7 @@ namespace Features.Player.Scripts.Steal
       disposable.Clear();
     }
 
-    private void OnStealStateChange(bool isStealing) => 
+    public void ChangeEnableState(bool isStealing) => 
       canvasGroup.alpha = isStealing ? 1 : 0;
 
     private void DisplayPrepare(float amount) => 
