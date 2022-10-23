@@ -1,6 +1,7 @@
 ﻿using Features.Animation;
 using Features.Police.Scripts.Searching;
 using Pathfinding;
+using UnityEngine;
 
 namespace Features.Police.Scripts.PoliceStates.States
 {
@@ -8,12 +9,23 @@ namespace Features.Police.Scripts.PoliceStates.States
   {
     private readonly PoliceHeroSearcher searcher;
     private readonly AIPath aiPath;
+    private readonly float moveSpeed;
+
+    private Vector3 alarmPosition;
 
     public PoliceWarnedState(PoliceStateMachineObserver police, SimpleAnimator animator, string animationName,
-      PoliceHeroSearcher searcher, AIPath aiPath) : base(police, animator, animationName)
+      PoliceHeroSearcher searcher, AIPath aiPath, float moveSpeed) : base(police, animator, animationName)
     {
       this.searcher = searcher;
       this.aiPath = aiPath;
+      this.moveSpeed = moveSpeed;
+    }
+
+    public override void Enter()
+    {
+      base.Enter();
+      aiPath.maxSpeed = moveSpeed;
+      aiPath.destination = alarmPosition;
     }
 
     public override void UpdateState(in float deltaTime)
@@ -25,6 +37,9 @@ namespace Features.Police.Scripts.PoliceStates.States
       else if (IsReachNPC())
         AskNPC();
     }
+
+    public void SaveInvokePosition(Vector3 position) => 
+      alarmPosition = position;
 
     private void FollowPlayer() => 
       ChangeState<PoliceFollowState>();

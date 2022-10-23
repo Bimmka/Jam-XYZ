@@ -31,7 +31,7 @@ namespace Features.Customers.Scripts.Base
       existTimeObserver.IsNeedToExit.Subscribe(OnTimeOut).AddTo(disposable);
     }
 
-    public virtual void Subscribe()
+    public override void Subscribe()
     {
       base.Subscribe();
       animator.Triggered += OnAnimationTriggered;

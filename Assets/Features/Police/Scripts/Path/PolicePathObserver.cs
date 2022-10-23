@@ -24,5 +24,11 @@ namespace Features.Police.Scripts.Path
 
     public Vector3 SearchPosition() =>
       searchingPath.Position();
+
+    public void IncPatrolIndex() => 
+      patrolPath.IncIndex();
+    
+    public void IncSearchIndex() => 
+      searchingPath.IncIndex();
   }
 }

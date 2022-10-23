@@ -5,6 +5,7 @@ using Features.Player.Scripts.HeroMachine.States.Base;
 using Features.Player.Scripts.Steal;
 using Features.Services.Input;
 using Features.StaticData.Hero.AnimationTransitions;
+using Features.StaticData.LevelArea;
 using UniRx;
 using UnityEngine;
 using UnityEngine.InputSystem.Utilities;
@@ -81,7 +82,7 @@ namespace Features.Player.Scripts.HeroMachine.States.Interaction
       alarm.Invoked -= StopPrepareByAlarm;
     }
 
-    public void StopPrepareByAlarm()
+    public void StopPrepareByAlarm(LevelAreaType areaType, Vector3 position)
     {
       stealPreparing.ResetPreparing();
       ChangeState<HeroIdleState>();

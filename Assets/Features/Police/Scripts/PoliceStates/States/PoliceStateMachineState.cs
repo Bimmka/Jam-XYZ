@@ -1,10 +1,11 @@
 ﻿using Features.Animation;
+using Features.Customers.Scripts.NPCStates;
 using Features.StateMachines;
 using UnityEngine;
 
 namespace Features.Police.Scripts.PoliceStates.States
 {
-  public class PoliceStateMachineState : BaseStateMachineState
+  public class PoliceStateMachineState : BaseStateMachineState, IUpdatableState
   {
     protected readonly PoliceStateMachineObserver police;
     private readonly SimpleAnimator animator;
@@ -33,13 +34,13 @@ namespace Features.Police.Scripts.PoliceStates.States
       animator.SetBool(hashedAnimation, false);
     }
 
-    public void ChangeState<TState>() where TState : PoliceStateMachineState => 
+    protected void ChangeState<TState>() where TState : PoliceStateMachineState => 
       police.ChangeState<TState>();
-    
-    public TState State<TState>() where TState : PoliceStateMachineState => 
+
+    protected TState State<TState>() where TState : PoliceStateMachineState => 
       police.State<TState>();
-    
-    public void ChangeState<TState>(TState state) where TState : PoliceStateMachineState => 
+
+    protected void ChangeState<TState>(TState state) where TState : PoliceStateMachineState => 
       police.ChangeState(state);
   }
 }

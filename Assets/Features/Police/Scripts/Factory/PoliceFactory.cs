@@ -21,14 +21,15 @@ namespace Features.Police.Scripts.Factory
       this.spawnParent = spawnParent;
     }
 
-    public PoliceOfficer Spawn(PoliceLevelData policeLevelData)
+    public PoliceStateMachineObserver Spawn(PoliceLevelData policeLevelData)
     {
       PoliceSettings settings = staticDataService.ForPolice(policeLevelData.Type);
       PoliceOfficer officer = assetProvider.Instantiate(settings.Prefab, policeLevelData.StartPosition, Quaternion.identity, spawnParent);
       PolicePathObserver pathObserver = new PolicePathObserver(policeLevelData.PatrolPath, policeLevelData.SearchPath);
+      pathObserver.RecalculateNearestPatrolPosition(policeLevelData.StartPosition);
       officer.Construct(settings, pathObserver);
-
-      return officer;
+      
+      return officer.GetComponent<PoliceStateMachineObserver>();
     }
   }
 }

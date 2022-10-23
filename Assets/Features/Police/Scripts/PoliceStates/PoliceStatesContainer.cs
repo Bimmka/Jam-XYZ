@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Features.Animation;
+using Features.Police.Data;
 using Features.Police.Scripts.Path;
 using Features.Police.Scripts.PoliceStates.States;
 using Features.Police.Scripts.Searching;
@@ -17,10 +18,11 @@ namespace Features.Police.Scripts.PoliceStates
     private readonly AIPath aiPath;
     private readonly AIDestinationSetter destinationSetter;
     private readonly PolicePathObserver pathObserver;
+    private readonly PoliceSettings settings;
     private readonly Dictionary<Type, PoliceStateMachineState> states;
 
     public PoliceStatesContainer(PoliceStateMachineObserver stateMachine, SimpleAnimator animator, PoliceHeroSearcher searcher,
-      AIPath aiPath, AIDestinationSetter destinationSetter, PolicePathObserver pathObserver)
+      AIPath aiPath, AIDestinationSetter destinationSetter, PolicePathObserver pathObserver, PoliceSettings settings)
     {
       this.stateMachine = stateMachine;
       this.animator = animator;
@@ -28,6 +30,7 @@ namespace Features.Police.Scripts.PoliceStates
       this.aiPath = aiPath;
       this.destinationSetter = destinationSetter;
       this.pathObserver = pathObserver;
+      this.settings = settings;
       states = new Dictionary<Type, PoliceStateMachineState>(9);
     }
     
@@ -55,37 +58,42 @@ namespace Features.Police.Scripts.PoliceStates
 
     private void CreateWarnedIdleState()
     {
-      PoliceWarnedIdleState state = new PoliceWarnedIdleState(stateMachine, animator, "IsWarnedIdle", searcher);
+      PoliceWarnedIdleState state = new PoliceWarnedIdleState(stateMachine, animator, "IsWarnedIdle", searcher, settings.PointsInSearching);
       SaveState(state);
     }
 
     private void CreatePatrolState()
     {
-      PolicePatrolState state = new PolicePatrolState(stateMachine, animator, "IsPatrol", searcher, aiPath, pathObserver);
+      PolicePatrolState state = new PolicePatrolState(stateMachine, animator, "IsPatrol", searcher, aiPath, pathObserver, 
+        settings.PatrolSpeed);
       SaveState(state);
     }
 
     private void CreateSearchState()
     {
-      PoliceSearchState state = new PoliceSearchState(stateMachine, animator, "IsSearch", searcher, aiPath, pathObserver);
+      PoliceSearchState state = new PoliceSearchState(stateMachine, animator, "IsSearch", searcher, aiPath, pathObserver,
+        settings.SearchSpeed);
       SaveState(state);
     }
 
     private void CreateFollowState()
     {
-      PoliceFollowState state = new PoliceFollowState(stateMachine, animator, "IsFollow", aiPath, destinationSetter, searcher);
+      PoliceFollowState state = new PoliceFollowState(stateMachine, animator, "IsFollow", aiPath, destinationSetter, searcher,
+        settings.ArrestDistance, settings.FollowSpeed);
       SaveState(state);
     }
 
     private void CreateWarnedState()
     {
-      PoliceWarnedState state = new PoliceWarnedState(stateMachine, animator, "IsWarned", searcher, aiPath);
+      PoliceWarnedState state = new PoliceWarnedState(stateMachine, animator, "IsWarned", searcher, aiPath,
+        settings.WarnedSpeed);
       SaveState(state);
     }
 
     private void CreateLoseFollowState()
     {
-      PoliceLoseFollowState state = new PoliceLoseFollowState(stateMachine, animator, "IsLoseFollow", searcher);
+      PoliceLoseFollowState state = new PoliceLoseFollowState(stateMachine, animator, "IsLoseFollow", 
+        searcher, settings.LoseFollowWaitDuration);
       SaveState(state);
     }
 

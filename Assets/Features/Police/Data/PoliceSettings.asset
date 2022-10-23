@@ -17,6 +17,7 @@ MonoBehaviour:
   FollowSpeed: 4
   SearchSpeed: 5
   WarnedSpeed: 3
+  LoseFollowWaitDuration: 2
   AngleOfView: 45
   PlayerRaycastBoxSize: {x: 0.2, y: 0.2}
   ObstacleRaycastSphereRadius: 0.3
@@ -30,4 +31,6 @@ MonoBehaviour:
   PlayerMaxHitCount: 1
   ObstacleMaxHitCount: 3
   SearchDelay: 0.15
+  PointsInSearching: 5
+  ArrestDistance: 1.5
   Prefab: {fileID: 5332750506637974592, guid: deae617af17ae5849adf2965e23cee86, type: 3}

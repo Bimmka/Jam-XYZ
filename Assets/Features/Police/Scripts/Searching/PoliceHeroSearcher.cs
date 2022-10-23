@@ -42,7 +42,7 @@ namespace Features.Police.Scripts.Searching
 
     private void Search()
     {
-      playerHitCount = Physics2D.BoxCastNonAlloc(origin.position, settings.PlayerRaycastBoxSize, 0f, origin.right, playerHits,
+      playerHitCount = Physics2D.BoxCastNonAlloc(origin.position, settings.PlayerRaycastBoxSize, 0f, origin.up, playerHits,
         settings.RaycastDistance, settings.PlayerMask);
 
       if (IsFoundPlayer(playerHitCount) && IsPlayerInViewAngle() && IsInSameArea() && IsHaveObstacleOnViewLine() == false)
@@ -66,15 +66,15 @@ namespace Features.Police.Scripts.Searching
     private bool IsPlayerInViewAngle()
     {
       Vector3 directionToPlayer = playerHits[0].transform.position - origin.position;
-      float angle = Vector2.Angle(origin.right, directionToPlayer);
+      float angle = Vector2.Angle(origin.up, directionToPlayer);
       return angle <= settings.AngleOfView;
     }
 
     private bool IsHaveObstacleOnViewLine()
     {
       obstacleHitCount = Physics2D.CircleCastNonAlloc(origin.position, settings.ObstacleRaycastSphereRadius,
-        origin.right, obstacleHits,
-        settings.RaycastDistance, settings.PlayerMask);
+        origin.up, obstacleHits,
+        settings.RaycastDistance, settings.ObstacleMask);
       return obstacleHitCount > 0;
     }
 

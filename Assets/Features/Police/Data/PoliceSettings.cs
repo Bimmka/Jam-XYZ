@@ -11,6 +11,7 @@ namespace Features.Police.Data
     public float FollowSpeed;
     public float SearchSpeed;
     public float WarnedSpeed;
+    public float LoseFollowWaitDuration;
     public float AngleOfView;
     public Vector2 PlayerRaycastBoxSize;
     public float ObstacleRaycastSphereRadius = 0.3f;
@@ -20,6 +21,8 @@ namespace Features.Police.Data
     public int PlayerMaxHitCount = 1;
     public int ObstacleMaxHitCount = 3;
     public float SearchDelay;
+    public int PointsInSearching;
+    public float ArrestDistance;
     public PoliceOfficer Prefab;
   }
 }
