@@ -18,9 +18,9 @@ MonoBehaviour:
   SearchSpeed: 5
   WarnedSpeed: 3
   AngleOfView: 45
-  PlayerRaycastBoxSize: {x: 0, y: 0}
+  PlayerRaycastBoxSize: {x: 0.2, y: 0.2}
   ObstacleRaycastSphereRadius: 0.3
-  RaycastDistance: 0
+  RaycastDistance: 3
   PlayerMask:
     serializedVersion: 2
     m_Bits: 4096
