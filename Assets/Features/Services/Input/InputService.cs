@@ -1,5 +1,7 @@
-﻿using InputControl;
+﻿using System;
+using InputControl;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Features.Services.Input
 {
@@ -9,13 +11,19 @@ namespace Features.Services.Input
     private readonly InputCommandVector inputVector;
     private readonly InputCommandsContainer commandContainer;
 
+    public event Action SpecialKeyClicked;
+
     public InputService(HeroControl inputMap)
     {
       input = inputMap;
+      input.Hero.SpecialAction.performed += OnSpecialActionClicked;
       commandContainer = new InputCommandsContainer();
     }
 
-    public void Cleanup() { }
+    public void Cleanup()
+    {
+      input.Hero.SpecialAction.performed -= OnSpecialActionClicked;
+    }
 
     public void Enable() => 
       input.Enable();
@@ -54,7 +62,7 @@ namespace Features.Services.Input
       }
       
     }
-    
+
     private bool IsFitInLength(IInputCommand[] readedInputs, int inputIndex)
     {
       return inputIndex < readedInputs.Length;
@@ -64,6 +72,11 @@ namespace Features.Services.Input
     {
       readedInputs[index] = command;
       index++;
+    }
+
+    private void OnSpecialActionClicked(InputAction.CallbackContext context)
+    {
+      SpecialKeyClicked?.Invoke();
     }
   }
 }

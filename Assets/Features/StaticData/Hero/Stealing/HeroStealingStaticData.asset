@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad0ae279ee18447fbd24c0ca0c57c856, type: 3}
   m_Name: HeroStealingStaticData
   m_EditorClassIdentifier: 
-  PreparePerSecond: 1
-  MaxPrepareCount: 12
+  PreparePerSecond: 5
+  MaxPrepareCount: 20

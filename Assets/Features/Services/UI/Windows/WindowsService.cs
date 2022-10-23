@@ -31,6 +31,8 @@ namespace Features.Services.UI.Windows
     {
       if (windows.ContainsKey(windowId) == false)
         CreateWindow(windowId);
+      
+      windows[windowId].Open();
     }
 
     public void Close(WindowId windowId)
@@ -39,6 +41,14 @@ namespace Features.Services.UI.Windows
         return;
 
       windows[windowId].Destroy();
+    }
+
+    public BaseWindow Window(WindowId windowId)
+    {
+      if (windows.ContainsKey(windowId) == false)
+        return null;
+
+      return windows[windowId];
     }
 
     private void CreateWindow(WindowId windowId) => 

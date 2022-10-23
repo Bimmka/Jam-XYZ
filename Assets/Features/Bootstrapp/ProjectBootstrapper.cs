@@ -6,6 +6,7 @@ using Features.Services.Coroutine;
 using Features.Services.StaticData;
 using Features.Services.UI.Factory.BaseUI;
 using Features.Services.UI.Windows;
+using Features.UI.Windows.StealWindow.Scripts;
 using UnityEngine;
 using Zenject;
 

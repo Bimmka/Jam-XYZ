@@ -3,7 +3,10 @@ using System.Linq;
 using Features.Constants;
 using Features.Services.UI.Factory;
 using Features.StaticData.Customers;
+using Features.StaticData.StealItems;
 using Features.StaticData.Windows;
+using Features.StealItems.Scripts;
+using Features.UI.Windows.StealWindow.Scripts;
 using UnityEngine;
 
 namespace Features.Services.StaticData
@@ -12,6 +15,7 @@ namespace Features.Services.StaticData
   {
     private Dictionary<WindowId, WindowInstantiateData> windows;
     private Dictionary<NPCType, NPCSettings> npcs;
+    private StealItemsStaticData itemsStaticData;
     
     
     public void Load()
@@ -24,6 +28,8 @@ namespace Features.Services.StaticData
       npcs = Resources
         .LoadAll<NPCSettings>(GameConstants.NPCDataPath)
         .ToDictionary(x => x.Type, x => x);
+
+      itemsStaticData = Resources.Load<StealItemsStaticData>(GameConstants.StealItemStaticData);
       
       Resources.UnloadUnusedAssets();
     }
@@ -37,5 +43,14 @@ namespace Features.Services.StaticData
       npcs.TryGetValue(type, out NPCSettings staticData)
         ? staticData 
         : null;
+
+    public StealItem StealItem() => 
+      itemsStaticData.StealItem;
+
+    public Sprite StealItemView(StealItemType type) => 
+      itemsStaticData.StealItemsView[type];
+
+    public MovingBlock MovingObject() => 
+      itemsStaticData.MovingEntity;
   }
 }

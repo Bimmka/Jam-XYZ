@@ -1,4 +1,5 @@
 ﻿using Features.Services.UI.Factory;
+using Features.UI.Windows.Base;
 
 namespace Features.Services.UI.Windows
 {
@@ -6,5 +7,6 @@ namespace Features.Services.UI.Windows
   {
     void Open(WindowId windowId);
     void Close(WindowId windowId);
+    BaseWindow Window(WindowId windowId);
   }
 }

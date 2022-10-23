@@ -41,7 +41,7 @@ namespace Features.Player.Scripts.Steal
 
     private void UpPrepare()
     {
-      PrepareAmount.Value += 1;
+      PrepareAmount.Value += stealingData.PreparePerSecond;
 
       if (IsFullPrepare())
         SetFullPrepared();

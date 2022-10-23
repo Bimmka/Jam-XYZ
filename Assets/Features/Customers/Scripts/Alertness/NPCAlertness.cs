@@ -23,6 +23,21 @@ namespace Features.Customers.Scripts.Alertness
       this.maxAlertness = maxAlertness;
     }
 
+    public void AddAttention(in int count)
+    {
+      CurrentAlertness.Value += count;
+      
+      if (IsAlertnessFilled())
+        NotifyAboutFilled();
+    }
+
+    public void Warn()
+    {
+      CurrentAlertness.Value = maxAlertness;
+      
+      NotifyAboutFilled();
+    }
+
     public void StartPayingAttention()
     {
       Observable
