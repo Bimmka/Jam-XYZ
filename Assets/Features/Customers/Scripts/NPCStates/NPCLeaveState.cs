@@ -11,25 +11,20 @@ namespace Features.Customers.Scripts.NPCStates
   {
     private readonly LevelPointsOfInterestObserver pointsOfInterestObserver;
     private readonly AIPath path;
-    private readonly AIDestinationSetter destinationSetter;
     private readonly LevelAreaType area;
 
-    private Transform exitTarget;
-
     public NPCLeaveState(NPCStateMachineObserver npc, SimpleAnimator animator, string animationName, LevelPointsOfInterestObserver pointsOfInterestObserver, 
-      AIPath path, AIDestinationSetter destinationSetter, LevelAreaType area) : base(npc, animator, animationName)
+      AIPath path, LevelAreaType area) : base(npc, animator, animationName)
     {
       this.pointsOfInterestObserver = pointsOfInterestObserver;
       this.path = path;
-      this.destinationSetter = destinationSetter;
       this.area = area;
     }
 
     public override void Enter()
     {
       base.Enter();
-      exitTarget = pointsOfInterestObserver.NearestExit(area, Position);
-      destinationSetter.target = exitTarget;
+      path.destination = pointsOfInterestObserver.NearestExit(area, Position);
       path.enabled = true;
     }
 

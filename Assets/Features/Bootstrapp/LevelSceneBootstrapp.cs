@@ -8,6 +8,7 @@ namespace Features.Bootstrapp
 {
   public class LevelSceneBootstrapp : MonoInstaller
   {
+    [SerializeField] private Transform levelBoundsSpawnParent;
     [SerializeField] private LevelStaticData levelStaticData;
         
     public override void InstallBindings()
@@ -18,7 +19,11 @@ namespace Features.Bootstrapp
     }
 
     private void BindLevelBoundsMarkerFactory() => 
-      Container.Bind<LevelBoundsFactory>().To<LevelBoundsFactory>().FromNew().AsSingle().WithArguments(levelStaticData.AreaBoundMarkerPrefab);
+      Container
+      .Bind<LevelBoundsFactory>()
+      .To<LevelBoundsFactory>()
+      .FromNew().AsSingle()
+      .WithArguments(levelStaticData.AreaBoundMarkerPrefab, levelBoundsSpawnParent);
 
     private void BindLevelBoundsObserver() => 
       Container.Bind<LevelBoundsObserver>().To<LevelBoundsObserver>().FromNew().AsSingle().WithArguments(levelStaticData.AreaBounds);

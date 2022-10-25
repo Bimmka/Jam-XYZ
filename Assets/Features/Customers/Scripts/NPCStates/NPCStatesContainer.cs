@@ -60,7 +60,7 @@ namespace Features.Customers.Scripts.NPCStates
 
     private void CreateLeaveState()
     {
-      NPCLeaveState state = new NPCLeaveState(npc, animator, "IsMove", pointsOfInterestObserver, aiPath, aiDestinationSetter, area);
+      NPCLeaveState state = new NPCLeaveState(npc, animator, "IsMove", pointsOfInterestObserver, aiPath, area);
       SaveState(state);
     }
 

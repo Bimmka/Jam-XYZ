@@ -7,6 +7,12 @@ namespace Features.StaticData.LevelArea
   public struct AreaExitPosition
   {
     public LevelAreaType Area;
-    public Transform[] Positions;
+    public Vector3[] Positions;
+
+    public AreaExitPosition(LevelAreaType area, Vector3[] positions)
+    {
+      Area = area;
+      Positions = positions;
+    }
   }
 }

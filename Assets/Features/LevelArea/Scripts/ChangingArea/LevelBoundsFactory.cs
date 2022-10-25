@@ -9,17 +9,19 @@ namespace Features.LevelArea.Scripts.ChangingArea
   {
     private readonly IAssetProvider assetProvider;
     private readonly ChangeLevelAreaMarker prefab;
+    private readonly Transform spawnParent;
 
     [Inject]
-    public LevelBoundsFactory(IAssetProvider assetProvider, ChangeLevelAreaMarker prefab)
+    public LevelBoundsFactory(IAssetProvider assetProvider, ChangeLevelAreaMarker prefab, Transform spawnParent)
     {
       this.assetProvider = assetProvider;
       this.prefab = prefab;
+      this.spawnParent = spawnParent;
     }
 
-    public ChangeLevelAreaMarker Marker(Transform parent, LevelAreaType areaType)
+    public ChangeLevelAreaMarker Marker(Vector3 spawnPosition, LevelAreaType areaType)
     {
-      ChangeLevelAreaMarker marker = assetProvider.Instantiate(prefab, parent);
+      ChangeLevelAreaMarker marker = assetProvider.Instantiate(prefab, spawnPosition, Quaternion.identity, spawnParent);
       marker.Initialize(areaType);
       return marker;
     }

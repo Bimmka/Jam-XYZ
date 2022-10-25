@@ -47,6 +47,6 @@ namespace Features.LevelArea.Scripts.ChangingArea
     }
 
     private ChangeLevelAreaMarker NewMarker(AreaBound marker) => 
-      factory.Marker(marker.SpawnTransform, marker.Area);
+      factory.Marker(marker.SpawnPosition, marker.Area);
   }
 }
