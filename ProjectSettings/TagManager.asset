@@ -13,11 +13,11 @@ TagManager:
   - UI
   - Ground
   - Obstacle
-  - Markers
-  - NPC
-  - Police
-  - StealItem
-  - Player
+  - Sprites
+  - Light2d
+  - RoofTower
+  - 
+  - 
   - 
   - 
   - 
@@ -41,6 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Line Renderer
-    uniqueID: 354090539
+  - name: Sprites
+    uniqueID: 2059863965
+    locked: 0
+  - name: Roofs
+    uniqueID: 4151601587
+    locked: 0
+  - name: Light2d
+    uniqueID: 1504354335
     locked: 0

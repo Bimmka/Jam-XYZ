@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: HeroMoveStaticData
   m_EditorClassIdentifier: 
   WalkSpeed: 8
-  RunSpeed: 11
+  RunSpeed: 9.7
   WalkWithStairsSpeed: 7

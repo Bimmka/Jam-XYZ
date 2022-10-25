@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
+  m_Name: TestRule
+  m_EditorClassIdentifier: 
+  m_DefaultSprite: {fileID: 21300000, guid: 49df161c8113cee4b856bcfdbdb8ef6b, type: 3}
+  m_DefaultGameObject: {fileID: 0}
+  m_DefaultColliderType: 1
+  m_TilingRules:
+  - m_Id: 0
+    m_Sprites:
+    - {fileID: 21300000, guid: 9b7014debc96ae8448b1273abe353b0c, type: 3}
+    - {fileID: 21300000, guid: 97b606dc79926424e9c6cfcdbe065c73, type: 3}
+    - {fileID: 21300000, guid: 14742771b98979f44a7a0de8e63b024c, type: 3}
+    - {fileID: 21300000, guid: 14ea95de1647f044f80917eb1a6b14c1, type: 3}
+    - {fileID: 21300000, guid: db8467c86dbaee6448956760eaa5e949, type: 3}
+    - {fileID: 21300000, guid: 2f5f9751490a1c446b67ee71a884af70, type: 3}
+    - {fileID: 21300000, guid: 49df161c8113cee4b856bcfdbdb8ef6b, type: 3}
+    - {fileID: 21300000, guid: 49df161c8113cee4b856bcfdbdb8ef6b, type: 3}
+    - {fileID: 21300000, guid: 49df161c8113cee4b856bcfdbdb8ef6b, type: 3}
+    - {fileID: 21300000, guid: 49df161c8113cee4b856bcfdbdb8ef6b, type: 3}
+    - {fileID: 21300000, guid: 49df161c8113cee4b856bcfdbdb8ef6b, type: 3}
+    - {fileID: 21300000, guid: 49df161c8113cee4b856bcfdbdb8ef6b, type: 3}
+    - {fileID: 21300000, guid: 49df161c8113cee4b856bcfdbdb8ef6b, type: 3}
+    - {fileID: 21300000, guid: 49df161c8113cee4b856bcfdbdb8ef6b, type: 3}
+    - {fileID: 21300000, guid: 49df161c8113cee4b856bcfdbdb8ef6b, type: 3}
+    m_GameObject: {fileID: 0}
+    m_MinAnimationSpeed: 1
+    m_MaxAnimationSpeed: 1
+    m_PerlinScale: 0.854
+    m_Output: 1
+    m_ColliderType: 2
+    m_RandomTransform: 1
+    m_Neighbors: 
+    m_NeighborPositions: []
+    m_RuleTransform: 0
