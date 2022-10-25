@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: LevelStaticData
   m_EditorClassIdentifier: 
   AreaBounds:
+  - SpawnPosition: {x: -1.54, y: 0, z: 0}
+    Area: 0
+  - SpawnPosition: {x: 12.16, y: 0, z: 0}
+    Area: 1
   - SpawnPosition: {x: 11.16, y: -6.7, z: 0}
     Area: 3
   - SpawnPosition: {x: -2.3400002, y: -7, z: 0}
     Area: 2
-  - SpawnPosition: {x: 12.16, y: 0, z: 0}
-    Area: 1
-  - SpawnPosition: {x: -1.54, y: 0, z: 0}
-    Area: 0
   StartArea: 0
   AreaBoundMarkerPrefab: {fileID: 1009676685253803991, guid: f20fdde159fe8e546843628d118c9d6a, type: 3}
   NPCs:
@@ -31,17 +31,17 @@ MonoBehaviour:
   Exits:
   - Area: 0
     Positions:
-    - {x: -3.4300005, y: -1.9, z: 19.24754}
     - {x: -3.1300004, y: 2.5, z: 19.24754}
+    - {x: -3.4300005, y: -1.9, z: 19.24754}
   - Area: 2
     Positions:
     - {x: -3.33, y: -7.2, z: 19.24754}
-  - Area: 3
-    Positions:
-    - {x: 8.87, y: -7.2, z: 19.24754}
   - Area: 1
     Positions:
     - {x: 9.07, y: 2.3, z: 19.24754}
+  - Area: 3
+    Positions:
+    - {x: 8.87, y: -7.2, z: 19.24754}
   Polices:
   - Type: 0
     Area: 0

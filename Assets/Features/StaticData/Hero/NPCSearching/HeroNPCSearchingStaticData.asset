@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NPCMask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 2048
   ObstacleMask:
     serializedVersion: 2
     m_Bits: 128

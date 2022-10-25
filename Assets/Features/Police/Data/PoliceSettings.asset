@@ -24,7 +24,7 @@ MonoBehaviour:
   RaycastDistance: 3
   PlayerMask:
     serializedVersion: 2
-    m_Bits: 4096
+    m_Bits: 8192
   ObstacleMask:
     serializedVersion: 2
     m_Bits: 192
