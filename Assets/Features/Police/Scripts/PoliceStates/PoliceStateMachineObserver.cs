@@ -1,5 +1,4 @@
-﻿using System;
-using Features.Animation;
+﻿using Features.Animation;
 using Features.Customers.Scripts.NPCStates;
 using Features.Player.Scripts.HeroMachine;
 using Features.Police.Scripts.PoliceStates.States;
@@ -14,6 +13,7 @@ namespace Features.Police.Scripts.PoliceStates
     private PoliceStatesContainer statesContainer;
 
     private UpdatableStateMachine stateMachine;
+    public bool IsFollowing => stateMachine.State != null && stateMachine.State.GetType() == typeof(PoliceFollowState);
 
     public void Construct(PoliceStatesContainer container)
     {
@@ -57,6 +57,9 @@ namespace Features.Police.Scripts.PoliceStates
 
     public TState State<TState>() where TState : PoliceStateMachineState => 
       statesContainer.GetState<TState>();
+
+    public void StopFollow() => 
+      ((PoliceFollowState)stateMachine.State).LoseFollow();
 
     private void TriggerAnimation() => 
       stateMachine.State.TriggerAnimation();

@@ -10,27 +10,18 @@ namespace Features.Services.UI.Windows
     private readonly IUIFactory uiFactory;
 
     private readonly Dictionary<WindowId, BaseWindow> windows;
-
-    public bool IsCleanedUp { get; private set; }
-
+    
     public WindowsService(IUIFactory uiFactory)
     {
       this.uiFactory = uiFactory;
-      this.uiFactory.Spawned += AddSpawnedWindow;
-   
-      windows = new Dictionary<WindowId, BaseWindow>(10);
-    }
 
-    public void Cleanup()
-    {
-      IsCleanedUp = true;
-      uiFactory.Spawned -= AddSpawnedWindow;
+      windows = new Dictionary<WindowId, BaseWindow>(10);
     }
 
     public void Open(WindowId windowId)
     {
       if (windows.ContainsKey(windowId) == false)
-        CreateWindow(windowId);
+        AddSpawnedWindow(windowId,CreateWindow(windowId));
       
       windows[windowId].Open();
     }
@@ -51,8 +42,8 @@ namespace Features.Services.UI.Windows
       return windows[windowId];
     }
 
-    private void CreateWindow(WindowId windowId) => 
-      uiFactory.CreateWindow(windowId, this);
+    private BaseWindow CreateWindow(WindowId windowId) => 
+      uiFactory.Create(windowId);
 
 
     private void AddSpawnedWindow(WindowId windowId, BaseWindow window)

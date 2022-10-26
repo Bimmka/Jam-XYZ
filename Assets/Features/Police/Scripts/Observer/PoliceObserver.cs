@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Features.Alarm;
+using Features.Player.Scripts.AreaChange;
 using Features.Police.Scripts.Factory;
 using Features.Police.Scripts.PoliceStates;
 using Features.StaticData.LevelArea;
@@ -11,19 +12,25 @@ namespace Features.Police.Scripts.Observer
   {
     private readonly PoliceFactory factory;
     private readonly NPCAlarm npcAlarm;
+    private readonly HeroAreaChanger heroAreaChanger;
 
     private readonly Dictionary<LevelAreaType, List<PoliceStateMachineObserver>> officersByArea;
 
-    public PoliceObserver(PoliceFactory factory, NPCAlarm npcAlarm)
+    public PoliceObserver(PoliceFactory factory, NPCAlarm npcAlarm, HeroAreaChanger heroAreaChanger)
     {
       this.factory = factory;
       this.npcAlarm = npcAlarm;
+      this.heroAreaChanger = heroAreaChanger;
+      this.heroAreaChanger.Changed += OnHeroChangeArea;
       this.npcAlarm.Invoked += OnAlarm;
       officersByArea = new Dictionary<LevelAreaType, List<PoliceStateMachineObserver>>(3);
     }
 
-    public void Cleanup() => 
+    public void Cleanup()
+    {
       npcAlarm.Invoked -= OnAlarm;
+      heroAreaChanger.Changed -= OnHeroChangeArea;
+    }
 
     public void Spawn(PoliceLevelData[] policeLevelDatas)
     {
@@ -50,6 +57,19 @@ namespace Features.Police.Scripts.Observer
       {
         officersByArea[areaType][i].GoToRobbedGuest(position);
       }
+    }
+
+    private void OnHeroChangeArea(LevelAreaType previousArea, LevelAreaType nextArea)
+    {
+      if (officersByArea.ContainsKey(previousArea) == false)
+        return;
+
+      for (int i = 0; i < officersByArea[previousArea].Count; i++)
+      {
+        if (officersByArea[previousArea][i].IsFollowing)
+          officersByArea[previousArea][i].StopFollow();
+      }
+        
     }
   }
 }

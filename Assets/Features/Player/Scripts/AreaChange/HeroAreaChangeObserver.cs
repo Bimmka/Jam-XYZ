@@ -1,7 +1,4 @@
-﻿using Features.LevelArea;
-using Features.LevelArea.Scripts;
-using Features.LevelArea.Scripts.ChangingArea;
-using Features.Player.Scripts.Camera;
+﻿using Features.LevelArea.Scripts.ChangingArea;
 using Features.StaticData.LevelArea;
 using UniRx;
 using UniRx.Triggers;
@@ -15,43 +12,27 @@ namespace Features.Player.Scripts.AreaChange
     [SerializeField] private Collider2D checkCollider;
     
     private readonly CompositeDisposable disposable = new CompositeDisposable();
-    private LevelBoundsObserver levelBoundsObserver;
-    private HeroCamera heroCamera;
+    private HeroAreaChanger areaChanger;
 
-    private LevelAreaType currentArea;
 
     [Inject]
-    public void Construct(LevelBoundsObserver levelBoundsObserver, HeroCamera heroCamera)
+    public void Construct(HeroAreaChanger areaChanger)
     {
-      this.heroCamera = heroCamera;
-      this.levelBoundsObserver = levelBoundsObserver;
-      
+      this.areaChanger = areaChanger;
+
       checkCollider.OnTriggerEnter2DAsObservable()
         .Where(other => other.TryGetComponent(out ChangeLevelAreaMarker marker))
         .Subscribe(other => ChangeArea(other.GetComponent<ChangeLevelAreaMarker>().Area))
         .AddTo(disposable);
     }
 
-    public void SetStartArea(LevelAreaType area)
-    {
-      levelBoundsObserver.DisableMarkersIn(area);
-      heroCamera.SetStartPosition(area);
-      SetArea(area);
-    }
-
     private void OnDestroy() => 
       disposable.Clear();
 
-    private void ChangeArea(LevelAreaType area)
-    {
-      levelBoundsObserver.EnableMarkersIn(currentArea);
-      levelBoundsObserver.DisableMarkersIn(area);
-      heroCamera.MoveTo(area);
+    public void SetStartArea(LevelAreaType area) => 
+      areaChanger.SetStartArea(area);
 
-      SetArea(area);
-    }
-
-    private void SetArea(LevelAreaType area) => 
-      currentArea = area;
+    private void ChangeArea(LevelAreaType area) => 
+      areaChanger.ChangeArea(area);
   }
 }

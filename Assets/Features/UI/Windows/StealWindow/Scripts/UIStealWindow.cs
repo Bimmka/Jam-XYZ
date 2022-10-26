@@ -7,6 +7,7 @@ using Features.UI.Windows.Base;
 using Features.UI.Windows.StealWindow.StealFillPatterns;
 using UniRx;
 using UnityEngine;
+using Zenject;
 
 namespace Features.UI.Windows.StealWindow.Scripts
 {
@@ -44,6 +45,7 @@ namespace Features.UI.Windows.StealWindow.Scripts
     private event Action onMissed;
     private event Action onTimeOut;
     
+    [Inject]
     public void Construct(StealItemFactory stealItemFactory)
     {
       itemFiller = new StealWindowItemFiller(stealItemFactory, spawnPositions, settings.MinCoinsCount);
@@ -52,10 +54,10 @@ namespace Features.UI.Windows.StealWindow.Scripts
 
     public void Initialize(float maxTime, Action<StealItemType> onHitGold, Action onHitRing, Action onMissed, Action onTimeOut)
     {
-      timer = new Timer(maxTime);
+      timer = new Timer();
+      timer.Start(maxTime);
       timer.TimeOut.Subscribe(onNext => OnTimeOut()).AddTo(disposable);
       timerDisplayer.Construct(timer);
-      timerDisplayer.StartObserve();
       this.onHitGold = onHitGold;
       this.onHitRing = onHitRing;
       this.onMissed = onMissed;
@@ -82,7 +84,7 @@ namespace Features.UI.Windows.StealWindow.Scripts
     {
       base.Cleanup();
       disposable.Clear();
-      timerDisplayer.StopObserve();
+      timerDisplayer.Cleanup();
     }
 
     public void Catch()

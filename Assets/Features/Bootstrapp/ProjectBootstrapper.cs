@@ -1,11 +1,13 @@
 ﻿using Features.GameStates;
 using Features.GameStates.States;
+using Features.Level.Scripts.LevelTimer;
 using Features.SceneLoading.Scripts;
 using Features.Services.Assets;
 using Features.Services.Coroutine;
 using Features.Services.StaticData;
 using Features.Services.UI.Factory.BaseUI;
 using Features.Services.UI.Windows;
+using Features.UI.Windows.Base;
 using Features.UI.Windows.StealWindow.Scripts;
 using UnityEngine;
 using Zenject;
@@ -27,6 +29,8 @@ namespace Features.Bootstrapp
       BindWindowsService();
       BindUIFactory();
       BindStateMachine();
+      BindStealItemFactory();
+      BindLevelTimer();
     }
 
     private void BindAssetProvider() => 
@@ -52,8 +56,8 @@ namespace Features.Bootstrapp
     private void BindWindowsService() => 
       Container.Bind<IWindowsService>().To<WindowsService>().FromNew().AsSingle();
 
-    private void BindUIFactory() => 
-      Container.Bind<IUIFactory>().To<UIFactory>().FromNew().AsSingle();
+    private void BindUIFactory() =>
+      Container.BindFactoryCustomInterface<BaseWindow, UIFactory, IUIFactory>().AsSingle();
 
     private void BindStateMachine()
     {
@@ -62,5 +66,11 @@ namespace Features.Bootstrapp
       Container.Bind<IGameStateMachine>().To<GameStateMachine>().FromNew().AsSingle();
       Container.Bind<Game>().To<Game>().FromNew().AsSingle();
     }
+    
+    private void BindStealItemFactory() => 
+      Container.Bind<StealItemFactory>().ToSelf().FromNew().AsSingle();
+    
+    private void BindLevelTimer() => 
+      Container.Bind<LevelTimerObserver>().ToSelf().FromNew().AsSingle();
   }
 }

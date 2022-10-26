@@ -4,6 +4,7 @@ using Features.LevelArea.Scripts.Markers;
 using Features.StaticData.LevelArea;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Editor.LevelDataEditor
 {
@@ -16,8 +17,11 @@ namespace Editor.LevelDataEditor
     {
       data = (LevelStaticData) target;
       base.OnInspectorGUI();
-      if (GUILayout.Button("Collect Markers")) 
+      if (GUILayout.Button("Collect Markers"))
+      {
         CollectMarkers();
+        UpdateGameSceneName();
+      }
     }
 
     private void CollectMarkers()
@@ -103,5 +107,8 @@ namespace Editor.LevelDataEditor
 
       return positions;
     }
+
+    private void UpdateGameSceneName() => 
+      data.SceneName = SceneManager.GetActiveScene().name;
   }
 }

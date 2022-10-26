@@ -1,5 +1,4 @@
-﻿using Features.LevelArea.Scripts;
-using Features.LevelArea.Scripts.ChangingArea;
+﻿using Features.LevelArea.Scripts.ChangingArea;
 using UnityEngine;
 
 namespace Features.StaticData.LevelArea
@@ -7,6 +6,7 @@ namespace Features.StaticData.LevelArea
   [CreateAssetMenu(fileName = "LevelStaticData", menuName = "StaticData/Level/Create Level Data", order = 52)]
   public class LevelStaticData : ScriptableObject
   {
+    public string SceneName;
     public AreaBound[] AreaBounds;
     public LevelAreaType StartArea;
     public ChangeLevelAreaMarker AreaBoundMarkerPrefab;
@@ -15,5 +15,8 @@ namespace Features.StaticData.LevelArea
     public AreaExitPosition[] Exits;
 
     public PoliceLevelData[] Polices;
+
+    public int SecondsForGame = 120;
+    public GameGoalRanges GoalRanges;
   }
 }

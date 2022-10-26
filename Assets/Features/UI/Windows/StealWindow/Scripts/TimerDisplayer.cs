@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 namespace Features.UI.Windows.StealWindow.Scripts
@@ -9,34 +8,21 @@ namespace Features.UI.Windows.StealWindow.Scripts
     [SerializeField] private string displayStringFormat;
     [SerializeField] private TextMeshProUGUI timeText;
 
-    private bool isDisplaying;
-    
     private Timer timer;
 
     public void Construct(Timer timer)
     {
       this.timer = timer;
+      this.timer.Changed += Display;
     }
 
-    public void StartObserve()
+    public void Cleanup()
     {
-      isDisplaying = true;
-      StartCoroutine(Display());
+      timer.Stop();
+      timer.Changed -= Display;
     }
 
-    public void StopObserve()
-    {
-      isDisplaying = false;
-      StopAllCoroutines();
-    }
-
-    private IEnumerator Display()
-    {
-      while (isDisplaying)
-      {
-        timeText.text = string.Format(displayStringFormat, timer.CurrentSeconds);
-        yield return null;
-      }
-    }
+    private void Display(float time) => 
+      timeText.text = string.Format(displayStringFormat, timer.CurrentSeconds);
   }
 }

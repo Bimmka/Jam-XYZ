@@ -25,5 +25,4 @@ MonoBehaviour:
   - Area: 3
     Position: {x: 16.720669, y: -1.5896901, z: -10.089092}
     FollowedObject: {fileID: 0}
-  StartArea: 0
   MoveDuration: 1

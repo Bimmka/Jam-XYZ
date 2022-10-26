@@ -1,22 +1,15 @@
 ﻿using Cinemachine;
-using Features.Animation;
 using Features.Player.Scripts.AreaChange;
 using Features.Player.Scripts.Base;
 using Features.Player.Scripts.Camera;
 using Features.Player.Scripts.Gold;
 using Features.Player.Scripts.HeroMachine;
-using Features.Player.Scripts.HeroMachine.States;
 using Features.Player.Scripts.Markers;
-using Features.Player.Scripts.Move;
-using Features.Player.Scripts.Rotate;
 using Features.Player.Scripts.Steal;
 using Features.Services.Coroutine;
 using Features.Services.Input;
-using Features.StaticData.Hero.AnimationTransitions;
 using Features.StaticData.Hero.Camera;
-using Features.StaticData.Hero.Move;
 using Features.StaticData.Hero.NPCSearching;
-using Features.StaticData.Hero.Rotate;
 using Features.StaticData.Hero.Stealing;
 using Features.StaticData.LevelArea;
 using Features.UI.Windows.GameMenu;
@@ -30,9 +23,6 @@ namespace Features.Bootstrapp
   {
     [SerializeField] private GameObject hero;
     [SerializeField] private Transform spawnHeroPoint;
-    [SerializeField] private HeroMoveStaticData moveData;
-    [SerializeField] private HeroRotateStaticData rotateData;
-    [SerializeField] private HeroAnimationsTransitionStaticData transitionStaticData;
     [SerializeField] private HeroCameraStaticData cameraStaticData;
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
     [SerializeField] private Transform cameraLookAtPoint;
@@ -64,13 +54,9 @@ namespace Features.Bootstrapp
     private void BindHeroCamera() => 
       Container.Bind<HeroCamera>().To<HeroCamera>().FromNew().AsSingle().WithArguments(cameraStaticData, virtualCamera, cameraLookAtPoint);
 
-    private void BindHeroAreaChange()
-    {
-      Container.Bind<HeroAreaChangeObserver>().To<HeroAreaChangeObserver>()
-        .AsSingle()
-        .WithArguments(levelStaticData.StartArea);
-    }
-    
+    private void BindHeroAreaChange() => 
+      Container.Bind<HeroAreaChanger>().ToSelf().FromNew().AsSingle().WithArguments(levelStaticData.StartArea);
+
     private void BindHero() => 
       Container.Bind<Hero>().To<Hero>().FromComponentInNewPrefab(hero).AsSingle();
 

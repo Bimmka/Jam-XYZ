@@ -3,7 +3,7 @@ using Features.UI.Windows.Base;
 
 namespace Features.Services.UI.Windows
 {
-  public interface IWindowsService : ICleanupService
+  public interface IWindowsService : IService
   {
     void Open(WindowId windowId);
     void Close(WindowId windowId);
