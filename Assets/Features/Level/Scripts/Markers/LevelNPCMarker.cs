@@ -1,7 +1,7 @@
 ﻿using Features.StaticData.Customers;
 using UnityEngine;
 
-namespace Features.LevelArea.Scripts.Markers
+namespace Features.Level.Scripts.Markers
 {
   public class LevelNPCMarker : LevelMarker
   {

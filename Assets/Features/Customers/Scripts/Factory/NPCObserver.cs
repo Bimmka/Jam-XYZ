@@ -33,6 +33,18 @@ namespace Features.Customers.Scripts.Factory
       }
     }
 
+    public void Cleanup()
+    {
+      foreach (KeyValuePair<LevelAreaType, List<NPC>> npcsInArea in npcsByArea)
+      {
+        for (int i = 0; i < npcsInArea.Value.Count; i++)
+        {
+          npcsInArea.Value[i].Exited -= OnExited;
+          npcsInArea.Value[i].Robbed -= OnRobbed;
+        }
+      }
+    }
+
     private void SaveNPC(NPC npc, LevelAreaType area)
     {
       if (npcsByArea.ContainsKey(area) == false)

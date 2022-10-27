@@ -9,19 +9,18 @@ namespace Features.UI.Windows.StealWindow.Scripts
     private bool isPaused;
 
     public readonly ReactiveCommand TimeOut;
-    
-    public float CurrentSeconds { get; private set; }
 
-    public event Action<float> Changed; 
+    public readonly FloatReactiveProperty CurrentSeconds;
     public Timer()
     {
       disposable = new CompositeDisposable();
       TimeOut = new ReactiveCommand();
+      CurrentSeconds = new FloatReactiveProperty(0);
     }
 
     public void Start(float seconds)
     {
-      CurrentSeconds = seconds;
+      CurrentSeconds.Value = seconds;
       
       Observable
         .Interval(TimeSpan.FromSeconds(1))
@@ -43,16 +42,11 @@ namespace Features.UI.Windows.StealWindow.Scripts
       if (isPaused)
         return;
       
-      CurrentSeconds--;
+      CurrentSeconds.Value--;
 
-      NotifyAboutChange();
-      
-      if (CurrentSeconds <= 0)
+      if (CurrentSeconds.Value <= 0)
         OnTimeOut();
     }
-
-    private void NotifyAboutChange() => 
-      Changed?.Invoke(CurrentSeconds);
 
     private void OnTimeOut()
     {

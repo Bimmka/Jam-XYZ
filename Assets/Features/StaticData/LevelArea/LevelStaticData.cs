@@ -1,4 +1,4 @@
-﻿using Features.LevelArea.Scripts.ChangingArea;
+﻿using Features.Level.Scripts.ChangingArea;
 using UnityEngine;
 
 namespace Features.StaticData.LevelArea

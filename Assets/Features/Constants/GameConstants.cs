@@ -2,8 +2,8 @@ namespace Features.Constants
 {
   public static class GameConstants
   {
-    public static string GameSceneName = "GameScene";
-    public static string MainMenuScene = "MainMenuScene";
+    public static string GameSceneName = "SampleScene Copy";
+    public static string MainMenuScene = "MainMenu";
     
     
     public static string WindowsDataPath = "Windows/WindowsStaticData";

@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace Features.UI.Windows.MainMenu
+namespace Features.UI.Windows.MainMenu.Scripts
 {
   public class UIMainMenuView : MonoBehaviour
   {

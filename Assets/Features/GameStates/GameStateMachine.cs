@@ -19,7 +19,7 @@ namespace Features.GameStates
   
     }
 
-    public void Add<TState>(TState state) where TState : class, IState => 
+    public void Register<TState>(TState state) where TState : class, IState => 
       _states.Add(typeof(TState), state);
 
     public void Enter<TState>() where TState : class, IState

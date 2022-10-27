@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Features.LevelArea.Scripts.Markers;
+using Features.Level.Scripts.Markers;
 using Features.StaticData.LevelArea;
 using UnityEditor;
 using UnityEngine;

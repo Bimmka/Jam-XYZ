@@ -1,7 +1,7 @@
 ﻿using Features.Police.Data;
 using UnityEngine;
 
-namespace Features.LevelArea.Scripts.Markers
+namespace Features.Level.Scripts.Markers
 {
   public class LevelPoliceMarker : LevelMarker
   {

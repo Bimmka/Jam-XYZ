@@ -1,28 +1,38 @@
-﻿using System;
-using Features.UI.Windows.StealWindow.Scripts;
+﻿using Features.UI.Windows.StealWindow.Scripts;
+using UniRx;
 
 namespace Features.Level.Scripts.LevelTimer
 {
   public class LevelTimerObserver
   {
-    private int gameSeconds;
-    
-    private Timer timer;
+    private readonly CompositeDisposable disposable;
 
-    public event Action<int, int> Changed;
+    private Timer timer;
+    private int gameSeconds;
+
+    public readonly ReactiveCommand<LevelTime> Changed;
+    public readonly ReactiveCommand TimeOut;
+
+    public LevelTimerObserver()
+    {
+      Changed = new ReactiveCommand<LevelTime>();
+      TimeOut = new ReactiveCommand();
+      disposable = new CompositeDisposable();
+    }
 
     public void Start(int gameSeconds)
     {
       this.gameSeconds = gameSeconds;
       timer = new Timer();
-      timer.Changed += OnChangeTime;
+      timer.CurrentSeconds.Subscribe(OnChangeTime).AddTo(disposable);
+      timer.TimeOut.Subscribe(onNext => OnTimeOut()).AddTo(disposable);
       timer.Start(gameSeconds);
     }
 
     public void Stop()
     {
       timer.Stop();
-      timer.Changed -= OnChangeTime;
+      disposable.Clear();
     }
 
     public void Pause() => 
@@ -31,9 +41,13 @@ namespace Features.Level.Scripts.LevelTimer
     public void Unpause() => 
       timer.Unpause();
 
-    private void OnChangeTime(float time)
+    private void OnChangeTime(float time) => 
+      Changed.Execute(new LevelTime((int) time, gameSeconds));
+
+    private void OnTimeOut()
     {
-      Changed?.Invoke((int) time, gameSeconds);
+      timer.Stop();
+      TimeOut.Execute();
     }
   }
 }

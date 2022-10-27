@@ -4,7 +4,7 @@ using Features.Customers.Scripts.Alertness;
 using Features.Customers.Scripts.Base;
 using Features.Customers.Scripts.NPCStates;
 using Features.Customers.Scripts.Timing;
-using Features.LevelArea.Scripts.PointsOfInterest;
+using Features.Level.Scripts.PointsOfInterest;
 using Features.Services.Assets;
 using Features.Services.StaticData;
 using Features.StaticData.Customers;

@@ -1,4 +1,4 @@
-using Features.Customers.Scripts.Factory;
+using Features.Constants;
 using Features.GameStates.States.Interfaces;
 using Features.SceneLoading.Scripts;
 using Features.Services.UI.Factory;
@@ -9,21 +9,22 @@ namespace Features.GameStates.States
 {
   public class GameLoadState : IState
   {
-    private readonly GameStateMachine gameStateMachine;
+    private readonly IGameStateMachine gameStateMachine;
     private readonly ISceneLoader sceneLoader;
     private readonly IWindowsService windowsService;
 
     [Inject]
-    public GameLoadState(GameStateMachine gameStateMachine, ISceneLoader sceneLoader)
+    public GameLoadState(IGameStateMachine gameStateMachine, ISceneLoader sceneLoader, IWindowsService windowsService)
     {
       this.gameStateMachine = gameStateMachine;
       this.sceneLoader = sceneLoader;
-      gameStateMachine.Add(this);
+      this.windowsService = windowsService;
+      gameStateMachine.Register(this);
     }
 
     public void Enter()
     {
-      
+      sceneLoader.Load(GameConstants.GameSceneName, OnLoad);
     }
 
     public void Exit()
@@ -34,11 +35,14 @@ namespace Features.GameStates.States
     private void OnLoad()
     {
       CreateHUD();
+      CreateLevelPrepareWindow();
       gameStateMachine.Enter<GameLoopState>();
     }
     
     private void CreateHUD() => 
-      windowsService.Open(WindowId.LevelMenu);
-    
+      windowsService.Open(WindowId.HUD);
+
+    private void CreateLevelPrepareWindow() => 
+      windowsService.Open(WindowId.LevelPrepare);
   }
 }

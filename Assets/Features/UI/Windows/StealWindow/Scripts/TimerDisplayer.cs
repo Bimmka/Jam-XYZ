@@ -1,4 +1,5 @@
 ﻿using TMPro;
+using UniRx;
 using UnityEngine;
 
 namespace Features.UI.Windows.StealWindow.Scripts
@@ -8,18 +9,20 @@ namespace Features.UI.Windows.StealWindow.Scripts
     [SerializeField] private string displayStringFormat;
     [SerializeField] private TextMeshProUGUI timeText;
 
+    private readonly CompositeDisposable disposable = new CompositeDisposable();
+    
     private Timer timer;
 
     public void Construct(Timer timer)
     {
       this.timer = timer;
-      this.timer.Changed += Display;
+      this.timer.CurrentSeconds.Subscribe(Display).AddTo(disposable);
     }
 
     public void Cleanup()
     {
       timer.Stop();
-      timer.Changed -= Display;
+      disposable.Clear();
     }
 
     private void Display(float time) => 

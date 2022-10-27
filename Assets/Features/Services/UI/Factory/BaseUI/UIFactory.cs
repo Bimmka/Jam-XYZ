@@ -1,6 +1,7 @@
 ﻿using Features.Constants;
 using Features.Services.Assets;
 using Features.Services.StaticData;
+using Features.Services.UI.Windows;
 using Features.StaticData.Windows;
 using Features.UI.Windows.Base;
 using UnityEngine;
@@ -19,11 +20,12 @@ namespace Features.Services.UI.Factory.BaseUI
     private Camera mainCamera;
 
     [Inject]
-    public UIFactory(DiContainer container, IAssetProvider assets, IStaticDataService staticData)
+    public UIFactory(DiContainer container, IAssetProvider assets, IStaticDataService staticData, IWindowsService windowsService)
     {
       this.container = container;
       this.assets = assets;
       this.staticData = staticData;
+      windowsService.Register(this);
     }
 
     public BaseWindow Create(WindowId id)

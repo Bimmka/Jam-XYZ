@@ -7,16 +7,17 @@ namespace Features.Services.UI.Windows
 {
   public class WindowsService : IWindowsService
   {
-    private readonly IUIFactory uiFactory;
+    private IUIFactory uiFactory;
 
     private readonly Dictionary<WindowId, BaseWindow> windows;
     
-    public WindowsService(IUIFactory uiFactory)
+    public WindowsService()
     {
-      this.uiFactory = uiFactory;
-
       windows = new Dictionary<WindowId, BaseWindow>(10);
     }
+
+    public void Register(IUIFactory factory) => 
+      uiFactory = factory;
 
     public void Open(WindowId windowId)
     {

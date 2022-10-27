@@ -3,7 +3,7 @@ using System.Linq;
 using Features.StaticData.LevelArea;
 using UnityEngine;
 
-namespace Features.LevelArea.Scripts.PointsOfInterest
+namespace Features.Level.Scripts.PointsOfInterest
 {
   public class LevelPointsOfInterestObserver
   {

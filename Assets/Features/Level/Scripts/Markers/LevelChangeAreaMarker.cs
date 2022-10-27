@@ -1,4 +1,4 @@
-﻿namespace Features.LevelArea.Scripts.Markers
+﻿namespace Features.Level.Scripts.Markers
 {
   public class LevelChangeAreaMarker : LevelMarker
   {

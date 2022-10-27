@@ -1,4 +1,4 @@
-﻿using Features.LevelArea.Scripts.ChangingArea;
+﻿using Features.Level.Scripts.ChangingArea;
 using Features.StaticData.LevelArea;
 using UniRx;
 using UniRx.Triggers;

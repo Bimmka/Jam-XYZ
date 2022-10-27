@@ -38,21 +38,26 @@ namespace Features.Player.Scripts.Base
     [SerializeField] private StealItemCostStaticData costStaticData;
     [SerializeField] private Rigidbody2D body;
 
+    private bool isLocked;
+
     [Inject]
-    public void Construct(HeroStealPreparing stealPreparing, IWindowsService windowsService, ICoroutineRunner coroutineRunner,
+    public void Construct(HeroStealPreparing stealPreparing, IWindowsService windowsService,
+      ICoroutineRunner coroutineRunner,
       HeroGold heroGold, NPCAlarm alarm)
     {
       HeroRotate heroRotate = new HeroRotate(transform, rotateData);
       HeroMove move = new HeroMove(transform, heroMoveData, heroRotate, body);
       HeroNPCSearcher heroNpcSearcher = new HeroNPCSearcher(startSearchPoint, searchingData, coroutineRunner);
 
-      HeroStatesContainer container = new HeroStatesContainer(stateMachine, move, animator, animationsTransition, 
+      HeroStatesContainer container = new HeroStatesContainer(stateMachine, move, animator, animationsTransition,
         heroNpcSearcher, stealPreparing, windowsService, heroGold, alarm, costStaticData);
 
       stateMachine.Construct(container);
       stateMachine.Subscribe();
       stateMachine.CreateStates();
       heroNpcSearcher.StartSearch();
+
+      isLocked = true;
     }
 
     private void Start()
@@ -70,9 +75,17 @@ namespace Features.Player.Scripts.Base
 
     private void Update()
     {
+      if (isLocked)
+        return;
+      
       input.ReadInput();
       stateMachine.UpdateState(input.Commands, input.CommandsCount, Time.deltaTime);
       input.ClearInput();
+    }
+
+    public void Enable()
+    {
+      isLocked = false;
     }
   }
 }

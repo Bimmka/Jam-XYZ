@@ -1,5 +1,4 @@
-﻿using Features.SceneLoading.Scripts;
-using Features.Services.Coroutine;
+﻿using Features.GameStates.States;
 
 namespace Features.GameStates
 {
@@ -10,6 +9,11 @@ namespace Features.GameStates
     public Game(IGameStateMachine gameStateMachine)
     {
       StateMachine = gameStateMachine;
+    }
+
+    public void StartGame()
+    {
+      StateMachine.Enter<MainMenuState>();
     }
 
     public void Cleanup()

@@ -13,6 +13,7 @@ using Features.StaticData.Hero.NPCSearching;
 using Features.StaticData.Hero.Stealing;
 using Features.StaticData.LevelArea;
 using Features.UI.Windows.GameMenu;
+using Features.UI.Windows.GameMenu.Scripts;
 using InputControl;
 using UnityEngine;
 using Zenject;
@@ -29,8 +30,9 @@ namespace Features.Bootstrapp
     [SerializeField] private LevelStaticData levelStaticData;
     [SerializeField] private HeroStealingStaticData stealingStaticData;
     [SerializeField] private HeroNPCSearchingStaticData searchingStaticData;
-    [SerializeField] private UIHUD hud;
-    
+
+    private Hero spawnedHero;
+
     public override void InstallBindings()
     {
       BindInput();
@@ -58,7 +60,7 @@ namespace Features.Bootstrapp
       Container.Bind<HeroAreaChanger>().ToSelf().FromNew().AsSingle().WithArguments(levelStaticData.StartArea);
 
     private void BindHero() => 
-      Container.Bind<Hero>().To<Hero>().FromComponentInNewPrefab(hero).AsSingle();
+      Container.Bind<Hero>().To<Hero>().FromMethod(HeroComponent<Hero>).AsSingle();
 
     private void BindHeroStateMachineObserver() => 
       Container.Bind<HeroStateMachineObserver>().To<HeroStateMachineObserver>().FromComponentInNewPrefab(hero).AsSingle();
@@ -72,22 +74,27 @@ namespace Features.Bootstrapp
 
     private void BindHeroStealPreparing() => 
       Container.Bind<HeroStealPreparing>().To<HeroStealPreparing>().FromNew().AsSingle().WithArguments(stealingStaticData);
-    
+
     private void BindHeroStealDisplayer() =>
       Container.Bind<HeroStealDisplayer>().To<HeroStealDisplayer>().FromComponentInNewPrefab(hero)
         .AsSingle().WithArguments(stealingStaticData.MaxPrepareCount);
-    
-    public override void Start()
+
+    private Hero SpawnHero() => 
+      Container
+        .InstantiatePrefab(hero, spawnHeroPoint.position, Quaternion.Euler(0,0,0), null)
+        .GetComponent<Hero>();
+
+    private TComponent HeroComponent<TComponent>(InjectContext context)
     {
-      base.Start();
-      SpawnHero();
-      SpawnHUD();
+      if (spawnedHero == null)
+        spawnedHero = SpawnHero();
+
+      TComponent component = spawnedHero.GetComponent<TComponent>();
+
+      if (component == null)
+        component = spawnedHero.GetComponentInChildren<TComponent>(true);
+
+      return component;
     }
-
-    private void SpawnHero() => 
-      Container.InstantiatePrefab(hero, spawnHeroPoint.position, Quaternion.Euler(0,0,0), null);
-
-    private void SpawnHUD() => 
-      Container.InstantiatePrefab(hud);
   }
 }

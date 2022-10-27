@@ -1,6 +1,6 @@
 ﻿using Features.Animation;
 using Features.Customers.Scripts.Base;
-using Features.LevelArea.Scripts.PointsOfInterest;
+using Features.Level.Scripts.PointsOfInterest;
 using Features.StaticData.LevelArea;
 using Pathfinding;
 using UnityEngine;

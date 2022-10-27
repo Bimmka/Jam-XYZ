@@ -1,6 +1,12 @@
-﻿using Features.LevelArea.Scripts.ChangingArea;
-using Features.LevelArea.Scripts.PointsOfInterest;
+﻿using Features.Level.Scripts.ChangingArea;
+using Features.Level.Scripts.Flow;
+using Features.Level.Scripts.Goal;
+using Features.Level.Scripts.LevelTimer;
+using Features.Level.Scripts.PointsOfInterest;
+using Features.Services.UI.Factory.BaseUI;
 using Features.StaticData.LevelArea;
+using Features.UI.Windows.Base;
+using Features.UI.Windows.StealWindow.Scripts;
 using UnityEngine;
 using Zenject;
 
@@ -10,12 +16,24 @@ namespace Features.Bootstrapp
   {
     [SerializeField] private Transform levelBoundsSpawnParent;
     [SerializeField] private LevelStaticData levelStaticData;
-        
+
+    public override void Start()
+    {
+      base.Start();
+      Container.Resolve<IUIFactory>();
+      Container.Resolve<LevelFlowObserver>().StartLevel();
+    }
+
     public override void InstallBindings()
     {
       BindLevelBoundsMarkerFactory();
       BindLevelBoundsObserver();
       BindLevelPointsOfInterestObserver();
+      BindStealItemFactory();
+      BindLevelTimer();
+      BindUIFactory();
+      BindLevelFlow();
+      BindLevelGoal();
     }
 
     private void BindLevelBoundsMarkerFactory() => 
@@ -35,5 +53,20 @@ namespace Features.Bootstrapp
         .FromNew()
         .AsSingle()
         .WithArguments(levelStaticData);
+    
+    private void BindStealItemFactory() => 
+      Container.Bind<StealItemFactory>().ToSelf().FromNew().AsSingle();
+    
+    private void BindLevelTimer() => 
+      Container.Bind<LevelTimerObserver>().ToSelf().FromNew().AsSingle();
+    
+    private void BindUIFactory() =>
+      Container.BindFactoryCustomInterface<BaseWindow, UIFactory, IUIFactory>().AsSingle();
+
+    private void BindLevelFlow() => 
+      Container.Bind<LevelFlowObserver>().ToSelf().FromNew().AsSingle().WithArguments(levelStaticData);
+
+    private void BindLevelGoal() => 
+      Container.Bind<LevelGoal>().ToSelf().FromNew().AsSingle().WithArguments(levelStaticData.GoalRanges);
   }
 }

@@ -11,25 +11,19 @@ namespace Features.GameStates.States
     private readonly ISceneLoader sceneLoader;
     private readonly IWindowsService windowsService;
 
-    public MainMenuState(ISceneLoader sceneLoader, IWindowsService windowsService)
+    public MainMenuState(IGameStateMachine gameStateMachine, ISceneLoader sceneLoader, IWindowsService windowsService)
     {
       this.sceneLoader = sceneLoader;
       this.windowsService = windowsService;
+      gameStateMachine.Register(this);
     }
     
-    public void Enter()
-    {
+    public void Enter() => 
       sceneLoader.Load(GameConstants.MainMenuScene, OnLoaded);
-    }
 
-    public void Exit()
-    {
-      
-    }
+    public void Exit() { }
 
-    private void OnLoaded()
-    {
-      windowsService.Open(WindowId.MainMenu);  
-    }
+    private void OnLoaded() => 
+      windowsService.Open(WindowId.MainMenu);
   }
 }

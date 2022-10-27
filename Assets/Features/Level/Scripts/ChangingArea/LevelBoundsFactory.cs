@@ -3,7 +3,7 @@ using Features.StaticData.LevelArea;
 using UnityEngine;
 using Zenject;
 
-namespace Features.LevelArea.Scripts.ChangingArea
+namespace Features.Level.Scripts.ChangingArea
 {
   public class LevelBoundsFactory
   {

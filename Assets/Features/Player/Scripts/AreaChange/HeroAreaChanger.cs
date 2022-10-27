@@ -1,5 +1,5 @@
 ﻿using System;
-using Features.LevelArea.Scripts.ChangingArea;
+using Features.Level.Scripts.ChangingArea;
 using Features.Player.Scripts.Camera;
 using Features.StaticData.LevelArea;
 

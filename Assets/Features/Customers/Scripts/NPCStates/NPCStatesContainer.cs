@@ -5,7 +5,7 @@ using Features.Animation;
 using Features.Customers.Scripts.Alertness;
 using Features.Customers.Scripts.Base;
 using Features.Customers.Scripts.Timing;
-using Features.LevelArea.Scripts.PointsOfInterest;
+using Features.Level.Scripts.PointsOfInterest;
 using Features.StaticData.LevelArea;
 using Pathfinding;
 
